@@ -2,12 +2,14 @@
     @import url(//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed);
 
     .ALAN-sidebar {
-        background-color: #9A572D;
+        background-color: #BBBBB9;
+        height: 100vh;
+        shadow: 0 0 3 3g;
     }
 
     .ALAN-dropdown-menu {
 
-        background-color: #DAA520;
+        background-color: #9a572d;
     }
 
     .ALAN-sidebar span {
@@ -15,7 +17,9 @@
         font-family: "GT America Condensed";
         src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot");
         src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff") format("woff"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.svg#GT America Condensed") format("svg");
-        font-weight: 900;
+        font-weight: 500;
+        font-size:50px;
+        letter-spacing:-1px; 
     }
 
     .nav-item {
@@ -24,26 +28,14 @@
     }
 
 
-
     .nav-item:hover {
-        background-color: #DAA520;
+        background-color: #9A572D;
         border-radius: 10px;
     }
 
-    .nav-item:hover p {
-        color: #86897E;
-    }
-
-    .nav-item:hover i {
-        color: #86897E;
-    }
-
-    .nav-item:hover svg {
-        color: #86897E;
-    }
 
     .nav-item:active {
-        background-color: #DAA520;
+        background-color: #9A572D;
         border-radius: 10px;
     }
 
@@ -63,6 +55,7 @@
     .nav-item p {
         display: inline-block;
         padding-right: 50px;
+        letter-spacing:2px;
     }
 
     .navbar-light .navbar-nav .nav-link.active {
@@ -77,12 +70,6 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
     }
 
     /* 權重的關係,選擇器要用權重大的蓋過去 */
@@ -150,18 +137,19 @@
 
 
 <main>
-    <div class="ALAN-sidebar d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 280px;">
-        <a href="/" class="ALAN-title d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none m-0">
-            <span class="fs-1">WildJungle</span>
+    <div class="ALAN-sidebar d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 250px;">
+        <a href="/" class="ALAN-title d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none m-0">
+            <span>WildJungle</span>
+            <!-- <img src="./pic/alpha-lion-3.png" alt="" height="55px" /> -->
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="./login.php" class="nav-link text-white " aria-current="page">
                     <svg class="bi me-2" width="30" height="30">
                         <use xlink:href="#home" />
                     </svg>
-                    <p class="fs-4">回到首頁</p>
+                    <p class="fs-5">回到首頁</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -228,5 +216,5 @@
         </div>
     </div>
 
-    <div class="b-example-divider"></div>
+    <!-- <div class="b-example-divider"></div> -->
 </main>

@@ -8,9 +8,11 @@ $pageName = 'index';
 ?>
 <?php include __DIR__ . './../teamwork/parts/__html_head.php' ?>
 <style>
-    .ALAN-login{
-        background-color: #86897E;
-        border-radius:50px;
+    @import url(//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed);
+
+    .ALAN-login {
+        background-color: #BBBBB9;
+        border-radius: 50px;
         height: 700px;
         width: 500px;
     }
@@ -33,6 +35,15 @@ $pageName = 'index';
             font-size: 3.5rem;
         }
     }
+
+    .ALAN-title {
+        font-family: "GT America Condensed";
+        src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot");
+        src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff") format("woff"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.svg#GT America Condensed") format("svg");
+        font-weight: 900;
+        font-size: 50px;
+        color: #2f4f4f;
+    }
 </style>
 <link href="./bootstrap-5.1.1-examples/sign-in/signin.css" rel="stylesheet">
 
@@ -40,7 +51,8 @@ $pageName = 'index';
     <main class="form-signin">
         <form>
             <img class="mb-4" src="./pic/alpha-lion-3.png" alt="" width="300" height="280">
-            <h1 class="h3 mb-3 fw-normal fs-1">Please LogIn</h1>
+            <h1 class="ALAN-title  mb-1">Wild Jungle</h1>
+            <h2 class="AlAN-title2 h3 mb-5 fw-normal fs-6 text-white-50">welcome</h2>
 
             <div class="form-floating">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -52,7 +64,7 @@ $pageName = 'index';
                 <label for="floatingPassword">請輸入管理者密碼</label>
             </div>
             <button class="ALAN-button w-100 btn btn-lg btn-primary" type="submit">登入</button>
-            <p class="mt-5 mb-3 text-muted">&copy;2021</p>
+            <p class="mt-5 mb-3 text-black-50">&copy;2021-2022</p>
         </form>
     </main>
 </div>
