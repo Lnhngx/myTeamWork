@@ -24,7 +24,8 @@
 
     .nav-item {
         display: flex;
-        transition: .5s;
+        border-radius:10px;
+        transition: .2s;
 
     }
 
