@@ -3,10 +3,10 @@ session_start();
 ?>
 
 <?php
-require __DIR__ . './../teamwork/parts/__connect_db.php';
+require __DIR__ . '/parts/__connect_db.php';
 $pageName = 'index';
 ?>
-<?php include __DIR__ . './../teamwork/parts/__html_head.php' ?>
+<?php include __DIR__ . '/parts/__html_head.php' ?>
 <style>
     @import url(//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed);
 
@@ -71,5 +71,5 @@ $pageName = 'index';
 
 
 
-<?php include __DIR__ . './../teamwork/parts/__scripts.php' ?>
-<?php include __DIR__ . './../teamwork/parts/__html_foot.php' ?>
+<?php include __DIR__ . '/parts/__scripts.php' ?>
+<?php include __DIR__ . '/parts/__html_foot.php' ?>
