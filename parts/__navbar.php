@@ -4,7 +4,6 @@
     .ALAN-sidebar {
         background-color: #BBBBB9;
         height: 100vh;
-        shadow: 0 0 3 3g;
     }
 
     .ALAN-dropdown-menu {
