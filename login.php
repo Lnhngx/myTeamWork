@@ -30,6 +30,10 @@ $pageName = 'index';
         border: #daa520;
     }
 
+    .ALAN-button:hover{
+        background-color: #9a572d;
+    }
+
     @media (min-width: 768px) {
         .bd-placeholder-img-lg {
             font-size: 3.5rem;
@@ -44,6 +48,12 @@ $pageName = 'index';
         font-size: 50px;
         color: #2f4f4f;
     }
+    .form-control:focus{
+        border-color:#daa520;
+        box-shadow: 0 0 1px 0.25rem #9a572d;
+    }
+
+
 </style>
 <link href="./bootstrap-5.1.1-examples/sign-in/signin.css" rel="stylesheet">
 

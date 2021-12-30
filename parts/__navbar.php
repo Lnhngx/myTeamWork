@@ -2,42 +2,64 @@
     @import url(//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed);
 
     .ALAN-sidebar {
-        background-color: #BBBBB9;
+        background-color: #9A572D;
         height: 100vh;
-        box-shadow: 5px 0px 2px #BBBBB9;
+        box-shadow: 5px 0px 2px #daa520;
     }
 
     .ALAN-dropdown-menu {
+        background-color: #daa520;
+        border-radius: 15px;
+        transition: .5s;
+    }
 
-        background-color: #9a572d;
+    .dropdown{
+        font-family: 'Noto Serif TC', serif;
+    }
+
+    .dropdown-item{
+        color: #fff;
+    }
+
+    .dropdown-item:hover {
+        border-radius: 5px;
     }
 
     .ALAN-sidebar span {
-        color: #2f4f4f;
+        color: #daa520;
         font-family: "GT America Condensed";
         src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot");
         src: url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.woff") format("woff"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/537002c20f6d3b0765eee34c71fc8062.svg#GT America Condensed") format("svg");
-        font-weight: 500;
-        font-size:50px;
-        letter-spacing:-1px; 
+        font-weight: 900;
+        font-size: 50px;
+        letter-spacing: -1px;
     }
 
     .nav-item {
-        display: flex;
-        border-radius:10px;
+        border-radius: 10px;
         transition: .2s;
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 700;
+    }
 
+    .nav-link {
+        display: flex;
+    }
+
+
+    .nav-item i {
+        font-size: 15px;
     }
 
 
     .nav-item:hover {
-        background-color: #9A572D;
+        background-color: #daa520;
         border-radius: 10px;
     }
 
 
     .nav-item:active {
-        background-color: #9A572D;
+        background-color: #daa520;
         border-radius: 10px;
     }
 
@@ -53,13 +75,6 @@
         color: #86897E;
     }
 
-
-    .nav-item p {
-        display: inline-block;
-        padding-right: 50px;
-        letter-spacing:2px;
-    }
-
     .navbar-light .navbar-nav .nav-link.active {
         color: white;
         background-color: #519ac7;
@@ -72,6 +87,11 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
+    }
+
+    .icon {
+        width: 30px;
+        height: 30px;
     }
 
     /* 權重的關係,選擇器要用權重大的蓋過去 */
@@ -156,45 +176,57 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-paw"></i>
+                    <div class="icon"><i class="fas fa-paw"></i></div>
                     <p>園區導覽</p>
+
+
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-shopping-basket"></i>
+                    <div class="icon"><i class="fas fa-shopping-basket"></i></div>
                     <p>商品列表</p>
+
+
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-skating"></i>
+                    <div class="icon"><i class="fas fa-skating"></i></div>
                     <p>活動資訊</p>
+
+
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-puzzle-piece"></i>
+                    <div class="icon"><i class="fas fa-puzzle-piece">
+
+                        </i></div>
                     <p>遊戲互動</p>
+
                 </a>
             </li>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-hotel"></i>
+                    <div class="icon"><i class="fas fa-hotel">
+                        </i></div>
                     <p>住宿資訊</p>
+
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-user"></i>
+                    <div class="icon"><i class="fas fa-user"></i></div>
                     <p>會員資料</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-white " aria-current="page">
-                    <i class="fas fa-shopping-cart"></i>
+                    <div class="icon"><i class="fas fa-shopping-cart "></i></div>
                     <p>購物車資料</p>
+
                 </a>
             </li>
 
@@ -206,7 +238,7 @@
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>會員名稱</strong>
             </a>
-            <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
+            <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow-lg">
                 <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
