@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/myTeamWork/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/myTeamWork/bootstrap-5.1.1-examples/sidebars/sidebars.css">
     <link rel="stylesheet" href="/myTeamWork/fontawesome/css/all.css">
-    <link href="sidebars.css" rel="stylesheet">
     <link href="//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

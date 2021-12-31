@@ -5,6 +5,7 @@ $pageName = 'index';
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
+<?php include __DIR__ . '/parts/__sidebar.php' ?>
 <?php include __DIR__ . '/parts/__navbar.php' ?>
 
 
