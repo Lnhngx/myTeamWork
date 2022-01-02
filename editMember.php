@@ -2,7 +2,7 @@
 
 require __DIR__ . '/parts/__connect_db.php';
 $title = '修改資料';
-if (!isset($_GET['sid'])) {
+if (! isset($_GET['sid'])) {
     header("Location: memberList.php");
     exit;
 }
@@ -21,12 +21,13 @@ if (empty($row)) {
 <?php include __DIR__ . '/parts/__navbar.php' ?>
 <div class="container">
     <div class="row">
-        <div class="col-6 mx-auto mt-5">
+        <div class="col-6 mx-auto mt-3">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center">修改會員基本資料</h3>
 
-                    <form name="form_member">
+                    <form name="form_member" onsubmit="sendData(); return false;">
+                        <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                         <div class="mb-3">
                             <label for="email" class="form-label">Account (Email)</label>
                             <input type="text" class="form-control" id="email" name="email" value="<?= $row['email'] ?>">
@@ -91,7 +92,6 @@ if (empty($row)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -104,57 +104,61 @@ if (empty($row)) {
 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
-const email = document.querySelector('#email');
-const name = document.querySelector('#name');
-const mobile = document.querySelector('#mobile');
+    const email = document.querySelector('#email');
+    const name = document.querySelector('#name');
+    const mobile = document.querySelector('#mobile');
+    const password = document.querySelector('#password');
 
-const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
 
-const email_re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
+    const email_re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
 
-function sendData(){
-    email.nextElementSibling.innerHTML = '';
-    name.nextElementSibling.innerHTML = '';
-    mobile.nextElementSibling.innerHTML = '';
+    function sendData() {
+        email.nextElementSibling.innerHTML = '';
+        name.nextElementSibling.innerHTML = '';
+        mobile.nextElementSibling.innerHTML = '';
+        password.nextElementSibling.innerHTML = '';
 
-    let isPass = true;
-    // 檢查
-    if(email.value && !email_re.test(email.value)){
-        isPass = false;
-        name.nextElementSibling.innerHTML = '請輸入正確的email';
+        let isPass = true;
+        // 檢查
+        if (email.value && !email_re.test(email.value)) {
+            isPass = false;
+            email.nextElementSibling.innerHTML = '請輸入正確的email';
+        }
+        if (name.value.length < 2) {
+            isPass = false;
+            name.nextElementSibling.innerHTML = '請輸入正確的姓名';
+        }
+        if (mobile.value && !mobile_re.test(mobile.value)) {
+            isPass = false;
+            mobile.nextElementSibling.innerHTML = '請輸入正確的手機號碼';
+        }
+        if (password.value.length < 5) {
+            isPass = false;
+            password.nextElementSibling.innerHTML = '請輸入密碼';
+        }
+
+
+        if (isPass) {
+            const fd = new FormData(document.form_member);
+
+            fetch('editMember-api.php', {
+                    method: 'POST',
+                    body: fd,
+                }).then(r => r.json())
+                .then(obj => {
+                    if (obj.success) {
+                        alert('修改成功');
+                        location.href = 'memberList.php';
+                    } else {
+                        document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
+                        modal.show();
+                    }
+                })
+        }
+
     }
-    if(name.value.length < 2){
-        isPass = false;
-        name.nextElementSibling.innerHTML = '請輸入正確的姓名';
-    }
-    if(mobile.value && !mobile_re.test(mobile.value)){
-        isPass = false;
-        name.nextElementSibling.innerHTML = '請輸入正確的手機號碼';
-    }
-
-
-    if(isPass){
-        const fd = new FormData(document.form_member);
-
-        fetch('editMember-api.php', {
-            method: 'POST',
-            body: fd,
-        }).then(r=>r.json()).then(obj=>{
-            if(obj.success){
-                alert('修改成功');
-                location.href = 'memberList.php';
-            }else{
-                document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
-                modal.show();
-            }
-        })
-    }
-
-}
-
-
-
 </script>
 
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
