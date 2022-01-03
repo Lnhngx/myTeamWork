@@ -34,7 +34,6 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 
-
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
