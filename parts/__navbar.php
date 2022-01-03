@@ -83,7 +83,7 @@
                 </thead>
                 <tbody>
                     <tr class="tables">
-                        <th scope="row">1</th>
+                        <th scope="row">test</th>
                         <td>Mark</td>
                         <td>Otto</td>
                         <td>@mdo</td>
