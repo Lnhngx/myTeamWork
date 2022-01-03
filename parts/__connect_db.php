@@ -1,7 +1,7 @@
 <?php
 $db_host='localhost';
 //主機
-$db_name='MFEE23';
+$db_name='動物園商品';
 //資料庫名稱
 $db_user='s88173';
 //使用者帳號
