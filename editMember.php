@@ -18,7 +18,7 @@ if (empty($row)) {
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
-<?php include __DIR__ . '/parts/__navbar.php' ?>
+<?php //include __DIR__ . '/parts/__navbar.php' ?>
 <div class="container">
     <div class="row">
         <div class="col-6 mx-auto mt-3">
