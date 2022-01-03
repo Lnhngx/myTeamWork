@@ -22,7 +22,13 @@ if ($page > $totalPages) {
     exit;
 }
 
-$sql = sprintf("SELECT * FROM members ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perpage, $perpage);
+// $sql = sprintf("SELECT * FROM members ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * 
+                    FROM `members` m
+                    LEFT JOIN `grade` g
+                    ON m.`grade_sid`=g.`grade_sid`
+                    ORDER BY m.`sid` DESC 
+                    LIMIT %s, %s", ($page - 1) * $perpage, $perpage);
 $rows = $pdo->query($sql)->fetchAll();
 
 
@@ -108,7 +114,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             <th scope="col">Mobile</th>
                             <th scope="col">Birthday</th>
                             <th scope="col">Address</th>
-                            <!-- <th scope="col">Grade</th> -->
+                            <th scope="col">Grade</th>
                             <th scope="col">
                                 <i class="fas fa-user-edit"></i>
                             </th>
@@ -135,7 +141,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['mobile'] ?></td>
                                 <td><?= $r['birthday'] ?></td>
                                 <td><?= $r['address'] ?></td>
-                                <!-- <td><?= $r['grade_sid'] ?></td> -->
+                                <td><?= $r['grade_sid'] ?></td>
                                 <td>
                                     <a href="editMember.php?sid=<?=$r['sid'] ?>">
                                         <i class="fas fa-user-edit"></i>
