@@ -1,13 +1,4 @@
 <style>
-    .con {
-        /* margin-left: 180px; */
-        display: flex;
-        justify-content: space-around;
-        width: calc(100% -250px);
-        position: absolute;
-        right: 0;
-    }
-
     .container {
         position: absolute;
         right: 0;
@@ -94,12 +85,8 @@
                             <button type="button" class="delBtn btn btn-outline">刪除</button>
                         </td>
                     </tr>
-
-
                 </tbody>
-
             </table>
         </div>
     </div>
-
 </div>
