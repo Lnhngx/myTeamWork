@@ -141,7 +141,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['mobile'] ?></td>
                                 <td><?= $r['birthday'] ?></td>
                                 <td><?= $r['address'] ?></td>
-                                <!-- <td><?= $r['grade_sid'] ?></td> -->
+                                <td><?= $r['grade_name'] ?></td>
                                 <td>
                                     <a href="editMember.php?sid=<?=$r['sid'] ?>">
                                         <i class="fas fa-user-edit"></i>
