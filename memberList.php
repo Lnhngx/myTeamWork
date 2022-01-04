@@ -141,8 +141,8 @@ $rows = $pdo->query($sql)->fetchAll();
                 </nav>
             </div>
         </div>
-            <!-- row 分頁按鈕 -->
-            
+        <!-- row 分頁按鈕 -->
+
         <div class="bd-example my-5">
             <table class="table table-hover">
                 <thead>
@@ -179,12 +179,11 @@ $rows = $pdo->query($sql)->fetchAll();
                             <td><?= $r['grade_name'] ?></td>
                             <td>
                                 <a href="editMember.php?sid=<?= $r['sid'] ?>">
-                                    <button type="text" class="editBtn btn btn-outline">修改</button>
+                                    <button type="button" class="editBtn btn btn-outline">修改</button>
                                 </a>
-                                <!-- 編輯 -->
-                                <a href="javascript: delete_member(<?= $r['sid'] ?>)">
-                                    <button type="text" class="delBtn btn btn-outline">刪除</button>
-                                </a>
+                                <!-- 修改 -->
+
+                                <button onclick="delete_member(<?= $r['sid'] ?>)" type="button" class="delBtn btn btn-outline">刪除</button>
                                 <!-- 刪除 -->
                             </td>
                         </tr>
