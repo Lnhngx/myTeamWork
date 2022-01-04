@@ -100,7 +100,9 @@ $totalPages = ceil($totalRows/$perPage);
                             <td><?= $r['question_sid'] ?></td>
                             <td>
                                 <button type="button" class="editBtn btn btn-outline">修改</button>
+                                <a href="javascript: delete_Alist<?= $r['sid'] ?>">
                                 <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -111,4 +113,11 @@ $totalPages = ceil($totalRows/$perPage);
     </div>
 </div> 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
+<script>
+    function delete_Alist(sid) {
+        if (confirm(`確定要刪除 ${sid} 這筆資料嗎?`)) {
+            location.href = `delete_Alist.php?sid=${sid}`;
+        }
+    }
+</script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
