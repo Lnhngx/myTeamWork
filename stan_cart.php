@@ -131,7 +131,7 @@ $rows = $pdo->query($sql)->fetchAll();
 <script>
     function removeCartItem(product_sid) {
         if (confirm(`確定要刪除編號為 ${product_sid} 的資料嗎?`)) {
-            location.href = `delete-cart-api.php?product_sid=${product_sid}`;
+            location.href = `stan_delete_cart_api.php?product_sid=${product_sid}`;
         }
     }
 </script>
