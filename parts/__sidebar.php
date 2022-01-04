@@ -224,7 +224,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="cart.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-shopping-cart "></i></div>
                     <p>購物車資料</p>
 
