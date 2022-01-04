@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/__connect_db.php';
+require __DIR__ . '/parts/__connect_db.php';
 $title = '住宿資訊';
 $pageName = 'room-list';
 
@@ -23,9 +23,60 @@ $sql = sprintf("SELECT * FROM `room-detail` LIMIT %s,%s", ($page - 1) * $perPage
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-<?php include __DIR__ . '/__html_head.php' ?>
-<?php include __DIR__ . '/__sidebar.php' ?>
-<?php include __DIR__ . '/__html_navbar.php' ?>
+<?php include __DIR__ . '/parts/__html_head.php' ?>
+<?php include __DIR__ . '/parts/__sidebar.php' ?>
+<style>
+    .wrap {
+        width: calc(100% - 250px);
+        position: absolute;
+        left: 250px;
+        text-align: center;
+    }
+
+    .row {
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+
+    .search,
+    .insert,
+    .editBtn {
+        background-color: #2f4f4f;
+        color: white
+    }
+
+    .search:hover,
+    .insert:hover,
+    .editBtn:hover {
+        color: white;
+        background-color: #908a70;
+    }
+
+    .searchIp:focus {
+        border: 1px solid #908a70;
+        box-shadow: 0 0 5px 0 #908a70;
+    }
+
+    .editBtn,
+    .delBtn {
+        color: white;
+    }
+
+    .delBtn {
+        background-color: #C82C2C;
+    }
+
+    .delBtn:hover {
+        background-color: #9A572D;
+        color: white;
+    }
+
+    .tables td,
+    th {
+        /* text-align: center; */
+        vertical-align: middle;
+    }
+</style>
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
@@ -105,5 +156,5 @@ $rows = $pdo->query($sql)->fetchAll();
 
 </div>
 
-<?php include __DIR__ . '/__html_script.php' ?>
-<?php include __DIR__ . '/__html_foot.php' ?>
+<?php include __DIR__ . '/parts/__scripts.php' ?>
+<?php include __DIR__ . '/parts/__html_foot.php' ?>
