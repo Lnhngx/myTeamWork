@@ -66,6 +66,16 @@ $rows = $pdo->query($sql)->fetchAll();
         /* text-align: center; */
         vertical-align: middle;
     }
+
+
+    #test {
+        width: 20%;
+        background-size: cover;
+    }
+
+    .smallimg {
+        width: 100%;
+    }
 </style>
 <div class="wrap">
     <div class="container my-3">
@@ -94,7 +104,9 @@ $rows = $pdo->query($sql)->fetchAll();
                         <?php foreach ($rows as $r) : ?>
                             <tr class="tables">
                                 <th scope="row"><?= $r['product_sid'] ?></th>
-                                <td><?= $r['product_src'] ?></td>
+                                <td><?= $r['product_src'] ?>
+                                    <!-- <img class="smallimg" src="./pic/<?= $r['product_src'] ?>.png" ?> -->
+                                </td>
                                 <td><?= $r['product'] ?></td>
                                 <td><?= $r['price'] ?></td>
                                 <td><?= $r['quantity'] ?></td>
@@ -119,7 +131,7 @@ $rows = $pdo->query($sql)->fetchAll();
 <script>
     function removeCartItem(product_sid) {
         if (confirm(`確定要刪除編號為 ${product_sid} 的資料嗎?`)) {
-            location.href = `delete_cart.php?product_sid=${product_sid}`;
+            location.href = `stan_delete_cart_api.php?product_sid=${product_sid}`;
         }
     }
 </script>
