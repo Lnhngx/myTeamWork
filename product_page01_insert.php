@@ -10,9 +10,9 @@ $pageName = 'insert';
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
     .container {
-        position: absolute;
-        right: 0;
         width: calc(100% - 250px);
+        position: absolute;
+        left: 250px;
         margin-top: 20px;
         margin-bottom: 20px;
 
