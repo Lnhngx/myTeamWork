@@ -10,7 +10,7 @@ $perpage = 15;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
-    header('Location: product_firstpage.php');
+    header('Location: product_page01.php');
     exit;
 };
 
@@ -19,7 +19,7 @@ $t_sql = 'SELECT COUNT(1) FROM 商品訊息';
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
 if ($page > $totalPages) {
-    header('Location: product_firstpage.php?page=' . $totalPages);
+    header('Location: product_page01.php?page=' . $totalPages);
     exit;
 };
 
