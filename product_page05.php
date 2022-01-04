@@ -33,11 +33,11 @@ $row = $pdo->query($sql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    .container {
-        position: absolute;
-        right: 0;
+    .wrap {
         width: calc(100% - 250px);
-
+        position: absolute;
+        left: 250px;
+        text-align: center;
     }
 
     .row {
@@ -84,7 +84,7 @@ $row = $pdo->query($sql)->fetchAll();
         vertical-align: middle;
     }
 </style>
-
+<div class="wrap">
 <div class="container my-3">
     <div class="row">
         <div class="col-6"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
