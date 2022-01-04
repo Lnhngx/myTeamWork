@@ -31,6 +31,25 @@ $pageName = 'insert';
         background-color: #908a70;
         border-color: #908a70;
     }
+
+
+
+    /* ------- */
+    .imgg-unit {
+        position: relative;
+        display: inline-block;
+    }
+
+    .imgg-unit>img {
+        width: 200px;
+    }
+
+    .imgg-unit>.dell-div {
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+    }
 </style>
 
 <div class="container">
@@ -40,14 +59,13 @@ $pageName = 'insert';
                 <div class="card-body">
                     <h5 class="card-title">新增商品資料</h5>
                     <form name="form1" onsubmit="sendData();return false;">
-                        <input type="hidden" name="sid" value="<?= $row['sid'] ?>" />
                         <div class="mb-3">
                             <label for="name" class="form-label">商品名稱</label>
                             <input type="text" class="form-control" id="name" name="name">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">商品類型</label>
+                            <label for="type" class="form-label">商品類型</label>
                             <input type="text" class="form-control" id="type" name="type">
                             <!-- <select class="form-select" aria-label="Default select example">
                                 <option selected>選擇商品類型</option>
@@ -58,41 +76,47 @@ $pageName = 'insert';
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">商品規格</label>
+                            <label for="spec" class="form-label">商品規格</label>
                             <input type="text" class="form-control" id="spec" name="spec">
                             <!-- <select class="form-select" aria-label="Default select example">
                                 <option selected>選擇商品規格</option>
-                                <option value="<?= $r['sid']?>"><?= $r['sid']?></option>
+                                <option value="<?= $r['sid'] ?>"><?= $r['sid'] ?></option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select> -->
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">供應商</label>
-                            <input type="text" class="form-control" id="supp" name="supp" >
+                            <label for="supp" class="form-label">供應商</label>
+                            <input type="text" class="form-control" id="supp" name="supp">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">庫存訊息</label>
+                            <label for="reserve" class="form-label">庫存訊息</label>
                             <input type="text" class="form-control" id="reserve" name="reserve">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">商品價格</label>
+                            <label for="money" class="form-label">商品價格</label>
                             <input type="text" class="form-control" id="money" name="money">
                             <div class="form-text"></div>
                         </div>
+
                         <div class="mb-3">
-                            <label for="birthday" class="form-label">更新時間</label>
-                            <input type="date" class="form-control" id="date" name="date">
-                            <div class="form-text"></div>
+                            <label for="picture" class="form-label">商品圖片預覽</label>
+                            <form name="form2" onsubmit="return false;" style="display:none">
+                                <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*">
+                            </form>
+                            <br>
+                            <button type="button" onclick="sel_file.click()">上傳圖片</button>
+                            <div id="imgggs">
+                            </div>
+                            <img src="" id="myimggg">
                         </div>
                         <div class="mb-3">
-                            <label for="picture" class="form-label">商品圖片</label>
-                            <button onclick="upLoad()">上傳</button>
-                            <br>
-                            <img src="./pic/alpha-lion-3.png" class="card-img-top" alt="..." style="width:200px">
+                            <label for="d-date" class="form-label">更新時間</label>
+                            <input type="date" class="form-control" id="d-date" name="d-date">
+                            <div class="form-text"></div>
                         </div>
                         <input type="submit" class="subbtn btn btn-primary" value="確認送出">
                     </form>
@@ -121,32 +145,59 @@ $pageName = 'insert';
     </div>
 </div>
 
-</div>
+
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+    // ----------------------------------------------------------------
+    const sel_file = document.querySelector('#sel_file');
+    const imgsDiv = document.querySelector('#imgggs');
+    sel_file.style.visibility = "hidden";
+    // 讓input按鈕消失
+    let imgData = [];
 
-    function sendData() {
+    function imgUnitTpl(file) {
+        return ` <div class="imgg-unit" data-file="${file}">
+            <img src="uploaded/${file}" alt="">
+            <div class="dell-div">
+                <i class="fas fa-times-circle del-icon"></i>
+            </div>
+        </div>`
+    }
 
-        let isPass = true;
-    
-        if (isPass) {
-            const fd = new FormData(document.form1);
-            fetch('product_page01_insert-api.php', {
-                    method: 'POST',
-                    body: fd,
-                }).then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if (obj.success) {
-                        alert('新增成功');
-                        location.href = 'product_page01.php';
-                    } else {
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
-                        modal.show();
-                    }
-                })
-        };
+    function renderImgs() {
+        imgsDiv.innerHTML = '';
+        for (let i of imgData) {
+            imgsDiv.innerHTML += imgUnitTpl(i);
+        }
+    }
+    imgsDiv.addEventListener('click', function(event) {
+        const t = event.target;
+        if (t.classList.contains('del-icon')) {
+            const filename = t.closest('.imgg-unit').getAttribute('data-file');
+            console.log(filename);
+            let loc = imgData.indexOf(filename);
+            if (loc !== -1) {
+                imgData.splice(loc, 1);
+                renderImgs();
+            }
+        }
+    });
+    sel_file.addEventListener('change', doUpload);
+
+    function doUpload() {
+        const fd = new FormData(document.form2);
+        fetch('product_upload.php', {
+            method: 'POST',
+            body: fd
+        }).then(r => r.json()).then(obj => {
+            console.log(obj);
+            if (obj.success) {
+                imgData.push(...obj.files);
+                renderImgs();
+            } else {
+                alert(obj.error);
+            }
+        });
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
