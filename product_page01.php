@@ -104,10 +104,10 @@ $row = $pdo->query($sql)->fetchAll();
                             </th>
                             <th scope="col">#</th>
                             <th scope="col">商品名稱</th>
-                            <th scope="col">商品類型</th>
-                            <th scope="col">商品規格</th>
-                            <th scope="col">供應商</th>
-                            <th scope="col">庫存訊息</th>
+                            <th scope="col"><a href="/myTeamWork/product_page02.php" style="text-decoration:none;color:black">商品類型</a></th>
+                            <th scope="col"><a href="/myTeamWork/product_page03.php" style="text-decoration:none;color:black">商品規格</a></th>
+                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
+                            <th scope="col"><a href="/myTeamWork/product_page05.php" style="text-decoration:none;color:black">庫存訊息</a></th>
                             <th scope="col">商品價格</th>
                             <th scope="col">商品圖片</th>
                             <th scope="col">更新時間</th>
