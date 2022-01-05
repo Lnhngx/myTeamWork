@@ -1,38 +1,21 @@
 <?php
 require __DIR__ . '/parts/__connect_db.php';
 // require __DIR__ . '/parts/__nolog.php';
-$title = '修改資料';
 
-if (!isset($_GET['sid'])) {
-    header('Location: terry_animal_touch.php');
-    exit;
-}
+$title = '新增活動資料';
+$pageName = 'insert';
 
-$sid = intval($_GET['sid']);
-$row = $pdo->query("SELECT * FROM `animal_touch` WHERE sid=$sid")->fetch();
-if (empty($row)) {
-    header('Location: terry_animal_touch.php');
-    exit;
-}
-
-$row['actTime_start'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_start']));
-$row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
 
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
-<!-- <?php include __DIR__ . '/parts/__navbar.php' ?> -->
-<style>
-    form .form-text {
-        color: red;
-    }
-</style>
+<?php include __DIR__ . '/parts/__navbar.php' ?>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">修改活動資料</h5>
+                    <h5 class="card-title">新增通訊資料</h5>
 
                     <form name="form1" onsubmit="sendData(); return false;">
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
@@ -68,9 +51,9 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
                             <textarea class="form-control" name="location" id="location" cols="30" rows="1"><?= $row['location'] ?></textarea>
 
                             <div class="form-text"></div>
-                        </div>
+                        </div>Ｆ
 
-                        <button type="submit" class="btn btn-primary">修改</button>
+                        <button type="submit" class="btn btn-primary">新增</button>
 
                     </form>
 
@@ -134,7 +117,7 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
         if (isPass) {
             const fd = new FormData(document.form1);
 
-            fetch('terry_edit_api.php', {
+            fetch('terry_i_api.php', {
                     method: 'POST',
                     body: fd,
                 }).then(r => r.json())
@@ -145,7 +128,7 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
                         location.href = 'terry_animal_touch.php';
                     } else {
 
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
+                        document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
                         modal.show();
                     }
                 })
