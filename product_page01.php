@@ -88,7 +88,7 @@ $row = $pdo->query($sql)->fetchAll();
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
-            <div class="col-3 d-flex" style="justify-content: flex-start;"><a href="product_page01_insert.php" <?= $pageName == 'insert' ? 'active disabled' : ''?> style="text-decoration:none;color:#fff;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></a></div>
+            <div class="col-3 d-flex" style="justify-content: flex-start;"><a href="product_page01_insert.php" <?= $pageName == 'insert' ? 'active disabled' : '' ?> style="text-decoration:none;color:#fff;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></a></div>
             <div class="col-3">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
@@ -133,7 +133,7 @@ $row = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['商品圖片'] ?></td>
                                 <td><?= $r['更新時間'] ?></td>
                                 <td>
-                                    <button type="button" class="editBtn btn btn-outline">修改</button>
+                                    <a href="product_page01_edit.php"><button type="button" class="editBtn btn btn-outline">修改</button></a>
                                     <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
                                 </td>
                             </tr>

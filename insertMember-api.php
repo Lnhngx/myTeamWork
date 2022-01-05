@@ -14,6 +14,7 @@ $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $mobile = $_POST['mobile'] ?? '';
 $password = $_POST['password'] ?? '';
+$gradeSid = $_POST['grade_sid'] ?? '1' ;
 
 if(empty($name)){
     $output['code'] = 403;
@@ -37,7 +38,9 @@ if(empty($password)){
     $output['code'] = 407;
     $output['error'] = '請輸入密碼';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
 }
+
 
 
 $sql = "INSERT INTO `members`(
@@ -46,8 +49,9 @@ $sql = "INSERT INTO `members`(
                         `password`, 
                         `mobile`, 
                         `birthday`, 
-                        `address`
-                        ) VALUES (?, ?, ?, ?, ?, ?)";
+                        `address`,
+                        `grade_sid`
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
@@ -57,10 +61,13 @@ $stmt->execute([
     $mobile,
     empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'] ?? '',
+    strval($gradeSid),
 ]);
 
+
+
     $output['success'] = $stmt->rowCount()==1;
-    // $output['rowCount'] = $stmt->rowCount();
+    $output['rowCount'] = $stmt->rowCount();
 
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
