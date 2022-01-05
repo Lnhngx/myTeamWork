@@ -95,7 +95,7 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
         <div class="row">
-            <div class="col-3 d-flex" style="justify-content: flex-start;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
+            <div class="col-3 d-flex" style="justify-content: flex-start;"><button onclick="insertMember()" type="button" class="insert btn btn-outline" id="btn">新增</button></div>
             <div class="col-3 d-flex" style="justify-content: flex-start;">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
@@ -206,6 +206,10 @@ $rows = $pdo->query($sql)->fetchAll();
         if (confirm(`確定要刪除 ${sid} 這筆資料嗎?`)) {
             location.href = `delete_member.php?sid=${sid}`;
         }
+    }
+
+    function insertMember(){
+        location.href=`insertMember.php`;
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
