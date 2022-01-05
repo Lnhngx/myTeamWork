@@ -77,14 +77,14 @@ $pagename = 'insert';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h2 class="modal-title" id="exampleModalLabel"></h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     ...
-                </div>
+                </div> -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -112,6 +112,7 @@ $pagename = 'insert';
         name.nextElementSibling.innerHTML = '';
         mobile.nextElementSibling.innerHTML = '';
         password.nextElementSibling.innerHTML = '';
+        birthday.nextElementSibling.innerHTML = '';
 
         let isPass = true;
         // 檢查
@@ -129,10 +130,14 @@ $pagename = 'insert';
         }
         if (password.value.length < 5) {
             isPass = false;
-            password.nextElementSibling.innerHTML = '請輸入密碼';
+            password.nextElementSibling.innerHTML = '密碼長度不足';
+        }
+        if (! birthday.value) {
+            isPass = false;
+            birthday.nextElementSibling.innerHTML = '請填寫生日';
         }
 
-
+        const ok = document.querySelector('#ok');
         if (isPass) {
             const fd = new FormData(document.form_member);
 
@@ -142,16 +147,24 @@ $pagename = 'insert';
                 }).then(r => r.json())
                 .then(obj => {
                     if (obj.success) {
-                        alert('新增成功');
-                        location.href = 'memberList.php';
+                        // alert('新增成功');
+                        // location.href = 'memberList.php';
+                        document.querySelector('.modal-header').innerHTML = '新增成功';
+                        modal.show();
+                        
                     } else {
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
+                        document.querySelector('.modal-header').innerHTML = obj.error || '資料修改發生錯誤';
                         modal.show();
                     }
                 })
         }
 
     }
+    function ok(){
+        location.href = 'memberList.php';
+    }
+                        
+    
 </script>
 
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
