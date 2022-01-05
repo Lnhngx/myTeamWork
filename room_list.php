@@ -19,7 +19,7 @@ if ($page > $totalPages) {
     exit;
 }
 
-$sql = sprintf("SELECT * FROM `room-detail` LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM `room-detail` ORDER BY sid DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
@@ -80,7 +80,7 @@ $rows = $pdo->query($sql)->fetchAll();
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
-            <div class="col-6 d-flex" style="justify-content:flex-start;"><button type="button" class="insert btn btn-outline active" id="btn">新增</button></div>
+            <div class="col-6 d-flex" style="justify-content:flex-start;"><a href="./ning_room_insert.php" class="<?= $pageName == 'room-insert' ? 'active disable' : '' ?>"><button type="button" class="insert btn btn-outline active" id="btn">新增</button></a></div>
             <div class="col-3 d-flex" style="justify-content:flex-end;">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
@@ -114,11 +114,14 @@ $rows = $pdo->query($sql)->fetchAll();
                     <thead>
                         <tr>
                             <th scope="col">sid</th>
-                            <th scope="col">room-name</th>
-                            <th scope="col">room-image</th>
-                            <th scope="col">room-introduction</th>
-                            <th scope="col">people</th>
-                            <th scope="col">price</th>
+                            <th scope="col">房型</th>
+                            <th scope="col">房間照片</th>
+                            <th scope="col">房間資訊</th>
+                            <th scope="col">人數</th>
+                            <th scope="col">價錢</th>
+                            <th scope="col">入住時間</th>
+                            <th scope="col">退房時間</th>
+                            <th scope="col">房間狀態</th>
                             <!-- <th scope="col">check-in-data</th>
                         <th scope="col">check-out-data</th>
                         <th scope="col">check-in-status</th> -->
@@ -134,6 +137,9 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['room-introduction'] ?></td>
                                 <td><?= $r['people'] ?></td>
                                 <td><?= $r['price'] ?></td>
+                                <td><?= $r['check-in-data'] ?></td>
+                                <td><?= $r['check-out-data'] ?></td>
+                                <td><?= $r['check-in-status'] ?></td>
                                 <?php /*
                             <td><?= $r['check-in-data'] ?></td>
                             <td><?= $r['check-out-data'] ?></td>
