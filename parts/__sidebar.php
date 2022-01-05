@@ -217,8 +217,8 @@
 
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+            <li class="nav-item" id="ty_item">
+                <a href="memberList.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-user"></i></div>
                     <p>會員資料</p>
                 </a>
@@ -237,7 +237,7 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>會員名稱</strong>
+                <strong><?= $_SESSION['users']['nickname'] ?? '使用者您好' ?></strong>
             </a>
             <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow-lg">
                 <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -246,10 +246,16 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">登出</a></li>
+                <li><a class="dropdown-item" onclick="logOut()">登出</a></li>
             </ul>
         </div>
     </div>
 
     <!-- <div class="b-example-divider"></div> -->
 </main>
+
+<script>
+    function logOut(){
+        location.href="member_logout.php";
+    }
+</script>

@@ -5,6 +5,11 @@ $pageName = 'index';
 $title = '會員資料列表';
 $pageName = 'memberList';
 
+if(! isset($_SESSION['users'])){
+    header("Location: member_login.php");
+    exit;
+}
+
 $perpage = 5;
 // 每頁幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
