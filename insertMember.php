@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$title = '建立會員';
+$title = '註冊會員';
 $pagename = 'insert';
 
 ?>
@@ -18,7 +18,7 @@ $pagename = 'insert';
         <div class="col-6 mx-auto mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">建立會員</h3>
+                    <h3 class="card-title text-center">註冊會員</h3>
 
                     <form name="form_member" onsubmit="sendData(); return false;">
                         <div class="mb-3">
