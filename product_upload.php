@@ -4,6 +4,7 @@ header('Cnotent-Type: application/json');
 
 $upload_folder = __DIR__ . '/uploaded';
 // 用相對路徑的寫法
+
 $exts = [
     'image/jpeg' => '.jpg',
     'image/png' => '.png',
@@ -24,8 +25,11 @@ $output = [
 
 if (!empty($_FILES['myfiles']) and !empty($_FILES['myfiles']['name'])) {
     foreach ($_FILES['myfiles']['name'] as $i => $name) {
+
         $ext = $exts[$_FILES['myfiles']['type'][$i]] ?? ''; //拿到對應的副檔名
+
         if (!empty($ext)) {
+
             $filename = sha1($name . rand()) . $ext;
             //更改檔名為亂碼//$ext
             $target = $upload_folder . '/' . $filename;
@@ -47,4 +51,7 @@ if (!empty($_FILES['myfiles']) and !empty($_FILES['myfiles']['name'])) {
     $output['error'] = '沒有上傳檔案';
 }
 
+
+
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
+//公開的做法,安全性比較差
