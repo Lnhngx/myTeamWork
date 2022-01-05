@@ -70,7 +70,11 @@ $rows = $pdo->query($sql)->fetchAll();
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
-            <div class="col-3 d-flex" style="justify-content: flex-start;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
+            <div class="col-3 d-flex" style="justify-content: flex-start;">
+                <a href="terry_insert.php">
+                    <button type="button" class="insert btn btn-outline" id="btn">新增</button>
+                </a>
+            </div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
