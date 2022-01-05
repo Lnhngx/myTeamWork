@@ -21,37 +21,37 @@ $pageName = 'insert';
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                         <div class="mb-3">
                             <label for="actName" class="form-label">活動名稱</label>
-                            <input type="text" class="form-control" id="actName" name="actName" value="<?= htmlentities($row['actName']) ?>">
+                            <input type="text" class="form-control" id="actName" name="actName">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="actTime_start" class="form-label">開始時間</label>
-                            <input type="datetime-local" class="form-control" id="actTime_start" name="actTime_start" value="<?= $row['actTime_start'] ?>">
+                            <input type="datetime-local" class="form-control" id="actTime_start" name="actTime_start">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="actTime_end" class="form-label">結束時間</label>
-                            <input type="datetime-local" class="form-control" id="actTime_end" name="actTime_end" value="<?= $row['actTime_end'] ?>">
+                            <input type="datetime-local" class="form-control" id="actTime_end" name="actTime_end">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="reserPeop" class="form-label">已預約人數</label>
-                            <input type="text" class="form-control" id="reserPeop" name="reserPeop" value="<?= $row['reserPeop'] ?>">
+                            <input type="text" class="form-control" id="reserPeop" name="reserPeop">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="introduce" class="form-label">活動簡介</label>
-                            <textarea class="form-control" name="introduce" id="introduce" cols="30" rows="3"><?= $row['introduce'] ?></textarea>
+                            <textarea class="form-control" name="introduce" id="introduce" cols="30" rows="3"></textarea>
 
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="location" class="form-label">活動位置</label>
-                            <textarea class="form-control" name="location" id="location" cols="30" rows="1"><?= $row['location'] ?></textarea>
+                            <textarea class="form-control" name="location" id="location" cols="30" rows="1"></textarea>
 
                             <div class="form-text"></div>
-                        </div>Ｆ
+                        </div>
 
                         <button type="submit" class="btn btn-primary">新增</button>
 
@@ -117,14 +117,14 @@ $pageName = 'insert';
         if (isPass) {
             const fd = new FormData(document.form1);
 
-            fetch('terry_i_api.php', {
+            fetch('terry_insert_api.php', {
                     method: 'POST',
                     body: fd,
                 }).then(r => r.json())
                 .then(obj => {
                     console.log(obj);
                     if (obj.success) {
-                        alert('修改成功');
+                        alert('新增成功');
                         location.href = 'terry_animal_touch.php';
                     } else {
 
