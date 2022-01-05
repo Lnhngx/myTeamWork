@@ -7,7 +7,7 @@ $output = [
     'success' => false,
     'code' => 0,
     'error' => '',
-    'picture' => $picture
+    // 'picture' => $picture
 ];
 
 $name = $_POST['name'] ?? '';
@@ -40,7 +40,7 @@ $stmt->execute([
     $_POST['supp'] ?? '',
     $_POST['reser'] ?? '',
     $_POST['money'] ?? '',
-    $picture,
+    null,
     $_POST['d-date'] ?? ''
 ]);
 
