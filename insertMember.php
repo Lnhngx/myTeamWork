@@ -153,7 +153,7 @@ $pagename = 'insert';
                         modal.show();
                         
                     } else {
-                        document.querySelector('.modal-header').innerHTML = obj.error || '資料修改發生錯誤';
+                        document.querySelector('.modal-header').innerHTML = obj.error || '資料新增失敗';
                         modal.show();
                     }
                 })
