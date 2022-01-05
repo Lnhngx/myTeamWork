@@ -101,7 +101,9 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['introduce'] ?></td>
                                 <td><?= $r['location'] ?></td>
                                 <td>
-                                    <button type="button" class="editBtn btn btn-outline">修改</button>
+                                    <a href="terry_edit.php?sid=<?= $r['sid']?>">
+                                        <button type="button" class="editBtn btn btn-outline">修改</button>
+                                    </a>
                                     <a href="javascript: removeCartItem(<?= $r['sid'] ?>)">
                                         <button type="button" class="delBtn btn btn-outline">刪除</button>
                                     </a>

@@ -38,13 +38,13 @@ if(empty($actName)) {
 }
 if(empty($actTime_start)) {
     $output['code'] = 401;
-    $output['error'] = '請輸入正確的活動名稱';
+    $output['error'] = '請輸入正確的開始時間';
     echo json_encode($output, JSON_UNESCAPED_UNICODE); 
     exit;
 }
 if(empty($actTime_end)) {
     $output['code'] = 401;
-    $output['error'] = '請輸入正確的活動名稱';
+    $output['error'] = '請輸入正確的結束時間';
     echo json_encode($output, JSON_UNESCAPED_UNICODE); 
     exit;
 }

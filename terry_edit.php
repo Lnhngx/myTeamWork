@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/parts/__connect_db.php';
-require __DIR__ . '/parts/__nolog.php';
+// require __DIR__ . '/parts/__nolog.php';
 $title = '修改資料';
 
 if (!isset($_GET['sid'])) {
@@ -19,7 +19,7 @@ if (empty($row)) {
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
-<?php include __DIR__ . '/parts/__navbar.php' ?>
+<!-- <?php include __DIR__ . '/parts/__navbar.php' ?> -->
 <style>
     form .form-text {
         color: red;
@@ -105,7 +105,7 @@ if (empty($row)) {
     const actTime_end = document.querySelector('#actTime_end');
     const reserPeop = document.querySelector('#reserPeop');
     const introduce = document.querySelector('#introduce');
-    const location = document.querySelector('#location');
+    const locat = document.querySelector('#location');
 
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
@@ -139,11 +139,11 @@ if (empty($row)) {
                 .then(obj => {
                     console.log(obj);
                     if (obj.success) {
-                        alert('新增成功');
+                        alert('修改成功');
                         location.href = 'terry_animal_touch.php';
                     } else {
 
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
+                        document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
                         modal.show();
                     }
                 })
