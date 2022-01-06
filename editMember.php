@@ -187,7 +187,7 @@ if (empty($row)) {
 
     }
     function cancelEdit(){
-        location.href="memberList.php" ?? <?php $_SERVER['HTTP_REFERER'] ?>;
+        location.href="memberList.php" ?? "<?php $_SERVER['HTTP_REFERER'] ?>";
     }
 </script>
 
