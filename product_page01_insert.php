@@ -6,16 +6,16 @@ $title = '新增商品資訊';
 $pageName = 'insert';
 
 
-$typesql = 'SELECT `sid`,`類別名稱`  FROM 商品類型 ORDER BY sid ASC';
+$typesql = 'SELECT `sid`,`type_name`  FROM product_type ORDER BY sid ASC';
 $totaltype = $pdo->query($typesql)->fetchAll();
 
-$specsql = 'SELECT * FROM 商品規格 ORDER BY sid ASC';
+$specsql = 'SELECT * FROM product_spec ORDER BY sid ASC';
 $totalspec = $pdo->query($specsql)->fetchAll();
 
-$suppsql = 'SELECT `sid`,`供應商名稱`  FROM 供應商 ORDER BY sid ASC';
+$suppsql = 'SELECT `sid`,`supplier_name`  FROM supplier ORDER BY sid ASC';
 $totalsupp = $pdo->query($suppsql)->fetchAll();
 
-$resersql = 'SELECT * FROM 庫存表 ORDER BY sid ASC';
+$resersql = 'SELECT * FROM product_reserve ORDER BY sid ASC';
 $totalreser = $pdo->query($resersql)->fetchAll();
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -83,7 +83,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                                 <?php foreach ($totaltype as $r) : ?>
                                     <option value="<?= $r['sid']; ?>"><?php echo $r['sid'];
                                                                         echo '-';
-                                                                        echo $r['類別名稱']; ?></option>
+                                                                        echo $r['type_name']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -103,7 +103,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                                 <?php foreach ($totalsupp as $sup) : ?>
                                     <option value="<?= $sup['sid']; ?>"><?php echo $sup['sid'];
                                                                         echo '-';
-                                                                        echo $sup['供應商名稱']; ?></option>
+                                                                        echo $sup['supplier_name']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -141,7 +141,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <img src="" id="myimg">
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
-                    <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value="">
+                    <!-- <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value=""> -->
                 </div>
             </div>
         </div>

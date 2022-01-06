@@ -14,7 +14,7 @@ if ($page < 1) {
     exit;
 };
 
-$t_sql = 'SELECT COUNT(1) FROM 供應商';
+$t_sql = 'SELECT COUNT(1) FROM supplier';
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 
 
 
-$sql = sprintf("SELECT * FROM 供應商  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM supplier  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 ?>
@@ -121,11 +121,11 @@ $row = $pdo->query($sql)->fetchAll();
                                 <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
                             </td>
                             <td><?= $r['sid'] ?></td>
-                            <td><?= $r['供應商名稱'] ?></td>
-                            <td><?= $r['供應商地址'] ?></td>
-                            <td><?= $r['供應商電話'] ?></td>
-                            <td><?= $r['供應項目'] ?></td>
-                            <td><?= $r['更新時間'] ?></td>
+                            <td><?= $r['supplier_name'] ?></td>
+                            <td><?= $r['supplier_address'] ?></td>
+                            <td><?= $r['supplier_tel'] ?></td>
+                            <td><?= $r['supplier_item'] ?></td>
+                            <td><?= $r['supplier_create'] ?></td>
                             <td>
                                 <button type="button" class="editBtn btn btn-outline">修改</button>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>

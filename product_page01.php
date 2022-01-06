@@ -14,7 +14,7 @@ if ($page < 1) {
     exit;
 };
 
-$t_sql = 'SELECT COUNT(1) FROM 商品訊息';
+$t_sql = 'SELECT COUNT(1) FROM product_item';
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 
 
 
-$sql = sprintf("SELECT * FROM 商品訊息  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 ?>
@@ -106,8 +106,8 @@ $row = $pdo->query($sql)->fetchAll();
                             <th scope="col">商品名稱</th>
                             <th scope="col"><a href="/myTeamWork/product_page02.php" style="text-decoration:none;color:black">商品類型</a></th>
                             <th scope="col"><a href="/myTeamWork/product_page03.php" style="text-decoration:none;color:black">商品規格</a></th>
-                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
                             <th scope="col"><a href="/myTeamWork/product_page05.php" style="text-decoration:none;color:black">庫存訊息</a></th>
+                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
                             <th scope="col">商品價格</th>
                             <th scope="col">商品圖片</th>
                             <th scope="col">更新時間</th>
@@ -124,16 +124,16 @@ $row = $pdo->query($sql)->fetchAll();
                                     <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
                                 </td>
                                 <td><?= $r['sid'] ?></td>
-                                <td><?= $r['商品名稱'] ?></td>
-                                <td><?= $r['商品類型'] ?></td>
-                                <td><?= $r['商品規格'] ?></td>
-                                <td><?= $r['供應商'] ?></td>
-                                <td><?= $r['庫存訊息'] ?></td>
-                                <td>$<?= $r['商品價格'] ?></td>
-                                <td><?= $r['商品圖片'] ?></td>
-                                <td><?= $r['更新時間'] ?></td>
+                                <td><?= $r['name'] ?></td>
+                                <td><?= $r['type'] ?></td>
+                                <td><?= $r['specification'] ?></td>
+                                <td><?= $r['information'] ?></td>
+                                <td><?= $r['supplier'] ?></td>
+                                <td>$<?= $r['price'] ?></td>
+                                <td><?= $r['picture'] ?></td>
+                                <td><?= $r['create_at'] ?></td>
                                 <td>
-                                    <a href="product_page01_edit.php"><button type="button" class="editBtn btn btn-outline">修改</button></a>
+                                    <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
                                     <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
                                 </td>
                             </tr>
