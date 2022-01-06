@@ -82,22 +82,22 @@ $pageName = 'room-insert';
                         </div>
                         <div class="mb-3">
                             <label for="check-in-data" class="form-label">入住時間</label>
-                            <input type="date" class="form-control" id="check-in-data" name="check-in-data" value="<?= $row['check-in-data'] ?>">
+                            <input type="date" class="form-control" id="check-in-data" name="check-in-data">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <div class="mb-3">
                                 <label for="check-out-data" class="form-label">退房時間</label>
-                                <input type="date" class="form-control" id="check-out-data" name="check-out-data" value="<?= $row['check-out-data'] ?>">
+                                <input type="date" class="form-control" id="check-out-data" name="check-out-data">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="people" class="form-label">房間狀態</label>
+                                <label for="check-in-status" class="form-label">房間狀態</label>
                                 <br>
-                                <select name="people">
-                                    <option value="2">未入住未付款</option>
-                                    <option value="4">已付款未入住</option>
-                                    <option value="6">已入住已付款</option>
+                                <select name="check-in-status">
+                                    <option value="未入住未付款">未入住未付款</option>
+                                    <option value="已付款未入住">已付款未入住</option>
+                                    <option value="已入住已付款">已入住已付款</option>
                                 </select>
                                 <div class="form-text"></div>
                             </div>
@@ -117,16 +117,35 @@ $pageName = 'room-insert';
                     </div>
 
                     <button type="submit" class="subbtn btn btn-primary">確認送出</button>
+                    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
                 </div>
             </div>
         </div>
     </div>
+
     <?php include __DIR__ . '/parts/__scripts.php' ?>
 
     <script>
         const room_introduction = document.querySelector('#room-introduction');
         const check_in_data = document.querySelector('#check-in-data');
         const check_out_data = document.querySelector('#check-out-data');
+        // const modal = new bootstrap.Model(document.querySelector('#exampleModal'));
 
         function sendData() {
 
@@ -159,8 +178,11 @@ $pageName = 'room-insert';
                     .then(obj => {
                         if (obj.success) {
                             alert('新增住宿資訊成功!');
-                            location.href = 'room_list.php'
-                        }else {
+                            location.href = 'room_list.php';
+                        } else {
+                            // const msg = obj.error;
+                            // document.querySelector('.modal-body').innerHTML = msg;
+                            // modal.show();
                             alert(obj.error);
                         }
                     })
