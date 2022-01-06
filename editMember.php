@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$title = '修改會員資料';
+$title = '修改資料';
 if (! isset($_GET['sid'])) {
     header("Location: memberList.php");
     exit;
@@ -43,7 +43,7 @@ if (empty($row)) {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">修改會員資料</h3>
+                    <h3 class="card-title text-center">修改會員基本資料</h3>
 
                     <form name="form_member" onsubmit="sendData(); return false;">
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
@@ -78,27 +78,19 @@ if (empty($row)) {
                             <textarea name="address" id="address" cols="30" rows="3"><?= htmlentities($row['address']) ?></textarea>
                             <div class="form-text"></div>
                         </div>
+                        <?php /*
                         <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1" checked>
-                                <label class="form-check-label" for="inlineRadio1">一般</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio2" value="2">
-                                <label class="form-check-label" for="inlineRadio2">黃金</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio3" value="3">
-                                <label class="form-check-label" for="inlineRadio3">白金</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio4" value="4">
-                                <label class="form-check-label" for="inlineRadio4">鑽石</label>
-                            </div>
+                            <label for="grade_sid" class="form-label">Grade</label>
+                            <br>
+                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">一般
+                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">黃金
+                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">白金
+                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">鑽石
+                            <div class="form-text"></div>
                         </div>
+                        */ ?>
 
                         <button type="submit" class="btn btn-primary">修改</button>
-                        <button type="submit" onclick="cancelEdit()" class="btn btn-primary">取消</button>
                     </form>
 
                 </div>
@@ -111,7 +103,7 @@ if (empty($row)) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -185,9 +177,6 @@ if (empty($row)) {
                 })
         }
 
-    }
-    function cancelEdit(){
-        location.href="memberList.php" ?? "<?php $_SERVER['HTTP_REFERER'] ?>";
     }
 </script>
 
