@@ -23,6 +23,9 @@ if ($page > $totalPages) {
     exit;
 };
 
+// $sid = intval($_GET['sid']);
+// $search = "SELECT `sid` FROM `supplier` WHERE `sid`=$sid";
+// $searchpage = $pdo ->query($search) ->fetch(PDO::FETCH_ASSOC);
 
 
 $sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
@@ -33,6 +36,21 @@ $row = $pdo->query($sql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    ul,
+    ol,
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+
+    .items {
+        display: flex;
+        flex-direction: column;
+    }
+
+
     .fa-angle-double-right,
     .fa-angle-right,
     .fa-angle-left,
@@ -40,9 +58,11 @@ $row = $pdo->query($sql)->fetchAll();
         color: #2f4f4f;
     }
 
+
     .page-item>a {
         color: #2f4f4f;
     }
+
 
     .page-item.active .page-link {
         z-index: 999;
@@ -51,13 +71,14 @@ $row = $pdo->query($sql)->fetchAll();
         border-color: #2f4f4f;
     }
 
-    .page-link:focus{
+    .page-link:focus {
         z-index: 999;
         border-color: #2f4f4f;
         background-color: #dee2e6;
         color: #2f4f4f;
     }
-    .page-link:hover{
+
+    .page-link:hover {
         z-index: 999;
         border-color: #fff;
         background-color: #dee2e6;
@@ -123,10 +144,12 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="col-3">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline" type="submit">Search</button>
+                    <a href="page"><button class="search btn btn-outline" type="submit">Search</button></a>
                 </form>
             </div>
             <div class="bd-example my-5">
+
+
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -146,22 +169,23 @@ $row = $pdo->query($sql)->fetchAll();
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable">
                         <?php
-                        foreach ($row as $r) :
-                        ?>
-                            <tr class="tables">
+                        foreach ($row as $r) : ?>
+                            <tr class="tables ui-state-default">
                                 <td>
-                                    <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
+                                    <input id="check" value="<?= $r['sid'] ?>" name="checkbo[]" class="check" type="checkbox">
                                 </td>
-                                <td><?= $r['sid'] ?></td>
+                                <td>
+                                    <?= $r['sid'] ?>
+                                </td>
                                 <td><?= $r['name'] ?></td>
                                 <td><?= $r['type'] ?></td>
                                 <td><?= $r['specification'] ?></td>
                                 <td><?= $r['information'] ?></td>
                                 <td><?= $r['supplier'] ?></td>
                                 <td>$<?= $r['price'] ?></td>
-                                <td><?= $r['picture'] ?></td>
+                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" width="80px"><?= $r['picture'] ?></td>
                                 <td><?= $r['create_at'] ?></td>
                                 <td>
                                     <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
@@ -171,18 +195,19 @@ $row = $pdo->query($sql)->fetchAll();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
+
+
                 <div class="row">
                     <div class="col">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
                                 <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a></li>
-
                                 <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                     if ($i >= 1 && $i <= $totalPages) :
                                 ?>
                                     <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
-                                    <!-- 連結用變數去帶 -->
                                 <?php endif; ?>
                                 <!-- for迴圈 -->
                                 <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
@@ -194,13 +219,7 @@ $row = $pdo->query($sql)->fetchAll();
             </div>
         </div>
 
-
-
-
-
-
         <?php include __DIR__ . '/parts/__scripts.php' ?>
-
         <script>
             // const rows = <?= json_encode($row) ?>;
             // console.log(rows);
@@ -209,7 +228,6 @@ $row = $pdo->query($sql)->fetchAll();
                     location.href = `product_page01_delete.php?sid=${sid}`;
                 }
             }
-
             const a = document.querySelector(".checkbox");
             const b = document.querySelectorAll("#check");
 
@@ -220,6 +238,6 @@ $row = $pdo->query($sql)->fetchAll();
                     arr.checked = false
                 });
             }
-        </script>
 
+        </script>
         <?php include __DIR__ . '/parts/__html_foot.php' ?>

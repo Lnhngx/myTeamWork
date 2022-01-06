@@ -134,7 +134,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <br>
                         <div id="imgs">
                         </div>
-                        <!-- 按鈕放在表單外 -->
                         <img src="" id="myimg">
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
