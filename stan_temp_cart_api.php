@@ -103,7 +103,7 @@ $num = 0;
                     <button class="search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
-            <div class="bd-example my-5" onsubmit="sendData(); return false;">
+            <div class="bd-example my-5">
                 <table class="table table-hover">
                     <thead>
                         <tr>
