@@ -33,6 +33,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+     
     .container {
         width: calc(100% - 250px);
         position: absolute;
