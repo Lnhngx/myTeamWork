@@ -109,10 +109,15 @@ $pageName = 'room-insert';
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
                     <div class="mb-3">
-                        <label for="room-image" class="form-label">房間照片</label>
+                        <form action="ning_room_image_upload.php" method="post" enctype="multipart/form-data">
+                            <input type="file" name="myfile" accept="image/*">
+                            <!-- multiple -->
+                            <input type="submit">
+                        </form>
+                        <!-- <label for="room-image" class="form-label">房間照片</label>
                         <button type="button" onclick="">上傳</button>
                         <br>
-                        <img src="./pic/alpha-lion-3.png" class="card-img-top" alt="..." style="width:200px">
+                        <img src="./pic/alpha-lion-3.png" class="card-img-top" alt="..." style="width:200px"> -->
 
                     </div>
 
