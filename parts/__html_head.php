@@ -15,15 +15,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script>
-        $(function() {
-            $("#sortable").sortable();
-        });
-    </script>
-
 </head>
 
 <body>
-    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>

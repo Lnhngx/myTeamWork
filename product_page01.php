@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/parts/__connect_db.php';
 
+
 $title = '商品訊息';
 $pageName = 'products';
 //可以在這邊設定名稱
@@ -22,18 +23,54 @@ if ($page > $totalPages) {
     header('Location: product_page01.php?page=' . $totalPages);
     exit;
 };
+$sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
+$row = $pdo->query($sql)->fetchAll();
+
+
+
+
+
+
+$specsql = 'SELECT * FROM product_spec ORDER BY sid ASC';
+$totalspec = $pdo->query($specsql)->fetchAll();
+
+
+
+$resersql = 'SELECT * FROM product_reserve ORDER BY sid ASC';
+$totalreser = $pdo->query($resersql)->fetchAll();
 // $sid = intval($_GET['sid']);
 // $search = "SELECT `sid` FROM `supplier` WHERE `sid`=$sid";
 // $searchpage = $pdo ->query($search) ->fetch(PDO::FETCH_ASSOC);
 
 
-$sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
-$row = $pdo->query($sql)->fetchAll();
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+<script src="/myTeamWork/XQ_bigimg-master/js/xq_bigimg.js"></script>
+<script src="/myTeamWork/XQ_bigimg-master/js/jquery-1.8.2.js"></script>
+<script>
+    $(function() {
+        $("#sortable").sortable();
+    });
+
+    $(function() {
+        var tooltips = $("[title]").tooltip();
+        $("<button>")
+            .text("Show help")
+            .button()
+            .click(function() {
+                tooltips.tooltip("open");
+            })
+            .insertAfter("form");
+    });
+</script>
+
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
     ul,
@@ -136,16 +173,18 @@ $row = $pdo->query($sql)->fetchAll();
         /* text-align: center; */
         vertical-align: middle;
     }
+
+    /* ---------------------- */
 </style>
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
             <div class="col-3 d-flex" style="justify-content: flex-start;"><a href="product_page01_insert.php" <?= $pageName == 'insert' ? 'active disabled' : '' ?> style="text-decoration:none;color:#fff;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></a></div>
             <div class="col-3">
-                <form class="d-flex">
+                <div class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
                     <a href="page"><button class="search btn btn-outline" type="submit">Search</button></a>
-                </form>
+                </div>
             </div>
             <div class="bd-example my-5">
 
@@ -176,16 +215,24 @@ $row = $pdo->query($sql)->fetchAll();
                                 <td>
                                     <input id="check" value="<?= $r['sid'] ?>" name="checkbo[]" class="check" type="checkbox">
                                 </td>
-                                <td>
-                                    <?= $r['sid'] ?>
-                                </td>
+                                <td><?= $r['sid'] ?></td>
                                 <td><?= $r['name'] ?></td>
-                                <td><?= $r['type'] ?></td>
+                                <td title="<?php echo $r['type'];
+                                            echo '-';
+                                            $sid = $r['type'];
+                                            $typesql = "SELECT `sid`,`type_name` FROM product_type WHERE sid = $sid";
+                                            $totaltype = $pdo->query($typesql)->fetch();
+                                            echo $totaltype['type_name'] ?>"><?= $r['type'] ?></td>
                                 <td><?= $r['specification'] ?></td>
                                 <td><?= $r['information'] ?></td>
-                                <td><?= $r['supplier'] ?></td>
+                                <td title="<?php echo $r['supplier'];
+                                            echo '-';
+                                            $sidd = $r['supplier'];
+                                            $suppsql = "SELECT `sid`,`supplier_name` FROM supplier WHERE sid = $sidd";
+                                            $totalsupp = $pdo->query($suppsql)->fetch();
+                                            echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
                                 <td>$<?= $r['price'] ?></td>
-                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" width="80px"><?= $r['picture'] ?></td>
+                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" width="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'><?= $r['picture'] ?></td>
                                 <td><?= $r['create_at'] ?></td>
                                 <td>
                                     <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
@@ -238,6 +285,5 @@ $row = $pdo->query($sql)->fetchAll();
                     arr.checked = false
                 });
             }
-
         </script>
         <?php include __DIR__ . '/parts/__html_foot.php' ?>
