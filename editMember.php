@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$title = '修改資料';
+$title = '修改會員資料';
 if (! isset($_GET['sid'])) {
     header("Location: memberList.php");
     exit;
@@ -43,7 +43,7 @@ if (empty($row)) {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">修改會員基本資料</h3>
+                    <h3 class="card-title text-center">修改會員資料</h3>
 
                     <form name="form_member" onsubmit="sendData(); return false;">
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
@@ -98,6 +98,7 @@ if (empty($row)) {
                         </div>
 
                         <button type="submit" class="btn btn-primary">修改</button>
+                        <button type="submit" onclick="cancelEdit()" class="btn btn-primary">取消</button>
                     </form>
 
                 </div>
@@ -110,7 +111,7 @@ if (empty($row)) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">錯誤</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -184,6 +185,9 @@ if (empty($row)) {
                 })
         }
 
+    }
+    function cancelEdit(){
+        location.href="memberList.php" ?? <?php $_SERVER['HTTP_REFERER'] ?>;
     }
 </script>
 

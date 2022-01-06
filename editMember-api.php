@@ -7,7 +7,11 @@ $output = [
     'error' => '',
 ];
 
-// TODO:沒有登入...
+if(! isset($_SESSION['users'])){
+    header("Location: member_login.php");
+    exit;
+}
+// 沒有登入就轉向
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if(empty($sid)){
@@ -71,7 +75,7 @@ $stmt->execute([
 ]);
 
 if($stmt->rowCount()==0){
-    $output['error'] = '資料沒有修改';
+    $output['error'] = '資料沒有更新';
 }else{
     $output['success'] = true;
 }
