@@ -51,9 +51,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-
 <script src="/myTeamWork/XQ_bigimg-master/js/xq_bigimg.js"></script>
-<script src="/myTeamWork/XQ_bigimg-master/js/jquery-1.8.2.js"></script>
 <script>
     $(function() {
         $("#sortable").sortable();
