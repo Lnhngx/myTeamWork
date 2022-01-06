@@ -98,8 +98,8 @@ $rows = $pdo->query($sql)->fetchAll();
                             </li>
                             <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                 if ($i >= 1 && $i <= $totalPages) : ?>
-                                    <li class="page-item <?= $i == $page ? 'active' : '' ?> "><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
-                            <?php endif;?>
+                                <li class="page-item <?= $i == $page ? 'active' : '' ?> "><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php endif; ?>
                             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
                                 <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -113,6 +113,9 @@ $rows = $pdo->query($sql)->fetchAll();
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <!-- <th scope="col">
+                                <input class="del" type="checkbox">
+                            </th> -->
                             <th scope="col">sid</th>
                             <th scope="col">房型</th>
                             <th scope="col">房間照片</th>
@@ -122,19 +125,19 @@ $rows = $pdo->query($sql)->fetchAll();
                             <th scope="col">入住時間</th>
                             <th scope="col">退房時間</th>
                             <th scope="col">房間狀態</th>
-                            <!-- <th scope="col">check-in-data</th>
-                        <th scope="col">check-out-data</th>
-                        <th scope="col">check-in-status</th> -->
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($rows as $r) : ?>
                             <tr class="tables">
+                                <!-- <th scope="col">
+                                    <input class="del" type="checkbox">
+                                </th> -->
                                 <th scope="row"><?= $r['sid'] ?></th>
                                 <td><?= $r['room-name'] ?></td>
                                 <td><?= $r['room-image'] ?></td>
-                                <td><?= $r['room-introduction'] ?></td>
+                                <td><?= htmlentities($r['room-introduction']) ?></td>
                                 <td><?= $r['people'] ?></td>
                                 <td><?= $r['price'] ?></td>
                                 <td><?= $r['check-in-data'] ?></td>
@@ -146,8 +149,11 @@ $rows = $pdo->query($sql)->fetchAll();
                             <td><?= $r['check-in-status'] ?></td>
                             */ ?>
                                 <td>
-                                    <button type="button" class="editBtn btn btn-outline">修改</button>
-                                    <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                    <a href="ning_room_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
+                                    <a href="ning_delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm('確定要刪除這筆編號<?= $r['sid'] ?>的資料嗎？')">
+                                        <!-- <a href="javascript: delete_sid(<?= $r['sid'] ?>)"> -->
+                                        <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -163,4 +169,11 @@ $rows = $pdo->query($sql)->fetchAll();
 </div>
 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
+<!-- <script>
+    function delete_sid(sid){
+        if(confirm(`確定要刪除這筆編號 ${sid} 的資料嗎？`)){
+            location.href = `ning_delete.php?sid=${sid}`;
+        }
+    }
+</script> -->
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

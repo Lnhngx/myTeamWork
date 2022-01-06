@@ -1,6 +1,20 @@
 <?php require __DIR__ . '/parts/__connect_db.php';
-$title = '新增住宿資訊';
-$pageName = 'room-insert';
+$title = '修改住宿資訊';
+
+if (!isset($_GET['sid'])) {
+    header('Location: room_list.php');
+    exit;
+}
+$sid = intval($_GET['sid']);
+
+$row = $pdo->query("SELECT * FROM `room-detail` WHERE sid = $sid")->fetch();
+
+if (empty($row)) {
+    header('Location: room_list.php');
+    exit;
+}
+
+
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -44,8 +58,9 @@ $pageName = 'room-insert';
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">新增房間資訊</h4>
+                    <h4 class="card-title">修改房間資訊</h4>
                     <form name="form1" onsubmit="sendData();return false;">
+                    <input type="hidden" name="sid" value="<?= $row['sid']?>">
                         <div class="mb-3">
                             <label for="room-name" class="form-label">房間類別</label>
                             <br>
@@ -82,13 +97,13 @@ $pageName = 'room-insert';
                         </div>
                         <div class="mb-3">
                             <label for="check-in-data" class="form-label">入住時間</label>
-                            <input type="date" class="form-control" id="check-in-data" name="check-in-data">
+                            <input type="date" class="form-control" id="check-in-data" name="check-in-data" value="<?= $row['check-in-data'] ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <div class="mb-3">
                                 <label for="check-out-data" class="form-label">退房時間</label>
-                                <input type="date" class="form-control" id="check-out-data" name="check-out-data">
+                                <input type="date" class="form-control" id="check-out-data" name="check-out-data" value="<?= $row['check-out-data'] ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
@@ -103,7 +118,7 @@ $pageName = 'room-insert';
                             </div>
                             <div class="mb-3">
                                 <label for="room-introduction" class="form-label">房型資訊</label>
-                                <textarea class="form-control" name="room-introduction" id="room-introduction" cols="30" rows="3"></textarea>
+                                <textarea class="form-control" name="room-introduction" id="room-introduction" cols="30" rows="3"><?= $row['room-introduction'] ?></textarea>
                                 <div class="form-text"></div>
                             </div>
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
@@ -116,7 +131,7 @@ $pageName = 'room-insert';
 
                     </div>
 
-                    <button type="submit" class="subbtn btn btn-primary">確認送出</button>
+                    <button type="submit" class="subbtn btn btn-primary">確認修改</button>
                     <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -171,19 +186,19 @@ $pageName = 'room-insert';
             if (isPass) {
                 const fd = new FormData(document.form1)
 
-                fetch('ning_room_insert-api.php', {
+                fetch('ning_room_edit-api.php', {
                         method: 'POST',
                         body: fd,
                     }).then(r => r.json())
                     .then(obj => {
                         if (obj.success) {
-                            alert('新增住宿資訊成功!');
+                            alert('修改住宿資訊成功!');
                             location.href = 'room_list.php';
                         } else {
                             // const msg = obj.error;
                             // document.querySelector('.modal-body').innerHTML = msg;
                             // modal.show();
-                            alert(obj.error);
+                            alert(obj.error || '修改住宿資訊發生錯誤!');
                         }
                     })
             }

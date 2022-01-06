@@ -21,6 +21,7 @@ $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $mobile = $_POST['mobile'] ?? '';
 $password = $_POST['password'] ?? '';
+$gradeSid = $_POST['grade_sid'] ?? '1' ;
 
 if(empty($name)){
     $output['code'] = 403;
@@ -53,7 +54,8 @@ $sql = "UPDATE `members` SET
                      `password`=?,
                      `mobile`=?,
                      `birthday`=?,
-                     `address`=? 
+                     `address`=?,
+                     `grade_sid`=?
         WHERE `sid`=?";
 
 $stmt = $pdo->prepare($sql);
@@ -64,6 +66,7 @@ $stmt->execute([
     $mobile,
     empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'] ?? '',
+    strval($gradeSid),
     $sid
 ]);
 
