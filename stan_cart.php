@@ -11,7 +11,8 @@ $title = '購物車';
 
 $sql = sprintf('SELECT `product_sid`,`product_src`,`product`,`price`,`quantity` FROM `temp_cart` WHERE 1');
 $rows = $pdo->query($sql)->fetchAll();
-
+$num = 0;
+// 順序編號
 
 
 ?>
@@ -84,7 +85,7 @@ $rows = $pdo->query($sql)->fetchAll();
         width: 100%;
     }
 
-    #quantity {
+    .quantitybox {
         box-sizing: border-box;
         height: 35px;
         width: 60px;
@@ -117,16 +118,18 @@ $rows = $pdo->query($sql)->fetchAll();
                     <tbody>
                         <?php foreach ($rows as $r) : ?>
                             <tr class="tables">
-                                <th scope="row"><?= $r['product_sid'] ?></th>
+                                <?php $num++ ?>
+                                <th scope="row"><?= $num ?></th>
+                                <td style="display:none;"><?= $r['product_sid'] ?></td>
                                 <td><?= $r['product_src'] ?>
                                     <!-- <img class="smallimg" src="./pic/<?= $r['product_src'] ?>.png" ?> -->
                                 </td>
                                 <td><?= $r['product'] ?></td>
                                 <td><?= $r['price'] ?></td>
                                 <td>
-                                    <button class="btn btn-outline editBtn" onclick="btnminus()">-</button>
-                                    <input id="quantity" value="<?= $r['quantity'] ?>">
-                                    <button class="btn btn-outline editBtn" onclick="btnadd()">+</button>
+                                    <button class="btn btn-outline editBtn minusBtn">-</button>
+                                    <input class="quantitybox" value="<?= $r['quantity'] ?>">
+                                    <button class="btn btn-outline editBtn addBtn">+</button>
                                 </td>
                                 <td>
                                     <a href="javascript: removeCartItem(<?= $r['product_sid'] ?>)">
@@ -152,6 +155,29 @@ $rows = $pdo->query($sql)->fetchAll();
         if (confirm(`確定要刪除編號為 ${product_sid} 的資料嗎?`)) {
             location.href = `stan_delete_cart_api.php?product_sid=${product_sid}`;
         }
+    }
+
+    document.querySelectorAll('.minusBtn').forEach((el) => {
+        el.addEventListener('click', btnminus);
+    })
+
+    function btnminus(event) {
+        let input = event.currentTarget.nextElementSibling;
+        if (input.value <= 1) {
+            input.value = 1;
+        } else {
+            input.value -= 1;
+        }
+    }
+
+    document.querySelectorAll('.addBtn').forEach((el) => {
+        el.addEventListener('click', btnadd);
+    })
+
+    function btnadd() {
+        let input = event.currentTarget.previousElementSibling;
+        input.value = parseInt(input.value) + 1;
+        // 直接寫 input.value+=1; 系統會判斷成字串相加，故需使用 parseInt 轉換後在相加
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

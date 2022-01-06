@@ -29,7 +29,8 @@ if (empty($name)) {
 
 
 
-$sql = "INSERT INTO `商品訊息` (`商品名稱`, `商品類型`, `商品規格`, `供應商`, `庫存訊息`, `商品價格`, `商品圖片`, `更新時間`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+$sql = "INSERT INTO `product_item` (`name`, `type`, `specification`, `information`, `supplier`, `price`, `picture`, `create_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
 
 $stmt = $pdo->prepare($sql);
 
@@ -37,8 +38,8 @@ $stmt->execute([
     $_POST['name'] ?? '',
     $_POST['type'] ?? '',
     $_POST['spec'] ?? '',
-    $_POST['supp'] ?? '',
     $_POST['reser'] ?? '',
+    $_POST['supp'] ?? '',
     $_POST['money'] ?? '',
     null,
     $_POST['d-date'] ?? ''

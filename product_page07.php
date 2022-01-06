@@ -14,7 +14,7 @@ if ($page < 1) {
     exit;
 };
 
-$t_sql = 'SELECT COUNT(1) FROM 現場館別';
+$t_sql = 'SELECT COUNT(1) FROM building_type';
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 
 
 
-$sql = sprintf("SELECT * FROM 現場館別 ORDER BY sid ASC LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM building_type ORDER BY sid ASC LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 ?>
@@ -117,7 +117,7 @@ $row = $pdo->query($sql)->fetchAll();
                                 <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
                             </td>
                             <td><?= $r['sid'] ?></td>
-                            <td><?= $r['展場名稱'] ?></td>
+                            <td><?= $r['building_name'] ?></td>
                             <td>
                                 <button type="button" class="editBtn btn btn-outline">修改</button>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
