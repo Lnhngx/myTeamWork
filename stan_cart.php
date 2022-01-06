@@ -9,7 +9,7 @@ $title = '購物車';
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <?php
 
-$sql = sprintf('SELECT `product_sid`,`product_src`,`product`,`price`,`quantity`,`amount` FROM `temp_cart` WHERE 1');
+$sql = sprintf('SELECT `product_sid`,`product_src`,`product`,`price`,`quantity` FROM `temp_cart` WHERE 1');
 $rows = $pdo->query($sql)->fetchAll();
 
 
@@ -30,14 +30,16 @@ $rows = $pdo->query($sql)->fetchAll();
 
     .search,
     .insert,
-    .editBtn {
+    .editBtn,
+    .orderBtn {
         background-color: #2f4f4f;
         color: white
     }
 
     .search:hover,
     .insert:hover,
-    .editBtn:hover {
+    .editBtn:hover,
+    .orderBtn:hover {
         color: white;
         background-color: #908a70;
     }
@@ -48,8 +50,13 @@ $rows = $pdo->query($sql)->fetchAll();
     }
 
     .editBtn,
-    .delBtn {
+    .delBtn,
+    .orderBtn {
         color: white;
+    }
+
+    .orderBtn {
+        right: 0;
     }
 
     .delBtn {
@@ -76,11 +83,18 @@ $rows = $pdo->query($sql)->fetchAll();
     .smallimg {
         width: 100%;
     }
+
+    #quantity {
+        box-sizing: border-box;
+        height: 35px;
+        width: 60px;
+        text-align: center;
+    }
 </style>
 <div class="wrap">
     <div class="container my-3">
         <div class="row">
-            <div class="col-3 d-flex" style="justify-content: flex-start;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
+            <div class="col-3 d-flex" style="justify-content: flex-start;"></div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
@@ -109,10 +123,12 @@ $rows = $pdo->query($sql)->fetchAll();
                                 </td>
                                 <td><?= $r['product'] ?></td>
                                 <td><?= $r['price'] ?></td>
-                                <td><?= $r['quantity'] ?></td>
-                                <td><?= $r['amount'] ?></td>
                                 <td>
-                                    <button type="button" class="editBtn btn btn-outline">修改</button>
+                                    <button class="btn btn-outline editBtn" onclick="btnminus()">-</button>
+                                    <input id="quantity" value="<?= $r['quantity'] ?>">
+                                    <button class="btn btn-outline editBtn" onclick="btnadd()">+</button>
+                                </td>
+                                <td>
                                     <a href="javascript: removeCartItem(<?= $r['product_sid'] ?>)">
                                         <button type="button" class="delBtn btn btn-outline">刪除</button>
                                     </a>
@@ -121,6 +137,9 @@ $rows = $pdo->query($sql)->fetchAll();
                         <?php endforeach;  ?>
                     </tbody>
                 </table>
+                <a href="">
+                    <button type="button" class="orderBtn btn btn-outline">下一步</button>
+                </a>
             </div>
         </div>
     </div>
