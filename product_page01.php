@@ -14,7 +14,7 @@ if ($page < 1) {
     exit;
 };
 
-$t_sql = 'SELECT COUNT(1) FROM 商品訊息';
+$t_sql = 'SELECT COUNT(1) FROM product_item';
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 
 
 
-$sql = sprintf("SELECT * FROM 商品訊息  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 ?>
@@ -33,6 +33,37 @@ $row = $pdo->query($sql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+
+    .page-item>a {
+        color: #2f4f4f;
+    }
+
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .page-link:focus{
+        z-index: 999;
+        border-color: #2f4f4f;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+    .page-link:hover{
+        z-index: 999;
+        border-color: #fff;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -106,12 +137,12 @@ $row = $pdo->query($sql)->fetchAll();
                             <th scope="col">商品名稱</th>
                             <th scope="col"><a href="/myTeamWork/product_page02.php" style="text-decoration:none;color:black">商品類型</a></th>
                             <th scope="col"><a href="/myTeamWork/product_page03.php" style="text-decoration:none;color:black">商品規格</a></th>
-                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
                             <th scope="col"><a href="/myTeamWork/product_page05.php" style="text-decoration:none;color:black">庫存訊息</a></th>
+                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
                             <th scope="col">商品價格</th>
                             <th scope="col">商品圖片</th>
                             <th scope="col">更新時間</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -124,16 +155,16 @@ $row = $pdo->query($sql)->fetchAll();
                                     <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
                                 </td>
                                 <td><?= $r['sid'] ?></td>
-                                <td><?= $r['商品名稱'] ?></td>
-                                <td><?= $r['商品類型'] ?></td>
-                                <td><?= $r['商品規格'] ?></td>
-                                <td><?= $r['供應商'] ?></td>
-                                <td><?= $r['庫存訊息'] ?></td>
-                                <td>$<?= $r['商品價格'] ?></td>
-                                <td><?= $r['商品圖片'] ?></td>
-                                <td><?= $r['更新時間'] ?></td>
+                                <td><?= $r['name'] ?></td>
+                                <td><?= $r['type'] ?></td>
+                                <td><?= $r['specification'] ?></td>
+                                <td><?= $r['information'] ?></td>
+                                <td><?= $r['supplier'] ?></td>
+                                <td>$<?= $r['price'] ?></td>
+                                <td><?= $r['picture'] ?></td>
+                                <td><?= $r['create_at'] ?></td>
                                 <td>
-                                    <a href="product_page01_edit.php"><button type="button" class="editBtn btn btn-outline">修改</button></a>
+                                    <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
                                     <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
                                 </td>
                             </tr>
@@ -144,7 +175,8 @@ $row = $pdo->query($sql)->fetchAll();
                     <div class="col">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-arrow-left"></i></a></li>
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a></li>
 
                                 <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                     if ($i >= 1 && $i <= $totalPages) :
@@ -153,7 +185,8 @@ $row = $pdo->query($sql)->fetchAll();
                                     <!-- 連結用變數去帶 -->
                                 <?php endif; ?>
                                 <!-- for迴圈 -->
-                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-arrow-right"></i></a></li>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=9999"><i class="fas fa-angle-double-right"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -171,7 +204,6 @@ $row = $pdo->query($sql)->fetchAll();
         <script>
             // const rows = <?= json_encode($row) ?>;
             // console.log(rows);
-
             function delete_it(sid) {
                 if (confirm(`確定要刪除編號為${sid}的資料嗎？`)) {
                     location.href = `product_page01_delete.php?sid=${sid}`;

@@ -7,7 +7,11 @@ $output = [
     'error' => '',
 ];
 
-// TODO:沒有登入...
+if(! isset($_SESSION['users'])){
+    header("Location: member_login.php");
+    exit;
+}
+// 沒有登入就轉向
 
 
 $name = $_POST['name'] ?? '';

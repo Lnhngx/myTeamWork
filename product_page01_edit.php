@@ -10,22 +10,22 @@ if (!isset($_GET['sid'])) {
 }
 
 $sid = intval($_GET['sid']);
-$row = $pdo->query("SELECT * FROM `商品訊息` WHERE sid=$sid")->fetch();
+$row = $pdo->query("SELECT * FROM `product_item` WHERE sid = $sid")->fetch();
 if (empty($row)) {
     header('Location: product_page01.php');
     exit;
 }
 
-$typesql = 'SELECT `sid`,`類別名稱`  FROM 商品類型 ORDER BY sid ASC';
+$typesql = 'SELECT `sid`,`type_name`  FROM product_type ORDER BY sid ASC';
 $totaltype = $pdo->query($typesql)->fetchAll();
 
-$specsql = 'SELECT * FROM 商品規格 ORDER BY sid ASC';
+$specsql = 'SELECT * FROM product_spec ORDER BY sid ASC';
 $totalspec = $pdo->query($specsql)->fetchAll();
 
-$suppsql = 'SELECT `sid`,`供應商名稱`  FROM 供應商 ORDER BY sid ASC';
+$suppsql = 'SELECT `sid`,`supplier_name`  FROM supplier ORDER BY sid ASC';
 $totalsupp = $pdo->query($suppsql)->fetchAll();
 
-$resersql = 'SELECT * FROM 庫存表 ORDER BY sid ASC';
+$resersql = 'SELECT * FROM product_reserve ORDER BY sid ASC';
 $totalreser = $pdo->query($resersql)->fetchAll();
 
 
@@ -33,13 +33,13 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+     
     .container {
-        position: absolute;
-        right: 0;
         width: calc(100% - 250px);
+        position: absolute;
+        left: 250px;
         margin-top: 20px;
         margin-bottom: 20px;
-
     }
 
     .row {
@@ -66,24 +66,26 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>" />
                         <div class="mb-3">
                             <label for="name" class="form-label">商品名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?= htmlentities($row['name']) ?>">
+                            <input type="text" class="form-control" id="name" name="name" value="<?= ($row['name']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="type" class="form-label">商品類型</label>
                             <!-- <input type="text" class="form-control" id="type" name="type"> -->
                             <select class="form-select" aria-label="Default select example" id="type" name="type" value="<?= ($row['type']) ?>">
+                                <option value="<?= ($row['type']) ?>"><?= ($row['type']) ?></option>
                                 <?php foreach ($totaltype as $r) : ?>
                                     <option value="<?= $r['sid']; ?>"><?php echo $r['sid'];
                                                                         echo '-';
-                                                                        echo $r['類別名稱']; ?></option>
+                                                                        echo $r['type_name']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="spec" class="form-label">商品規格</label>
                             <!-- <input type="text" class="form-control" id="spec" name="spec"> -->
-                            <select class="form-select" aria-label="Default select example" name="spec" value="<?= ($row['spec']) ?>">
+                            <select class="form-select" aria-label="Default select example" name="spec" value="<?= ($row['specification']) ?>">
+                                <option value="<?= ($row['specification']) ?>"><?= ($row['specification']) ?></option>
                                 <?php foreach ($totalspec as $c) : ?>
                                     <option value="<?= $c['sid']; ?>"><?= $c['sid']; ?></option>
                                 <?php endforeach ?>
@@ -92,18 +94,20 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <div class="mb-3">
                             <label for="supp" class="form-label">供應商</label>
                             <!-- <input type="text" class="form-control" id="supp" name="supp"> -->
-                            <select class="form-select" aria-label="Default select example" name="supp" value="<?= ($row['supp']) ?>">
+                            <select class="form-select" aria-label="Default select example" name="supp" value="<?= ($row['supplier']) ?>">
+                            <option value="<?= ($row['supplier']) ?>"><?= ($row['supplier']) ?></option>
                                 <?php foreach ($totalsupp as $sup) : ?>
                                     <option value="<?= $sup['sid']; ?>"><?php echo $sup['sid'];
                                                                         echo '-';
-                                                                        echo $sup['供應商名稱']; ?></option>
+                                                                        echo $sup['supplier_name']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="reserve" class="form-label">庫存訊息</label>
                             <!-- <input type="text" class="form-control" id="reserve" name="reserve"> -->
-                            <select class="form-select" aria-label="Default select example" name="reser" value="<?= ($row['reser']) ?>">
+                            <select class="form-select" aria-label="Default select example" name="reser" value="<?= ($row['information']) ?>">
+                                <option value="<?= ($row['information']) ?>"><?= ($row['information']) ?></option>
                                 <?php foreach ($totalreser as $re) : ?>
                                     <option value="<?= $re['sid']; ?>"><?= $re['sid']; ?></option>
                                 <?php endforeach ?>
@@ -111,12 +115,12 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         </div>
                         <div class="mb-3">
                             <label for="money" class="form-label">商品價格</label>
-                            <input type="text" class="form-control" id="money" name="money" value="<?= ($row['money']) ?>">
+                            <input type="text" class="form-control" id="money" name="money" value="<?= ($row['price']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="d-date" class="form-label">更新時間</label>
-                            <input type="date" class="form-control" id="d-date" name="d-date" value="<?= ($row['d-date']) ?>">
+                            <input type="date" class="form-control" id="d-date" name="d-date" value="<?= ($row['create_at']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <input id="innput" type="submit" class="subbtn btn btn-primary" value="確認送出" style="display:none">
@@ -134,7 +138,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <img src="" id="myimg">
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
-                    <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value="">
                 </div>
             </div>
         </div>
@@ -231,7 +234,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 console.log(obj);
                 if (obj.success) {
                     alert('修改成功');
-                    // location.href = 'product_page01.php';
+                    location.href = 'product_page01.php';
                 } else {
                     document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
                     modal.show();

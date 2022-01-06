@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$title = '註冊會員';
+$title = '新增會員';
 $pagename = 'insert';
 
 ?>
@@ -18,7 +18,7 @@ $pagename = 'insert';
         <div class="col-6 mx-auto mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">註冊會員</h3>
+                    <h3 class="card-title text-center">新增會員</h3>
 
                     <form name="form_member" onsubmit="sendData(); return false;">
                         <div class="mb-3">
@@ -54,7 +54,7 @@ $pagename = 'insert';
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1">
+                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1" checked>
                                 <label class="form-check-label" for="inlineRadio1">一般</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -70,17 +70,6 @@ $pagename = 'insert';
                                 <label class="form-check-label" for="inlineRadio4">鑽石</label>
                             </div>
                         </div>
-                        <?php /*
-                        <div class="mb-3">
-                            <label for="grade_sid" class="form-label">Grade</label>
-                            <br>
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">一般
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">黃金
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">白金
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">鑽石
-                            <div class="form-text"></div>
-                        </div>
-                        */ ?>
 
                         <button type="submit" class="btn btn-primary">新增</button>
                     </form>
@@ -166,10 +155,11 @@ $pagename = 'insert';
                 }).then(r => r.json())
                 .then(obj => {
                     if (obj.success) {
-                        alert('新增成功');
-                        location.href = 'memberList.php';
-                        // document.querySelector('.modal-header').innerHTML = '新增成功';
-                        // modal.show();
+                        // alert('新增成功');
+                        // location.href = 'memberList.php';
+                        document.querySelector('.modal-header').innerHTML = '新增成功';
+                        modal.show();
+                        
 
                     } else {
                         document.querySelector('.modal-header').innerHTML = obj.error || '資料新增失敗';
@@ -179,7 +169,6 @@ $pagename = 'insert';
         }
 
     }
-
     function ok() {
         location.href = 'memberList.php';
     }
