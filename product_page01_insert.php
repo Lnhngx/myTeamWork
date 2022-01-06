@@ -141,7 +141,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <img src="" id="myimg">
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
-                    <!-- <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value=""> -->
+                    <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value="">
                 </div>
             </div>
         </div>
@@ -239,7 +239,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 console.log(obj);
                 if (obj.success) {
                     alert('新增成功');
-                    // location.href = 'product_page01.php';
+                    location.href = 'product_page01.php';
                 } else {
                     document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
                     modal.show();

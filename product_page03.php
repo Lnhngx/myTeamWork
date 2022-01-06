@@ -14,7 +14,7 @@ if ($page < 1) {
     exit;
 };
 
-$t_sql = 'SELECT COUNT(1) FROM 商品規格';
+$t_sql = 'SELECT COUNT(1) FROM product_spec';
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 
 
 
-$sql = sprintf("SELECT * FROM 商品規格  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM product_spec  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 ?>
@@ -120,10 +120,10 @@ $row = $pdo->query($sql)->fetchAll();
                                 <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
                             </td>
                             <td><?= $r['sid'] ?></td>
-                            <td><?= $r['包裝長(cm)'] ?>CM</td>
-                            <td><?= $r['包裝寬(cm)'] ?>CM</td>
-                            <td><?= $r['包裝高(cm)'] ?>CM</td>
-                            <td><?= $r['包裝重量(克)'] ?>G</td>
+                            <td><?= $r['product_lengh(cm)'] ?>CM</td>
+                            <td><?= $r['product_width(cm)'] ?>CM</td>
+                            <td><?= $r['product_height(cm)'] ?>CM</td>
+                            <td><?= $r['product_weight(g)'] ?>G</td>
                             <td>
                                 <button type="button" class="editBtn btn btn-outline">修改</button>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>

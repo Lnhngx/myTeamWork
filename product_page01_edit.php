@@ -233,7 +233,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 console.log(obj);
                 if (obj.success) {
                     alert('修改成功');
-                    // location.href = 'product_page01.php';
+                    location.href = 'product_page01.php';
                 } else {
                     document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
                     modal.show();
