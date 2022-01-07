@@ -23,6 +23,8 @@ if ($page > $totalPages) {
     header('Location: product_page01.php?page=' . $totalPages);
     exit;
 };
+
+
 $sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
@@ -46,12 +48,11 @@ $row = $pdo->query($sql)->fetchAll();
     });
 
     $(function() {
-        var tooltips = $("[title]").tooltip();
+        const tooltips = $("[title]").tooltip();
         $("<button>")
             .click(function() {
                 tooltips.tooltip("open");
             })
-            .insertAfter("form");
     });
 
 
@@ -231,7 +232,7 @@ $row = $pdo->query($sql)->fetchAll();
                                                 $totalsupp = $pdo->query($suppsql)->fetch();
                                                 echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
                                     <td>$<?= $r['price'] ?></td>
-                                    <td><img src="/myTeamWork/文具/<?= $r['picture'] ?>" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
+                                    <td><img src="./uploaded/<?= $r['picture']?>" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
                                     <td><?= $r['create_at'] ?></td>
                                     <td>
                                         <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
