@@ -5,7 +5,7 @@ $pageName = 'index';
 $title = '會員資料列表';
 $pageName = 'memberList';
 
-if(! isset($_SESSION['users'])){
+if (!isset($_SESSION['users'])) {
     header("Location: member_login.php");
     exit;
 }
@@ -38,12 +38,41 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 
-
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+   .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+
+    .page-item>a {
+        color: #2f4f4f;
+    }
+
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .page-link:focus{
+        z-index: 999;
+        border-color: #2f4f4f;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+    .page-link:hover{
+        z-index: 999;
+        border-color: #fff;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -59,6 +88,7 @@ $rows = $pdo->query($sql)->fetchAll();
     .search,
     .insert,
     .editBtn {
+        text-align: left;
         background-color: #2f4f4f;
         color: white
     }
@@ -110,7 +140,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-12">
                 <div class="col ty_col">
                     <nav aria-label="...">
-                        <ul class="pagination">
+                        <ul class="pagination d-flex justify-content-end mb-0 mt-2">
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                                 <a class="page-link" href="?page=<?= $page == 1 ?>">
                                     <i class="fas fa-angle-double-left"></i>
@@ -148,7 +178,7 @@ $rows = $pdo->query($sql)->fetchAll();
             </div>
             <!-- row 分頁按鈕 -->
 
-            <div class="bd-example my-5">
+            <div class="bd-example mb-5 mt-3">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -156,7 +186,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                     <input class="del" type="checkbox" name="checkbox" value="<?= $r['sid'] ?>">
                                 </th> */ ?>
                             <!-- 勾選 -->
-                            <th scope="col">#</th>
+                            <th scope="col"><a name="sid" id="sid" href="">#</a></th>
                             <th scope="col">Account (Email)</th>
                             <th scope="col">Name</th>
                             <th scope="col">Password</th>
@@ -213,8 +243,8 @@ $rows = $pdo->query($sql)->fetchAll();
         }
     }
 
-    function insertMember(){
-        location.href=`insertMember.php`;
+    function insertMember() {
+        location.href = `insertMember.php`;
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
