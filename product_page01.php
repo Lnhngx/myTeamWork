@@ -7,7 +7,7 @@ $pageName = 'products';
 //可以在這邊設定名稱
 
 
-$perpage = 15;
+$perpage = 5;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
@@ -32,13 +32,10 @@ $row = $pdo->query($sql)->fetchAll();
 
 
 
-$specsql = 'SELECT * FROM product_spec ORDER BY sid ASC';
-$totalspec = $pdo->query($specsql)->fetchAll();
 
 
 
-$resersql = 'SELECT * FROM product_reserve ORDER BY sid ASC';
-$totalreser = $pdo->query($resersql)->fetchAll();
+
 // $sid = intval($_GET['sid']);
 // $search = "SELECT `sid` FROM `supplier` WHERE `sid`=$sid";
 // $searchpage = $pdo ->query($search) ->fetch(PDO::FETCH_ASSOC);
@@ -52,6 +49,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="/myTeamWork/XQ_bigimg-master/js/xq_bigimg.js"></script>
+<script src="/myTeamWork/search.js"></script>
 <script>
     $(function() {
         $("#sortable").sortable();
@@ -71,15 +69,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    ul,
-    ol,
-    li {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-
     .items {
         display: flex;
         flex-direction: column;
@@ -180,14 +169,14 @@ $totalreser = $pdo->query($resersql)->fetchAll();
             <div class="col-3 d-flex" style="justify-content: flex-start;"><a href="product_page01_insert.php" <?= $pageName == 'insert' ? 'active disabled' : '' ?> style="text-decoration:none;color:#fff;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></a></div>
             <div class="col-3">
                 <div class="d-flex">
-                    <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <a href="page"><button class="search btn btn-outline" type="submit">Search</button></a>
+                    <input class="searchIp form-control light-table-filter" type="search" placeholder="請輸入關鍵字" aria-label="Search" data-table="order-table">
+                    <!-- <a href="page"><button class="search btn btn-outline" type="submit">Search</button></a> -->
                 </div>
             </div>
             <div class="bd-example my-5">
 
-
-                <table class="table table-hover">
+            <div class="col-1" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</div>
+                <table class="table table-hover order-table">
                     <thead>
                         <tr>
                             <th scope="col">
@@ -202,8 +191,10 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                             <th scope="col">商品價格</th>
                             <th scope="col">商品圖片</th>
                             <th scope="col">更新時間</th>
-                            <th scope="col" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</th>
-                            <th scope="col"></th>
+                            <td>
+
+                                <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">批量刪除</button></a>
+                            </td>
                         </tr>
                     </thead>
                     <tbody id="sortable">
@@ -221,8 +212,27 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                                             $typesql = "SELECT `sid`,`type_name` FROM product_type WHERE sid = $sid";
                                             $totaltype = $pdo->query($typesql)->fetch();
                                             echo $totaltype['type_name'] ?>"><?= $r['type'] ?></td>
-                                <td><?= $r['specification'] ?></td>
-                                <td><?= $r['information'] ?></td>
+                                <td title="<?php echo $r['specification'];
+                                            echo '-';
+                                            $siddd = $r['specification'];
+                                            $specsql = "SELECT * FROM product_spec WHERE sid = $siddd";
+                                            $totalspec = $pdo->query($specsql)->fetch();
+                                            echo $totalspec['product_lengh(cm)'] . 'cm';
+                                            echo "*";
+                                            echo $totalspec['product_width(cm)'] . 'cm';
+                                            echo "*";
+                                            echo $totalspec['product_height(cm)'] . 'cm';
+                                            echo "\r";
+                                            echo $totalspec['product_weight(g)'] . '克'; ?>"><?= $r['specification'] ?></td>
+                                <td title="<?php echo $r['information'];
+                                            echo '-';
+                                            $sidddd = $r['information'];
+                                            $resersql = "SELECT * FROM product_reserve WHERE sid =$sidddd";
+                                            $totalreser = $pdo->query($resersql)->fetch();
+                                            echo '倉庫庫存有' . $totalreser['quantity_ware'] . '個';
+                                            echo "&";
+                                            echo '現場庫存有' . $totalreser['quantity_location'] . '個';
+                                            ?>"><?= $r['information'] ?></td>
                                 <td title="<?php echo $r['supplier'];
                                             echo '-';
                                             $sidd = $r['supplier'];
@@ -230,7 +240,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                                             $totalsupp = $pdo->query($suppsql)->fetch();
                                             echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
                                 <td>$<?= $r['price'] ?></td>
-                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" width="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'><?= $r['picture'] ?></td>
+                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'><?= $r['picture'] ?></td>
                                 <td><?= $r['create_at'] ?></td>
                                 <td>
                                     <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
