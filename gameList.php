@@ -14,12 +14,40 @@ $perPage = 5;
 $totalPages = ceil($totalRows/$perPage);
 
 
-
-
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .items {
+        display: flex;
+        flex-direction: column;
+    }
+    .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+    .page-item > a {
+        color: #2f4f4f;
+    }
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+    .page-link:focus {
+        z-index: 999;
+        color: #2f4f4f;
+        background-color: #dee2e6;
+        border-color: #2f4f4f;
+    }.page-link:hover {
+        z-index: 999;
+        color: #2f4f4f;
+        background-color: #dee2e6;
+        border-color: #fff;
+    }
     .wrap{
         width: calc(100% - 250px);
         position: absolute;
@@ -86,60 +114,117 @@ $totalPages = ceil($totalRows/$perPage);
                     <button class="search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
-            <div class="bd-example my-5">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">name</th>
-                            <th scope="col">qcontent</th>
-                            <th scope="col">acontent</th>
-                            <th scope="col">yesno</th>
-                            <th scope="col">question_sid</th>
-                            <th scope="col">image</th>
-                            <th scope="col"></th>     
-                        </tr>
-                    </thead>
-                    <tbody>
+            <!-- 分頁按鈕begin -->
+            <div class="col-12 mt-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center">
+                        <!-- 直接到第一頁 -->
+                        <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=1">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <!-- 到上一頁 -->
+                        <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page-1?>">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <!-- 每一頁的按鈕 -->
+                        <?php for($i=$page-2;$i<=$page+2;$i++)
+                            if($i>=1 && $i<=$totalPages): ?>
+                            <li class="page-item <?= $i==$page ? 'active' : ''?>">
+                                <a class="page-link" href="?page=<?= $i ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <!-- 到下一頁 -->
+                        <li class="page-item <?= $totalPages == $page ? 'disabled' : ''?>">
+                            <a class="page-link" href="?page=<?= $page+1 ?>">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <!-- 直接到最後一頁 -->
+                        <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $totalPages ?>">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>   
+            </div>
+            <!-- 分頁按鈕end -->
+            <div class="bd-example my-4">
+                <form action="boxDelete-api.php" method="post">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <input type="checkbox" class="checkAll">
+                                </th>
+                                <th scope="col">#</th>
+                                <th scope="col">name</th>
+                                <th scope="col">qcontent</th>
+                                <th scope="col">acontent</th>
+                                <th scope="col">yesno</th>
+                                <th scope="col">question_sid</th>
+                                <th scope="col">image</th>
+                                <th scope="col"></th>     
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    <?php $count = -1; ?> 
-                    <?php foreach($rows as $r): ?>
-                        <?php $count++; ?>
+                            <?php $count = -1; ?> 
+                        <?php foreach($rows as $r): ?>
+                            <?php $count++; ?>
                     
-                    
-                        <tr class="tables">
-                            <th scope="row"><?= $r['sid'] ?></th>
-                            <td><?= htmlentities($r['name']) ?></td>
-                            <td><?= htmlentities($r['qcontent']) ?></td>
-                            <td><?= htmlentities($r['acontent']) ?></td>
-                            <td><?= $r['yesno'] ?></td>
-                            <td><?= $r['question_sid'] ?></td>
-                            <td><?= $r['image'] ?></td>
-                                
-                                <?php if($count % 4 == 0): ?>            
-                                    <td rowspan="4" style="border:1px solid #E0E0E0;">
+                            <tr class="tables" style="line-height: 2.6rem;">
+                                <td>
+                                    <input type="checkbox" name="checkbox[]" class="check" value="<?= $r['question_sid'] ?>">
+                                </td>
+                                <th scope="row"><?= $r['sid'] ?></th>
+                                <td><?= htmlentities($r['name']) ?></td>
+                                <td><?= htmlentities($r['qcontent']) ?></td>
+                                <td><?= htmlentities($r['acontent']) ?></td>
+                                <td><?= $r['yesno'] ?></td>
+                                <td><?= $r['question_sid'] ?></td>
+                                <td><?= $r['image'] ?></td>
+                      
+                                    <?php if($count % 4 == 0): ?>            
+                                        <td rowspan="4" style="border:1px solid #E0E0E0;">
 
-                                    <a href="editGamelist.php?question_sid=<?= $r['question_sid'] ?>">
-                                    <button type="button" class="editBtn btn btn-outline">修改</button>
-                                    </a>
-                                    <a href="javascript: delete_Alist(<?= $r['question_sid'] ?>)">
-                                    <button type="button" class="delBtn btn btn-outline">刪除</button>
-                                    </a>
+                                        <a href="editGamelist.php?question_sid=<?= $r['question_sid'] ?>">
+                                        <button type="button" class="editBtn btn btn-outline">修改</button>
+                                        </a>
+                                        <a href="javascript: delete_Alist(<?= $r['question_sid'] ?>)">
+                                        <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                        </a>
 
-                                    </td>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-               
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                                        </td>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-danger">刪除</button>
+                </form>   
             </div>
         </div>
     </div>
 </div> 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
+    const checkAll = document.querySelector('.checkAll');
+    const check = document.querySelectorAll('.check');
+    checkAll.addEventListener('onchange',function(){
+        if(checkAll.checked == true){
+            check.forEach(el=>el.checked=true);
+        }else{
+            check.forEach(el=>el.checked=false)
+        }
+    })
     function delete_Alist(question_sid) {
         if (confirm(`確定要刪除第 ${question_sid} 題的資料嗎?`)) {
             location.href = `delete_Alist.php?question_sid=${question_sid}`;
