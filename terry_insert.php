@@ -14,7 +14,7 @@ $pageName = 'insert';
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">新增通訊資料</h5>
+                    <h5 class="card-title">新增活動資料</h5>
 
                     <form name="form1" onsubmit="sendData(); return false;">
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">

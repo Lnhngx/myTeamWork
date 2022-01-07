@@ -192,7 +192,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="terry_animal_touch.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-skating"></i></div>
                     <p>活動資訊</p>
 
