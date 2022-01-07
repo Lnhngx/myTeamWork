@@ -27,20 +27,9 @@ $sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpa
 
 $row = $pdo->query($sql)->fetchAll();
 
-
-
-
-
-
-
-
-
-
 // $sid = intval($_GET['sid']);
 // $search = "SELECT `sid` FROM `supplier` WHERE `sid`=$sid";
 // $searchpage = $pdo ->query($search) ->fetch(PDO::FETCH_ASSOC);
-
-
 
 
 ?>
@@ -180,81 +169,81 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="bd-example my-5">
 
                 <div class="col-1" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</div>
-                <table class="table table-hover order-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="tal">
-                                <input class="checkbox" type="checkbox" onclick="selectAll()" id="allChk">
-                            </th>
-                            <th scope="col">#</th>
-                            <th scope="col">商品名稱</th>
-                            <th scope="col"><a href="/myTeamWork/product_page02.php" style="text-decoration:none;color:black">商品類型</a></th>
-                            <th scope="col"><a href="/myTeamWork/product_page03.php" style="text-decoration:none;color:black">商品規格</a></th>
-                            <th scope="col"><a href="/myTeamWork/product_page05.php" style="text-decoration:none;color:black">庫存訊息</a></th>
-                            <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
-                            <th scope="col">商品價格</th>
-                            <th scope="col">商品圖片</th>
-                            <th scope="col">更新時間</th>
-                            <td>
-                                <a href="#"><button type="button" class="delBtn btn btn-outline">批量刪除</button></a>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody id="sortable">
-                        <?php
-                        foreach ($row as $r) : ?>
-                            <tr class="tables ui-state-default">
+                <form action="product_page01_deleteAll-api.php" method="post" >
+                    <table class="table table-hover order-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="tal">
+                                    <input class="checkbox" type="checkbox" onclick="selectAll()" id="allChk">
+                                </th>
+                                <th scope="col">#</th>
+                                <th scope="col">商品名稱</th>
+                                <th scope="col"><a href="/myTeamWork/product_page02.php" style="text-decoration:none;color:black">商品類型</a></th>
+                                <th scope="col"><a href="/myTeamWork/product_page03.php" style="text-decoration:none;color:black">商品規格</a></th>
+                                <th scope="col"><a href="/myTeamWork/product_page05.php" style="text-decoration:none;color:black">庫存訊息</a></th>
+                                <th scope="col"><a href="/myTeamWork/product_page04.php" style="text-decoration:none;color:black">供應商</a></th>
+                                <th scope="col">商品價格</th>
+                                <th scope="col">商品圖片</th>
+                                <th scope="col">更新時間</th>
                                 <td>
-                                    <input id="check" value="<?= $r['sid'] ?>" name="checkbo[]" class="check" type="checkbox">
-                                </td>
-                                <td><?= $r['sid'] ?></td>
-                                <td><?= $r['name'] ?></td>
-                                <td title="<?php echo $r['type'];
-                                            echo '-';
-                                            $sid = $r['type'];
-                                            $typesql = "SELECT `sid`,`type_name` FROM product_type WHERE sid = $sid";
-                                            $totaltype = $pdo->query($typesql)->fetch();
-                                            echo $totaltype['type_name'] ?>"><?= $r['type'] ?></td>
-                                <td title="<?php echo $r['specification'];
-                                            echo '-';
-                                            $siddd = $r['specification'];
-                                            $specsql = "SELECT * FROM product_spec WHERE sid = $siddd";
-                                            $totalspec = $pdo->query($specsql)->fetch();
-                                            echo $totalspec['product_lengh(cm)'] . 'cm';
-                                            echo "*";
-                                            echo $totalspec['product_width(cm)'] . 'cm';
-                                            echo "*";
-                                            echo $totalspec['product_height(cm)'] . 'cm';
-                                            echo "\r";
-                                            echo $totalspec['product_weight(g)'] . '克'; ?>"><?= $r['specification'] ?></td>
-                                <td title="<?php echo $r['information'];
-                                            echo '-';
-                                            $sidddd = $r['information'];
-                                            $resersql = "SELECT * FROM product_reserve WHERE sid =$sidddd";
-                                            $totalreser = $pdo->query($resersql)->fetch();
-                                            echo '倉庫庫存有' . $totalreser['quantity_ware'] . '個';
-                                            echo "&";
-                                            echo '現場庫存有' . $totalreser['quantity_location'] . '個';
-                                            ?>"><?= $r['information'] ?></td>
-                                <td title="<?php echo $r['supplier'];
-                                            echo '-';
-                                            $sidd = $r['supplier'];
-                                            $suppsql = "SELECT `sid`,`supplier_name` FROM supplier WHERE sid = $sidd";
-                                            $totalsupp = $pdo->query($suppsql)->fetch();
-                                            echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
-                                <td>$<?= $r['price'] ?></td>
-                                <td><img src="/myTeamWork/文具/<?= $r['picture'] ?>" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
-                                <td><?= $r['create_at'] ?></td>
-                                <td>
-                                    <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
-                                    <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
+                                    <button type="submit" class="delBtn btn btn-outline">批量刪除</button>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-
-
+                        </thead>
+                        <tbody id="sortable">
+                            <?php
+                            foreach ($row as $r) : ?>
+                                <tr class="tables ui-state-default">
+                                    <td>
+                                        <input id="check" value="<?= $r['sid'] ?>" name="checkbox[]" class="check" type="checkbox">
+                                    </td>
+                                    <td><?= $r['sid'] ?></td>
+                                    <td><?= $r['name'] ?></td>
+                                    <td title="<?php echo $r['type'];
+                                                echo '-';
+                                                $sid = $r['type'];
+                                                $typesql = "SELECT `sid`,`type_name` FROM product_type WHERE sid = $sid";
+                                                $totaltype = $pdo->query($typesql)->fetch();
+                                                echo $totaltype['type_name'] ?>"><?= $r['type'] ?></td>
+                                    <td title="<?php echo $r['specification'];
+                                                echo '-';
+                                                $siddd = $r['specification'];
+                                                $specsql = "SELECT * FROM product_spec WHERE sid = $siddd";
+                                                $totalspec = $pdo->query($specsql)->fetch();
+                                                echo $totalspec['product_lengh(cm)'] . 'cm';
+                                                echo "*";
+                                                echo $totalspec['product_width(cm)'] . 'cm';
+                                                echo "*";
+                                                echo $totalspec['product_height(cm)'] . 'cm';
+                                                echo "\r";
+                                                echo $totalspec['product_weight(g)'] . '克'; ?>"><?= $r['specification'] ?></td>
+                                    <td title="<?php echo $r['information'];
+                                                echo '-';
+                                                $sidddd = $r['information'];
+                                                $resersql = "SELECT * FROM product_reserve WHERE sid =$sidddd";
+                                                $totalreser = $pdo->query($resersql)->fetch();
+                                                echo '倉庫庫存有' . $totalreser['quantity_ware'] . '個';
+                                                echo "&";
+                                                echo '現場庫存有' . $totalreser['quantity_location'] . '個';
+                                                ?>"><?= $r['information'] ?></td>
+                                    <td title="<?php echo $r['supplier'];
+                                                echo '-';
+                                                $sidd = $r['supplier'];
+                                                $suppsql = "SELECT `sid`,`supplier_name` FROM supplier WHERE sid = $sidd";
+                                                $totalsupp = $pdo->query($suppsql)->fetch();
+                                                echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
+                                    <td>$<?= $r['price'] ?></td>
+                                    <td><img src="/myTeamWork/文具/<?= $r['picture'] ?>" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
+                                    <td><?= $r['create_at'] ?></td>
+                                    <td>
+                                        <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
+                                        <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">刪除</button></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
 
                 <div class="row">
                     <div class="col">
@@ -283,12 +272,6 @@ $row = $pdo->query($sql)->fetchAll();
             // console.log(rows);
             function delete_it(sid) {
                 if (confirm(`確定要刪除編號為${sid}的資料嗎？`)) {
-                    location.href = `product_page01_delete.php?sid=${sid}`;
-                }
-            }
-
-            function delete_all(sid) {
-                if (confirm(`確定要刪除已勾選的${sid}的資料嗎？`)) {
                     location.href = `product_page01_delete.php?sid=${sid}`;
                 }
             }

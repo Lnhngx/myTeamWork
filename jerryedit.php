@@ -10,14 +10,14 @@ require __DIR__. '/parts/__connect_db.php';
 $title = '修改資料';
 
 if(! isset($_GET['sid'])) {
-    header('Location: insertMember.php');
+    header('Location: jerryinsert.php');
     exit;
 }
 
 $sid = intval($_GET['sid']);
 $row = $pdo->query("SELECT * FROM `address_1` WHERE sid=$sid")->fetch();
 if(empty($row)){
-    header('Location: insertMember.php');
+    header('Location: jerryinsert.php');
     exit;
 }
 
@@ -25,7 +25,7 @@ if(empty($row)){
 
 ?>
 <?php include __DIR__. '/parts/__html_head.php' ?>
-<?php include __DIR__. '/parts/__navbar.php' ?>
+<?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
     form .form-text {
         color: red;
@@ -33,7 +33,7 @@ if(empty($row)){
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+    <div class="col-6 mx-auto mt-3">
             <div class="card" >
                 <div class="card-body">
                     <h5 class="card-title">修改資料</h5>
@@ -151,7 +151,7 @@ if(empty($row)){
         if(isPass) {
             const fd = new FormData(document.form1);
 
-            fetch('edit-api.php', {
+            fetch('jerryedit-api.php', {
                 method: 'POST',
                 body: fd,
             }).then(r => r.json())
