@@ -1,16 +1,15 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$title = '建立會員';
+$title = '新增會員';
 $pagename = 'insert';
 
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
-<?php include __DIR__ . '/parts/__navbar.php' ?>
 <style>
-    .form-text{
+    .form-text {
         color: crimson;
     }
 </style>
@@ -19,7 +18,7 @@ $pagename = 'insert';
         <div class="col-6 mx-auto mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">建立會員</h3>
+                    <h3 class="card-title text-center">新增會員</h3>
 
                     <form name="form_member" onsubmit="sendData(); return false;">
                         <div class="mb-3">
@@ -53,17 +52,24 @@ $pagename = 'insert';
                             <textarea name="address" id="address" cols="30" rows="3"></textarea>
                             <div class="form-text"></div>
                         </div>
-                        <?php /*
                         <div class="mb-3">
-                            <label for="grade_sid" class="form-label">Grade</label>
-                            <br>
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">一般
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">黃金
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">白金
-                            <input type="radio" name="grade_sid" value="<?= $row['grade_sid'] ?>">鑽石
-                            <div class="form-text"></div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1" checked>
+                                <label class="form-check-label" for="inlineRadio1">一般</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio2" value="2">
+                                <label class="form-check-label" for="inlineRadio2">黃金</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio3" value="3">
+                                <label class="form-check-label" for="inlineRadio3">白金</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio4" value="4">
+                                <label class="form-check-label" for="inlineRadio4">鑽石</label>
+                            </div>
                         </div>
-                        */ ?>
 
                         <button type="submit" class="btn btn-primary">新增</button>
                     </form>
@@ -78,14 +84,14 @@ $pagename = 'insert';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h2 class="modal-title" id="exampleModalLabel"></h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     ...
-                </div>
+                </div> -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -102,6 +108,7 @@ $pagename = 'insert';
     const name = document.querySelector('#name');
     const mobile = document.querySelector('#mobile');
     const password = document.querySelector('#password');
+    
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
 
@@ -113,6 +120,7 @@ $pagename = 'insert';
         name.nextElementSibling.innerHTML = '';
         mobile.nextElementSibling.innerHTML = '';
         password.nextElementSibling.innerHTML = '';
+        birthday.nextElementSibling.innerHTML = '';
 
         let isPass = true;
         // 檢查
@@ -130,10 +138,14 @@ $pagename = 'insert';
         }
         if (password.value.length < 5) {
             isPass = false;
-            password.nextElementSibling.innerHTML = '請輸入密碼';
+            password.nextElementSibling.innerHTML = '密碼長度不足';
+        }
+        if (!birthday.value) {
+            isPass = false;
+            birthday.nextElementSibling.innerHTML = '請填寫生日';
         }
 
-
+        // const ok = document.querySelector('#ok');
         if (isPass) {
             const fd = new FormData(document.form_member);
 
@@ -143,15 +155,22 @@ $pagename = 'insert';
                 }).then(r => r.json())
                 .then(obj => {
                     if (obj.success) {
-                        alert('新增成功');
-                        location.href = 'memberList.php';
+                        // alert('新增成功');
+                        // location.href = 'memberList.php';
+                        document.querySelector('.modal-header').innerHTML = '新增成功';
+                        modal.show();
+                        
+
                     } else {
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
+                        document.querySelector('.modal-header').innerHTML = obj.error || '資料新增失敗';
                         modal.show();
                     }
                 })
         }
 
+    }
+    function ok() {
+        location.href = 'memberList.php';
     }
 </script>
 

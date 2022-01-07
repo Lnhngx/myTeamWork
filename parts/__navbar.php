@@ -1,9 +1,9 @@
 <style>
-    .container {
-        position: absolute;
-        right: 0;
+    .wrap {
         width: calc(100% - 250px);
-
+        position: absolute;
+        left: 250px;
+        text-align: center;
     }
 
     .row {
@@ -44,49 +44,51 @@
         color: white;
     }
 
-    .tables td, th {
+    .tables td,
+    th {
         /* text-align: center; */
         vertical-align: middle;
     }
 </style>
-
-<div class="container my-3">
-    <div class="row">
-        <div class="col-6"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
-        <div class="col-3">
-            <form class="d-flex">
-                <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="search btn btn-outline" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="bd-example my-5">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="tables">
-                        <th scope="row">test</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>
-                            <button type="button" class="editBtn btn btn-outline">修改</button>
-                            <button type="button" class="delBtn btn btn-outline">刪除</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="wrap">
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-3 d-flex" style="justify-content: flex-start;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></div>
+            <div class="col-3 d-flex" style="justify-content: flex-end;">
+                <form class="d-flex">
+                    <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="search btn btn-outline" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="bd-example my-5">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tables">
+                            <th scope="row">test</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                            <td>
+                                <button type="button" class="editBtn btn btn-outline">修改</button>
+                                <button type="button" class="delBtn btn btn-outline">刪除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

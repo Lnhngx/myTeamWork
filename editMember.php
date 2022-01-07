@@ -18,10 +18,29 @@ if (empty($row)) {
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
-<?php include __DIR__ . '/parts/__navbar.php' ?>
+<style>
+    .container {
+        position: absolute;
+        right: 0;
+        width: calc(100% - 250px);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .row {
+        justify-content: center;
+    }
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+</style>
 <div class="container">
     <div class="row">
-        <div class="col-6 mx-auto mt-3">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center">修改會員基本資料</h3>

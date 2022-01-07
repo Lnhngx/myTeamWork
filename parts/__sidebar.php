@@ -5,7 +5,7 @@
         background-color: #9A572D;
         height: 100vh;
         box-shadow: 5px 0px 2px #daa520;
-        position:fixed;
+        position: fixed;
     }
 
     .ALAN-dropdown-menu {
@@ -14,11 +14,11 @@
         transition: .5s;
     }
 
-    .dropdown{
+    .dropdown {
         font-family: 'Noto Serif TC', serif;
     }
 
-    .dropdown-item{
+    .dropdown-item {
         color: #fff;
     }
 
@@ -184,7 +184,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="product_page01.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-shopping-basket"></i></div>
                     <p>商品列表</p>
 
@@ -192,7 +192,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="terry_animal_touch.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-skating"></i></div>
                     <p>活動資訊</p>
 
@@ -217,14 +217,14 @@
 
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+            <li class="nav-item" id="ty_item">
+                <a href="memberList.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-user"></i></div>
                     <p>會員資料</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="stan_cart.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-shopping-cart "></i></div>
                     <p>購物車資料</p>
 
@@ -237,19 +237,37 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>會員名稱</strong>
+                <strong><?= $_SESSION['users']['nickname'] ?? '使用者您好' ?></strong>
             </a>
             <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow-lg">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <!-- <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
+                </li> -->
+                <li>
+                <?php if (!isset($_SESSION['users']['email']) && !isset($_SESSION['users']['nickname'])) { ?>
+                    <a class="dropdown-item" >登入</a>
+                    <?php } ?>
                 </li>
-                <li><a class="dropdown-item" href="#">登出</a></li>
+                <li>
+                    <?php if (isset($_SESSION['users']['email']) && isset($_SESSION['users']['nickname'])) { ?>
+                        <a class="dropdown-item" onclick="logOut()">登出</a>
+                        <?php //if (isset($_GET['member_logout']) && ($_GET['member_logout'] == "true")) {
+                            //unset($_SESSION['users']);
+                        //} ?>
+                    <?php } ?>
+                </li>
             </ul>
         </div>
     </div>
 
     <!-- <div class="b-example-divider"></div> -->
 </main>
+
+<script>
+    function logOut() {
+        location.href = "member_logout.php";
+    }
+</script>
