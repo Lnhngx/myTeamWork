@@ -1,21 +1,80 @@
 <?php
-
 require __DIR__ . '/parts/__connect_db.php';
-$pageName = 'animal_touch';
+
 $title = '動物接觸';
+$pageName = 'animal_touch';
+
+
+
+$perpage = 5;
+
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+if ($page < 1) {
+    header('Location: animal_touch.php');
+    exit;
+};
+
+$t_sql = 'SELECT COUNT(1) FROM animal_touch';
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+$totalPages = ceil($totalRows / $perpage);
+if ($page > $totalPages) {
+    header('Location: animal_touch.php?page=' . $totalPages);
+    exit;
+};
+
+$sql = sprintf('SELECT `sid`,`actName`,`actTime_start`,`actTime_end`,`reserPeop`,`introduce`,`location` FROM animal_touch ORDER BY `actTime_start` LIMIT %s , %s', ($page - 1) * $perpage, $perpage);
+
+$rows = $pdo->query($sql)->fetchAll();
+
 ?>
+
+
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
-<?php
 
-$sql = sprintf('SELECT `sid`,`actName`,`actTime_start`,`actTime_end`,`reserPeop`,`introduce`,`location` FROM `animal_touch` ORDER BY `actTime_start` ASC ');
-$rows = $pdo->query($sql)->fetchAll();
-
-
-
-?>
 <style>
+    .items {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+
+
+    .page-item>a {
+        color: #2f4f4f;
+    }
+
+
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .page-link:focus {
+        z-index: 999;
+        border-color: #2f4f4f;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+
+    .page-link:hover {
+        z-index: 999;
+        border-color: #fff;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -105,7 +164,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <td><?= $r['introduce'] ?></td>
                                 <td><?= $r['location'] ?></td>
                                 <td>
-                                    <a href="terry_edit.php?sid=<?= $r['sid']?>">
+                                    <a href="terry_edit.php?sid=<?= $r['sid'] ?>">
                                         <button type="button" class="editBtn btn btn-outline">修改</button>
                                     </a>
                                     <a href="javascript: removeCartItem(<?= $r['sid'] ?>)">
@@ -116,6 +175,27 @@ $rows = $pdo->query($sql)->fetchAll();
                         <?php endforeach;  ?>
                     </tbody>
                 </table>
+
+
+
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a></li>
+                                <?php for ($i = $page - 2; $i <= $page + 2; $i++)
+                                    if ($i >= 1 && $i <= $totalPages) :
+                                ?>
+                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                                <?php endif; ?>
+                                <!-- for迴圈 -->
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?=$totalPages?>"><i class="fas fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

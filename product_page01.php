@@ -7,7 +7,7 @@ $pageName = 'products';
 //可以在這邊設定名稱
 
 
-$perpage = 5;
+$perpage = 10;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
@@ -42,6 +42,7 @@ $row = $pdo->query($sql)->fetchAll();
 
 
 
+
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -65,6 +66,9 @@ $row = $pdo->query($sql)->fetchAll();
             })
             .insertAfter("form");
     });
+
+
+    // ----------------------------------------------------------------
 </script>
 
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
@@ -175,12 +179,12 @@ $row = $pdo->query($sql)->fetchAll();
             </div>
             <div class="bd-example my-5">
 
-            <div class="col-1" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</div>
+                <div class="col-1" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</div>
                 <table class="table table-hover order-table">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <input class="checkbox" type="checkbox" onclick="selectAll()">
+                            <th scope="col" class="tal">
+                                <input class="checkbox" type="checkbox" onclick="selectAll()" id="allChk">
                             </th>
                             <th scope="col">#</th>
                             <th scope="col">商品名稱</th>
@@ -192,8 +196,7 @@ $row = $pdo->query($sql)->fetchAll();
                             <th scope="col">商品圖片</th>
                             <th scope="col">更新時間</th>
                             <td>
-
-                                <a href="javascript: delete_it(<?= $r['sid'] ?>)"><button type="button" class="delBtn btn btn-outline">批量刪除</button></a>
+                                <a href="#"><button type="button" class="delBtn btn btn-outline">批量刪除</button></a>
                             </td>
                         </tr>
                     </thead>
@@ -240,7 +243,7 @@ $row = $pdo->query($sql)->fetchAll();
                                             $totalsupp = $pdo->query($suppsql)->fetch();
                                             echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
                                 <td>$<?= $r['price'] ?></td>
-                                <td><img src="/myTeamWork/uploaded/alpha-lion-3.png" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'><?= $r['picture'] ?></td>
+                                <td><img src="/myTeamWork/文具/<?= $r['picture'] ?>" alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
                                 <td><?= $r['create_at'] ?></td>
                                 <td>
                                     <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
@@ -283,6 +286,14 @@ $row = $pdo->query($sql)->fetchAll();
                     location.href = `product_page01_delete.php?sid=${sid}`;
                 }
             }
+
+            function delete_all(sid) {
+                if (confirm(`確定要刪除已勾選的${sid}的資料嗎？`)) {
+                    location.href = `product_page01_delete.php?sid=${sid}`;
+                }
+            }
+
+
             const a = document.querySelector(".checkbox");
             const b = document.querySelectorAll("#check");
 
