@@ -9,7 +9,7 @@ $title = '動物接觸';
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <?php
 
-$sql = sprintf('SELECT `sid`,`actName`,`actTime_start`,`actTime_end`,`reserPeop`,`introduce`,`location` FROM `animal_touch` WHERE 1');
+$sql = sprintf('SELECT `sid`,`actName`,`actTime_start`,`actTime_end`,`reserPeop`,`introduce`,`location` FROM `animal_touch` ORDER BY `actTime_start` ASC ');
 $rows = $pdo->query($sql)->fetchAll();
 
 

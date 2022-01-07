@@ -33,6 +33,36 @@ $row = $pdo->query($sql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+   .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+
+    .page-item>a {
+        color: #2f4f4f;
+    }
+
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .page-link:focus{
+        z-index: 999;
+        border-color: #2f4f4f;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+    .page-link:hover{
+        z-index: 999;
+        border-color: #fff;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -96,6 +126,7 @@ $row = $pdo->query($sql)->fetchAll();
             </form>
         </div>
         <div class="bd-example my-5">
+        <div class="col-1" style="width:30px;height:30px;margin-top:-30px;"><a href="javascript: history.back();"><i class="ALAN-fas fas fa-undo" style="color:#2f4f4f;font-size:30px"></i></a></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -104,7 +135,7 @@ $row = $pdo->query($sql)->fetchAll();
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">庫存種類</th>
-                        <th scope="col"></th>
+                        <th scope="col" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows?> 筆</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -130,16 +161,18 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-arrow-left"></i></a></li>
+                    <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a></li>
 
-                        <?php for ($i = $page - 2; $i <= $page + 2; $i++)
-                            if ($i >= 1 && $i <= $totalPages) :
-                        ?>
-                            <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
-                            <!-- 連結用變數去帶 -->
-                        <?php endif; ?>
-                        <!-- for迴圈 -->
-                        <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-arrow-right"></i></a></li>
+                                <?php for ($i = $page - 2; $i <= $page + 2; $i++)
+                                    if ($i >= 1 && $i <= $totalPages) :
+                                ?>
+                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                                    <!-- 連結用變數去帶 -->
+                                <?php endif; ?>
+                                <!-- for迴圈 -->
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=9999"><i class="fas fa-angle-double-right"></i></a></li>
                     </ul>
                 </nav>
             </div>
