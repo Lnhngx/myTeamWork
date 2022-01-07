@@ -7,11 +7,17 @@ $output = [
     'error' => '',
 ];
 $sid = isset($_POST['question_sid']) ? intval($_POST['question_sid']) : 0;
-echo json_encode($sid);
+if(empty($sid)){
+    $output['code'] = 400;
+    $output['error'] = '沒有這個題目sid';
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 $sql = "SELECT `answer`.`sid`,`acontent`FROM `question` JOIN `answer` ON `question`.`sid`=`question_sid` WHERE `question`.`sid`= $sid ";
 $rows = $pdo -> query($sql) -> fetchAll();
 
-// echo json_encode($rows[0]['sid'],JSON_UNESCAPED_UNICODE); 測試用:
+
 
 $name = $_POST['name'];
 $qcontent = $_POST['qcontent'];
@@ -19,19 +25,14 @@ $acontent1 = $_POST['acontent1'];
 $acontent2 = $_POST['acontent2'];
 $acontent3 = $_POST['acontent3'];
 $acontent4 = $_POST['acontent4'];
-// if(empty($sid)){
-//     $output['code'] = 487;
-//     $output['error'] = '沒有這個題目';
-//     echo json_encode($output,JSON_UNESCAPED_UNICODE);
-//     exit;
-// }
 
-// if(empty($name)){
-//     $output['code'] = 403;
-//     $output['error'] = '請輸入正確的動物名稱';
-//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//     exit;
-// }
+
+if(empty($name)){
+    $output['code'] = 403;
+    $output['error'] = '請輸入正確的動物名稱';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 $sql_1="UPDATE `question` SET 
                         `name` = ?,
@@ -44,7 +45,6 @@ $stmt->execute([
     $qcontent,
     $sid,
 ]);
- echo json_encode($rows[0]['sid']);
 $sql_2 ="UPDATE `answer` SET 
                     `acontent`= ?
                 WHERE `sid` = ?";
@@ -78,8 +78,12 @@ $stmt5 -> execute([
     $rows[3]['sid'],
  ]);
 
-
-$output['success'] = $stmt->rowCount()==1;
+if($stmt -> rowCount() ==0 && $stmt2 -> rowCount() ==0 && $stmt3 -> rowCount() ==0 && $stmt4 -> rowCount() ==0 && $stmt5 -> rowCount() ==0){
+    $output['code'] = 450;
+    $output['error'] = "資料尚未修改到";
+}else{
+    $output['success'] = true;
+}
 $output['rowCount'] = $stmt->rowCount();
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
 

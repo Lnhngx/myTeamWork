@@ -24,12 +24,40 @@ if(empty($sid)) {
 $name = $_POST['name'] ?? '';
 $English_name = $_POST['English_name'] ?? '';
 $species = $_POST['species'] ?? '';
+$origin = $_POST['origin'] ?? '';
+$sbirthday = $_POST['birthday'] ?? '';
+$remark = $_POST['remark'] ?? '';
 
 //<!--     `sid`, `name`, `English_name`, `species`, `	origin`, `birthday`, `remark` -->
 // TODO: 檢查欄位資料
 if(empty($name)) {
     $output['code'] = 401;
     $output['error'] = '請輸入正確的姓名';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+}
+if(empty($English_name)) {
+    $output['code'] = 401;
+    $output['error'] = '請輸入正確的學名';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+}
+if(empty($species)) {
+    $output['code'] = 401;
+    $output['error'] = '請輸入正確的種類';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+}
+if(empty($origin)) {
+    $output['code'] = 401;
+    $output['error'] = '請輸入正確的產地';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+}
+// if(empty($birthday)) {
+//     $output['code'] = 401;
+//     $output['error'] = '請輸入正確的生日';
+//     echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+// }
+if(empty($remark)) {
+    $output['code'] = 401;
+    $output['error'] = '請輸入正確的備註';
     echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
 }
 // if(empty($English_name) or !filter_var($English_name, FILTER_VALIDATE_EMAIL)) {
@@ -41,7 +69,7 @@ if(empty($name)) {
 //     $output['code'] = 407;
 //     $output['error'] = '請輸入正確的species';
 //     echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
-// }
+//}
 
 
 

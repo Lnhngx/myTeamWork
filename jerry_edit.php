@@ -1,23 +1,23 @@
 <?php
 require __DIR__. '/parts/__connect_db.php';
 
-// 沒有登入管理帳號,就轉向
-//if(! isset($_SESSION['admin'])){
-  //  header('Location: index_.php');
-   // exit;
+//沒有登入管理帳號,就轉向
+// if(! isset($_SESSION['admin'])){
+//    header('Location: jerry_no_admin_index_.php');
+//    exit;
 // }
 
 $title = '修改資料';
 
 if(! isset($_GET['sid'])) {
-    header('Location: jerryinsert.php');
+    header('Location: insertMember.php');
     exit;
 }
 
 $sid = intval($_GET['sid']);
 $row = $pdo->query("SELECT * FROM `address_1` WHERE sid=$sid")->fetch();
 if(empty($row)){
-    header('Location: jerryinsert.php');
+    header('Location: insertMember.php');
     exit;
 }
 
@@ -25,7 +25,9 @@ if(empty($row)){
 
 ?>
 <?php include __DIR__. '/parts/__html_head.php' ?>
+<?php include __DIR__. '/parts/__navbar.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
+
 <style>
     form .form-text {
         color: red;
@@ -33,7 +35,7 @@ if(empty($row)){
 </style>
 <div class="container">
     <div class="row">
-    <div class="col-6 mx-auto mt-3">
+        <div class="col-md-6">
             <div class="card" >
                 <div class="card-body">
                     <h5 class="card-title">修改資料</h5>
@@ -42,8 +44,7 @@ if(empty($row)){
                         <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                         <div class="mb-3">
                             <label for="name" class="form-label">name *</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                            value="<?= htmlentities($row['name']) ?>">
+                            <input type="text" class="form-control" id="name" name="name" value="<?= htmlentities($row['name']) ?>">
                             <div class="form-text"></div>
                         </div>
                        <!--     `sid`, `name`, `English_name`, `species`, `	origin`, `birthday`, `remark` -->
@@ -115,6 +116,9 @@ if(empty($row)){
     const name = document.querySelector('#name');
     const English_name = document.querySelector('#English_name');
     const species = document.querySelector('#species');
+    const origin = document.querySelector('#origin');
+    const birthday= document.querySelector('#birthday');
+    const remark = document.querySelector('#remark');
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
 
@@ -124,8 +128,11 @@ if(empty($row)){
     function sendData(){
 
         name.nextElementSibling.innerHTML = '';
-        English_name.nextElementSibling.innerHTML = '';
-        species.nextElementSibling.innerHTML = '';
+        // English_name.nextElementSibling.innerHTML = '';
+        // species.nextElementSibling.innerHTML = '';
+        // origin.nextElementSibling.innerHTML = '';
+        // birthday.nextElementSibling.innerHTML = '';
+        // remark.nextElementSibling.innerHTML = '';
 
         let isPass = true;
         // 檢查表單的資料
@@ -151,7 +158,7 @@ if(empty($row)){
         if(isPass) {
             const fd = new FormData(document.form1);
 
-            fetch('jerryedit-api.php', {
+            fetch('jerry_edit-api.php', {
                 method: 'POST',
                 body: fd,
             }).then(r => r.json())
@@ -159,7 +166,7 @@ if(empty($row)){
                     console.log(obj);
                     if(obj.success){
                         alert('修改成功');
-                        // location.href = 'list.php';
+                        location.href = 'jerry_index_.php';
                     } else {
 
                         document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
