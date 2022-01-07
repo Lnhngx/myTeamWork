@@ -5,7 +5,7 @@
         background-color: #9A572D;
         height: 100vh;
         box-shadow: 5px 0px 2px #daa520;
-        position:fixed;
+        position: fixed;
     }
 
     .ALAN-dropdown-menu {
@@ -14,11 +14,11 @@
         transition: .5s;
     }
 
-    .dropdown{
+    .dropdown {
         font-family: 'Noto Serif TC', serif;
     }
 
-    .dropdown-item{
+    .dropdown-item {
         color: #fff;
     }
 
@@ -192,7 +192,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="terry_animal_touch.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-skating"></i></div>
                     <p>活動資訊</p>
 
@@ -240,13 +240,25 @@
                 <strong><?= $_SESSION['users']['nickname'] ?? '使用者您好' ?></strong>
             </a>
             <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow-lg">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <!-- <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
+                </li> -->
+                <li>
+                <?php if (!isset($_SESSION['users']['email']) && !isset($_SESSION['users']['nickname'])) { ?>
+                    <a class="dropdown-item" >登入</a>
+                    <?php } ?>
                 </li>
-                <li><a class="dropdown-item" onclick="logOut()">登出</a></li>
+                <li>
+                    <?php if (isset($_SESSION['users']['email']) && isset($_SESSION['users']['nickname'])) { ?>
+                        <a class="dropdown-item" onclick="logOut()">登出</a>
+                        <?php //if (isset($_GET['member_logout']) && ($_GET['member_logout'] == "true")) {
+                            //unset($_SESSION['users']);
+                        //} ?>
+                    <?php } ?>
+                </li>
             </ul>
         </div>
     </div>
@@ -255,7 +267,7 @@
 </main>
 
 <script>
-    function logOut(){
-        location.href="member_logout.php";
+    function logOut() {
+        location.href = "member_logout.php";
     }
 </script>

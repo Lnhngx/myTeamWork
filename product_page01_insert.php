@@ -17,6 +17,7 @@ $totalsupp = $pdo->query($suppsql)->fetchAll();
 
 $resersql = 'SELECT * FROM product_reserve ORDER BY sid ASC';
 $totalreser = $pdo->query($resersql)->fetchAll();
+
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 
