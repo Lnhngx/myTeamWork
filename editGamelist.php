@@ -86,7 +86,7 @@ $rows = $pdo -> query($sql) -> fetchAll();
                             </div> -->
                         
 
-                            <button type="submit" class="btn btn-primary">新增</button>
+                            <button type="submit" class="btn btn-primary">修改</button>
 
                         </form>
                     </div>
@@ -176,7 +176,7 @@ $rows = $pdo -> query($sql) -> fetchAll();
                 }).then(r => r.json())
                 .then(obj => {
                     if (obj.success) {
-                        alert('新增成功');
+                        alert('修改成功');
                         location.href = 'gameList.php';
                     } else {
                         document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
