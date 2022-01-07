@@ -7,7 +7,7 @@ $pageName = 'products';
 //可以在這邊設定名稱
 
 
-$perpage = 5;
+$perpage = 10;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
