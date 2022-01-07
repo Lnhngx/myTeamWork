@@ -48,8 +48,6 @@ $row = $pdo->query($sql)->fetchAll();
     $(function() {
         var tooltips = $("[title]").tooltip();
         $("<button>")
-            .text("Show help")
-            .button()
             .click(function() {
                 tooltips.tooltip("open");
             })
