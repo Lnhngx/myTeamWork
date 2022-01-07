@@ -44,18 +44,20 @@ $rows = $pdo->query($sql)->fetchAll();
         border-color: #2f4f4f;
     }
 
-    .page-link:focus{
+    .page-link:focus {
         z-index: 999;
         border-color: #2f4f4f;
         background-color: #dee2e6;
         color: #2f4f4f;
     }
-    .page-link:hover{
+
+    .page-link:hover {
         z-index: 999;
         border-color: #fff;
         background-color: #dee2e6;
         color: #2f4f4f;
     }
+
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -117,28 +119,6 @@ $rows = $pdo->query($sql)->fetchAll();
                     <button class="search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
-            <div class="row mt-5">
-                <div class="col">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <?php for ($i = $page - 2; $i <= $page + 2; $i++)
-                                if ($i >= 1 && $i <= $totalPages) : ?>
-                                <li class="page-item <?= $i == $page ? 'active' : '' ?> "><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
-                            <?php endif; ?>
-                            <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
             <div class="bd-example my-5">
                 <table class="table table-hover">
                     <thead>
@@ -191,6 +171,24 @@ $rows = $pdo->query($sql)->fetchAll();
                     </tbody>
 
                 </table>
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-arrow-left"></i></a></li>
+
+                                <?php for ($i = $page - 2; $i <= $page + 2; $i++)
+                                    if ($i >= 1 && $i <= $totalPages) :
+                                ?>
+                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                                    <!-- 連結用變數去帶 -->
+                                <?php endif; ?>
+                                <!-- for迴圈 -->
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-arrow-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
 

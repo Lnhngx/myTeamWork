@@ -36,6 +36,9 @@ $pageName = 'room-insert';
     .form-text {
         color: #f00;
     }
+    #myimg{
+        width: 500px;
+    }
 </style>
 
 
@@ -109,20 +112,19 @@ $pageName = 'room-insert';
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
                     <div class="mb-3">
-                        <form action="ning_room_image_upload.php" method="post" enctype="multipart/form-data">
-                            <input type="file" name="myfile" accept="image/*">
-                            <!-- multiple -->
-                            <input type="submit">
+                    
+                        <form name="picform" onsubmit="return false;" style="display: none;">
+                            <input id="sel_file" type="file" name="myfile" accept="image/*">
+                            
                         </form>
-                        <!-- <label for="room-image" class="form-label">房間照片</label>
-                        <button type="button" onclick="">上傳</button>
+                        <button type="button" onclick="sel_file.click()">預覽照片</button>
                         <br>
-                        <img src="./pic/alpha-lion-3.png" class="card-img-top" alt="..." style="width:200px"> -->
-
+                        <br>
+                        <img src="" id="myimg">
                     </div>
 
-                    <button type="submit" class="subbtn btn btn-primary">確認送出</button>
-                    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <button type="submit" class="subbtn btn btn-primary" >確認送出</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -137,7 +139,7 @@ $pageName = 'room-insert';
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
             </div>
@@ -147,10 +149,27 @@ $pageName = 'room-insert';
     <?php include __DIR__ . '/parts/__scripts.php' ?>
 
     <script>
+        const sel_file = document.querySelector('#sel_file');
+        sel_file.addEventListener('change',doUpload)
         const room_introduction = document.querySelector('#room-introduction');
         const check_in_data = document.querySelector('#check-in-data');
         const check_out_data = document.querySelector('#check-out-data');
         // const modal = new bootstrap.Model(document.querySelector('#exampleModal'));
+
+        function doUpload() {
+            const pc = new FormData(document.picform);
+
+            fetch('ning_room_image_upload.php', {
+                method: 'POST',
+                body: pc
+            }).then(r => r.json()).then(obj => {
+                if (obj.success) {
+                    document.querySelector("#myimg").src = 'room-uploaded/' + obj.filename
+                } else {
+                    alert(obj.error);
+                }
+            })
+        }
 
         function sendData() {
 
@@ -185,10 +204,10 @@ $pageName = 'room-insert';
                             alert('新增住宿資訊成功!');
                             location.href = 'room_list.php';
                         } else {
-                            // const msg = obj.error;
-                            // document.querySelector('.modal-body').innerHTML = msg;
-                            // modal.show();
-                            alert(obj.error);
+                            const msg = obj.error;
+                            document.querySelector('.modal-body').innerHTML = msg;
+                            modal.show();
+                            // alert(obj.error);
                         }
                     })
             }
