@@ -1,5 +1,15 @@
 <?php require __DIR__ . '/parts/__connect_db.php' ;
 
+header('Content-Type: application/json');
+
+$upload_folder = __DIR__.'/room-uploaded';
+
+$exts = [
+    'image/jpeg' => '.jpg',
+    'image/png' => '.png',
+    'image/gif' => '.gif',
+];
+
 $output = [
     'success' => false,
     'code' => 0,
@@ -29,6 +39,30 @@ if(empty($check_out_data)){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);exit;
 }
 
+if(!empty($_FILES['myfile'])){
+    $ext = $exts[$_FILES['myfile']['type']] ?? '';
+
+if(!empty($ext)){
+
+    $filename = sha1($_FILES['myfile']['name'].rand()).$ext;
+    $target = $upload_folder.'/'.$filename;
+    if(move_uploaded_file($_FILES['myfile']['tmp_name'],$target)){
+
+        $output['success'] = true;
+        $output['filename'] = $filename;
+        
+    }else{
+        $output['error'] = '無法移動檔案';
+    }
+}else{
+    $output['error'] = '沒有上傳檔案';
+}
+
+}else{
+
+    $output['error'] = '不合法的檔案類型沒有上傳檔案';
+}
+
 // TODO:檢查欄位資料
 $sql = "INSERT INTO `room-detail`(`room-name`, `room-image`,`room-introduction`, `people`, `price`,`check-in-data`, `check-out-data`, `check-in-status`) VALUES (?,?,?,?,?,?,?,?)";
 
@@ -36,7 +70,7 @@ $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     $_POST['room-name'] ?? '',
-    $_POST['room-image'] ?? '',
+    $filename,
     $introduction,
     $_POST['people'] ?? '',
     $_POST['price'] ?? '',
@@ -60,4 +94,4 @@ $stmt->execute([
 $output['success'] = $stmt->rowCount()==1;
 $output['rowCount'] = $stmt->rowCount();
 
-echo json_encode($output,JSON_UNESCAPED_UNICODE);
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
