@@ -36,8 +36,9 @@ $pageName = 'room-insert';
     .form-text {
         color: #f00;
     }
-    #myimg{
-        width: 500px;
+
+    #myimg {
+        width: 400px;
     }
 </style>
 
@@ -109,37 +110,22 @@ $pageName = 'room-insert';
                                 <textarea class="form-control" name="room-introduction" id="room-introduction" cols="30" rows="3"></textarea>
                                 <div class="form-text"></div>
                             </div>
+                            <div class="mb-3">
+
+                                <form name="picform" onsubmit="return false;" enctype="multipart/form-data">
+                                    <input id="sel_file" type="file" name="myfile" accept="image/*" style="display: none;">
+                                    <button type="button" onclick="sel_file.click()">預覽照片</button>
+                                </form>
+                                <br>
+                                <br>
+                                <img src="" id="myimg">
+                            </div>
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
-                    <div class="mb-3">
-                    
-                        <form name="picform" onsubmit="return false;" style="display: none;">
-                            <input id="sel_file" type="file" name="myfile" accept="image/*">
-                            
-                        </form>
-                        <button type="button" onclick="sel_file.click()">預覽照片</button>
-                        <br>
-                        <br>
-                        <img src="" id="myimg">
-                    </div>
 
-                    <button type="submit" class="subbtn btn btn-primary" >確認送出</button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
+                    <!-- input 元素的 "submit" 類型會被視為提交按鈕（submit button）——點選的話就能把表單提交到伺服器 -->
+                   
 
                 </div>
             </div>
@@ -150,28 +136,22 @@ $pageName = 'room-insert';
 
     <script>
         const sel_file = document.querySelector('#sel_file');
-        sel_file.addEventListener('change',doUpload)
+        sel_file.addEventListener('change', doPreview)
         const room_introduction = document.querySelector('#room-introduction');
         const check_in_data = document.querySelector('#check-in-data');
         const check_out_data = document.querySelector('#check-out-data');
         // const modal = new bootstrap.Model(document.querySelector('#exampleModal'));
 
-        function doUpload() {
-            const pc = new FormData(document.picform);
-
-            fetch('ning_room_image_upload.php', {
-                method: 'POST',
-                body: pc
-            }).then(r => r.json()).then(obj => {
-                if (obj.success) {
-                    document.querySelector("#myimg").src = 'room-uploaded/' + obj.filename
-                } else {
-                    alert(obj.error);
-                }
-            })
+        function doPreview() {
+            const [file] = sel_file.files
+            if (file) {
+                document.querySelector("#myimg").src = URL.createObjectURL(file)
+            }
         }
+    
 
         function sendData() {
+
 
             room_introduction.nextElementSibling.innerHTML = "";
             check_in_data.nextElementSibling.innerHTML = "";
@@ -179,7 +159,7 @@ $pageName = 'room-insert';
 
             //檢查表單的資料
             let isPass = true;
-            if (room_introduction.value.length < 1) {
+            if (room_introduction.value.length == 0) {
                 isPass = false;
                 room_introduction.nextElementSibling.innerHTML = "請輸入資訊";
             }
@@ -195,6 +175,7 @@ $pageName = 'room-insert';
             if (isPass) {
                 const fd = new FormData(document.form1)
 
+
                 fetch('ning_room_insert-api.php', {
                         method: 'POST',
                         body: fd,
@@ -204,14 +185,15 @@ $pageName = 'room-insert';
                             alert('新增住宿資訊成功!');
                             location.href = 'room_list.php';
                         } else {
-                            const msg = obj.error;
-                            document.querySelector('.modal-body').innerHTML = msg;
-                            modal.show();
-                            // alert(obj.error);
+                            // const msg = obj.error;
+                            // document.querySelector('.modal-body').innerHTML = msg;
+                            // modal.show();
+                            alert(obj.error);
                         }
                     })
             }
         }
     </script>
+
 
     <?php include __DIR__ . '/parts/__html_foot.php' ?>
