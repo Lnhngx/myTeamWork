@@ -171,11 +171,11 @@ $rows = $pdo->query($sql)->fetchAll();
                     </tbody>
 
                 </table>
-                <div class="row">
-                    <div class="col">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-arrow-left"></i></a></li>
+                <div class="col">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li class="page-item <?= 1 == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a></li>
 
                                 <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                     if ($i >= 1 && $i <= $totalPages) :
@@ -184,11 +184,11 @@ $rows = $pdo->query($sql)->fetchAll();
                                     <!-- 連結用變數去帶 -->
                                 <?php endif; ?>
                                 <!-- for迴圈 -->
-                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-arrow-right"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
+                                <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=9999"><i class="fas fa-angle-double-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
             </div>
         </div>
 
