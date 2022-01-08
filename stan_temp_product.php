@@ -1,8 +1,8 @@
 <?php
 
 require __DIR__ . '/parts/__connect_db.php';
-$pageName = 'Cart';
-$title = '購物車';
+$pageName = 'Temp_product';
+$title = '寧可買錯也不能錯過的商品頁';
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
