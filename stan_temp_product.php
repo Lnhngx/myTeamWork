@@ -2,7 +2,7 @@
 
 require __DIR__ . '/parts/__connect_db.php';
 $pageName = 'Temp_product';
-$title = '寧可買錯也不能錯過的商品頁';
+$title = '寧可買錯也不能錯過的商品';
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -144,26 +144,19 @@ $num = 0;
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 
 <script>
-    function removeCartItem(product_sid, num) {
-        if (confirm(`確定要刪除編號 ${num} 的資料嗎?`)) {
-            location.href = `stan_delete_cart_api.php?product_sid=${product_sid}`;
-        }
-    }
-
     document.querySelectorAll('.minusBtn').forEach((el) => {
         el.addEventListener('click', btnminus);
     })
 
     function btnminus(event) {
         let input = event.currentTarget.nextElementSibling;
-        // let a = document.querySelector('.quantitybox').parentNode;
-        //     a =a.previousElementSibling;
         if (input.value <= 1) {
             input.value = 1;
         } else {
             input.value -= 1;
         }
     }
+
 
     document.querySelectorAll('.addBtn').forEach((el) => {
         el.addEventListener('click', btnadd);
@@ -184,18 +177,24 @@ $num = 0;
     function Joincart(event) {
         let sid = $(this).closest('.tables').find('.sid').text();
         let qty = $(this).closest('.tables').find('.quantitybox').val();
-
         // 按下"加入購物車"後，會抓取同行的產品SID及購買數量
 
         console.log("sid:", sid);
         console.log("qty:", qty);
 
-        fetch('stan_add_to_cart_api.php', {
+        // fetch('stan_add_to_cart_api.php', {
+        //     sid,qty
+        // }, function(data) {
+        //     countCartItem(data);
+        // }, 'json')
+        // 有bug未解，先偷老師的Code
+
+        $.get('stan_add_to_cart_api.php', {
             sid,
             qty
         }, function(data) {
-            countCartItem(data);
-        }, 'json')
+            countCartObj(data);
+        }, 'json');
     };
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
