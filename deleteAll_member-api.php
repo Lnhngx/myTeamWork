@@ -1,7 +1,11 @@
 <?php
 require __DIR__.'/parts/__connect_db.php';
 
-// TODO:沒有登入的話...
+if(! isset($_SESSION['users'])){
+    header("Location: member_login.php");
+    exit;
+}
+// 沒有登入就轉向
 
 
 foreach($_POST['checkbox'] as $v){
