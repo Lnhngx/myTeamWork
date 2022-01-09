@@ -6,6 +6,7 @@ $title = '購物車';
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
+
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <?php
 
@@ -121,7 +122,7 @@ $num = 0;
                             <tr class="tables">
                                 <?php $num++ ?>
                                 <th scope="row"><?= $num ?></th>
-                                <td style="display:none;"><?= $r['product_sid'] ?></td>
+                                <td style="display:none;" data-sid="<?= $r['product_sid'] ?>"><?= $r['product_sid'] ?></td>
                                 <td><?= $r['product_src'] ?></td>
                                 <td><?= $r['product'] ?></td>
                                 <td class="price"><?= $r['price'] ?></td>
@@ -150,7 +151,7 @@ $num = 0;
 </div>
 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function removeCartItem(product_sid, num) {
         if (confirm(`確定要刪除編號 ${num} 的資料嗎?`)) {
@@ -159,7 +160,7 @@ $num = 0;
     }
 
     document.querySelectorAll('.minusBtn').forEach((el) => {
-        el.addEventListener('click', btnminus());
+        el.addEventListener('click', btnminus);
     })
 
     function btnminus(event) {
@@ -177,8 +178,16 @@ $num = 0;
 
     function btnadd(event) {
         let input = event.currentTarget.previousElementSibling;
+        // let a = document.querySelector('.quantitybox').parentNode;
+        //     a =a.previousElementSibling;
         input.value = parseInt(input.value) + 1;
+        changeQty(input.value);
         // 直接寫 input.value+=1; 系統會判斷成字串相加，故需使用 parseInt 轉換後在相加
+    }
+
+    function changeQty(val) {
+        let qty = val;
+        console.log(qty);
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

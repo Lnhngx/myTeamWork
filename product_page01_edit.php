@@ -33,7 +33,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-     
     .container {
         width: calc(100% - 250px);
         position: absolute;
@@ -54,6 +53,26 @@ $totalreser = $pdo->query($resersql)->fetchAll();
     .subbtn:hover {
         background-color: #908a70;
         border-color: #908a70;
+    }
+
+    .img-unit {
+        position: relative;
+        display: inline-block;
+    }
+
+    .img-unit>img {
+        width: 200px;
+    }
+
+    .img-unit>.del-div {
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+    }
+
+    .form-text{
+        color:red;
     }
 </style>
 <div class="container">
@@ -95,7 +114,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                             <label for="supp" class="form-label">供應商</label>
                             <!-- <input type="text" class="form-control" id="supp" name="supp"> -->
                             <select class="form-select" aria-label="Default select example" name="supp" value="<?= ($row['supplier']) ?>">
-                            <option value="<?= ($row['supplier']) ?>"><?= ($row['supplier']) ?></option>
+                                <option value="<?= ($row['supplier']) ?>"><?= ($row['supplier']) ?></option>
                                 <?php foreach ($totalsupp as $sup) : ?>
                                     <option value="<?= $sup['sid']; ?>"><?php echo $sup['sid'];
                                                                         echo '-';
@@ -124,38 +143,20 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                             <div class="form-text"></div>
                         </div>
                         <input id="innput" type="submit" class="subbtn btn btn-primary" value="確認送出" style="display:none">
+                        <input type="file" id="sel_file" name="myfiles[]" class="form-control">
                     </form>
                     <div class="mb-3">
-                        <label for="picture" class="form-label">商品圖片預覽</label>
-                        <form name="form1" onsubmit="return false;" style="display:none">
-                            <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file">
-                        </form>
-                        <button type="button" onclick="sel_file.click()">上傳圖片</button>
-                        <br>
+                        <label for="picture" class="form-label">商品圖片於此行下方預覽</label>
                         <div id="imgs">
+                            <div class="img-unit" data-file="${file}">
+                                <img src="uploaded/<?= $row['picture'] ?>" alt="">
+                            </div>
+                            <div class="coco4 form-text"></div>
                         </div>
-                        <img src="" id="myimg">
                     </div>
+
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -165,12 +166,9 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
     const innput = document.querySelector('#innput');
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-
 
     const sel_file = document.querySelector('#sel_file');
     const imgsDiv = document.querySelector('#imgs');
-    sel_file.style.visibility = 'hidden';
     let imgData = [];
 
     function imgUnitTpl(file) {
@@ -204,11 +202,10 @@ $totalreser = $pdo->query($resersql)->fetchAll();
     sel_file.addEventListener('change', doUpload);
 
     function doUpload() {
-        const fd = new FormData(document.form1);
-        // 表單資料包起來
+        const bodyfd = new FormData(document.form);
         fetch('product_upload.php', {
                 method: 'POST',
-                body: fd
+                body: bodyfd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
@@ -220,7 +217,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 }
             });
     };
-
 
 
     function sendData() {
@@ -235,8 +231,8 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                     alert('修改成功');
                     location.href = 'product_page01.php';
                 } else {
-                    document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
-                    modal.show();
+                    alert('資料沒有修改')
+                    document.querySelector('.coco4').innerHTML = obj.error;
                 }
             })
     };
