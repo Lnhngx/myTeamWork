@@ -45,6 +45,16 @@ $totalreser = $pdo->query($resersql)->fetchAll();
         border-color: #908a70;
     }
 
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
 
 
     /* ------- */
@@ -63,6 +73,10 @@ $totalreser = $pdo->query($resersql)->fetchAll();
         top: 0;
         cursor: pointer;
     }
+
+    .form-text {
+        color: red;
+    }
 </style>
 
 <div class="container">
@@ -75,7 +89,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <div class="mb-3">
                             <label for="name" class="form-label">商品名稱</label>
                             <input type="text" class="form-control" id="name" name="name">
-                            <div class="form-text"></div>
+                            <div class="coco1 form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="type" class="form-label">商品類型</label>
@@ -120,41 +134,24 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         <div class="mb-3">
                             <label for="money" class="form-label">商品價格</label>
                             <input type="text" class="form-control" id="money" name="money">
-                            <div class="form-text"></div>
+                            <div class="coco2 form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="d-date" class="form-label">更新時間</label>
                             <input type="date" class="form-control" id="d-date" name="d-date">
-                            <div class="form-text"></div>
+                            <div class="coco3 form-text"></div>
                         </div>
-                        <input id="innput" type="submit" class="subbtn btn btn-primary" value="確認送出" style="display:none">
+                        <input id="innput" type="submit" class="subbtn btn" value="確認送出" style="display:none">
                         <input type="file" id="sel_file" name="myfiles[]" class="form-control">
                     </form>
                     <div class="mb-3">
-                        <label for="picture" class="form-label">商品圖片預覽</label>
+                        <label for="picture" class="form-label">商品圖片於此行下方預覽</label>
                         <div id="imgs">
                         </div>
+                        <div class="coco4 form-text"></div>
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -165,9 +162,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
     const innput = document.querySelector('#innput');
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-
-
     const sel_file = document.querySelector('#sel_file');
     const imgsDiv = document.querySelector('#imgs');
     let imgData = [];
@@ -236,8 +230,10 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                     alert('新增成功');
                     location.href = 'product_page01.php';
                 } else {
-                    document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
-                    modal.show();
+                    document.querySelector('.coco1').innerHTML = obj.error1;
+                    document.querySelector('.coco2').innerHTML = obj.error2;
+                    document.querySelector('.coco3').innerHTML = obj.error3;
+                    document.querySelector('.coco4').innerHTML = obj.error4;
                 }
             })
     };

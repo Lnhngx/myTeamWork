@@ -25,7 +25,7 @@ if ($page > $totalPages) {
 };
 
 
-$sql = sprintf("SELECT * FROM product_item  LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM product_item ORDER BY sid DESC LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
 
@@ -168,7 +168,7 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="bd-example my-5">
 
                 <div class="col-1" style="color:#908a70 ; font-size:15px">總共有<?= $totalRows ?> 筆</div>
-                <form action="product_page01_deleteAll-api.php" method="post" >
+                <form action="product_page01_deleteAll-api.php" method="post">
                     <table class="table table-hover order-table">
                         <thead>
                             <tr>
@@ -185,7 +185,7 @@ $row = $pdo->query($sql)->fetchAll();
                                 <th scope="col">商品圖片</th>
                                 <th scope="col">更新時間</th>
                                 <td>
-                                    <button type="submit" class="delBtn btn btn-outline">批量刪除</button>
+                                    <button type="submit" class="delBtn btn btn-outline" title="刪除勾選的所有資料"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         </thead>
@@ -232,7 +232,7 @@ $row = $pdo->query($sql)->fetchAll();
                                                 $totalsupp = $pdo->query($suppsql)->fetch();
                                                 echo $totalsupp['supplier_name'] ?>"><?= $r['supplier'] ?></td>
                                     <td>$<?= $r['price'] ?></td>
-                                    <td><img src="./uploaded/<?= $r['picture']?> " alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
+                                    <td><img src="./uploaded/<?= $r['picture'] ?> " alt="" height="80px" xq_big="true" setting='{"pwidth":500,"pheight":500,"margin_top":-100,"margin_left":-70}'></td>
                                     <td><?= $r['create_at'] ?></td>
                                     <td>
                                         <a href="product_page01_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
@@ -267,11 +267,17 @@ $row = $pdo->query($sql)->fetchAll();
 
         <?php include __DIR__ . '/parts/__scripts.php' ?>
         <script>
-            // const rows = <?= json_encode($row) ?>;
-            // console.log(rows);
             function delete_it(sid) {
                 if (confirm(`確定要刪除編號為${sid}的資料嗎？`)) {
                     location.href = `product_page01_delete.php?sid=${sid}`;
+                }
+            }
+
+            const delBtn = document.querySelector('.delBtn');
+            delBtn.addEventListener('click', deleteAll);
+            function deleteAll() {
+                if (confirm(`確定要刪除勾選的資料嗎？`)) {
+                    location.href = `product_page01_deleteAll-api.php`;
                 }
             }
 

@@ -5,18 +5,18 @@ require __DIR__ . '/parts/__connect_db.php';
 
 $output = [
     'success' => false,
-    'code' => 0,
     'error' => '',
 ];
 
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if (empty($sid)) {
-    $output['code'] = 400;
     $output['error'] = '沒有 sid';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
+
+
 
 $name = $_POST['name'] ?? '';
 $type = $_POST['type'] ?? '';
@@ -25,7 +25,8 @@ $supp = $_POST['supp'] ?? '';
 $reser = $_POST['reser'] ?? '';
 $money = $_POST['money'] ?? '';
 $ddate = $_POST['d-date'] ?? '';
-// $picture = isset($_FILES['myfiles']) ? $_FILES['myfiles'] : '';
+$pictures = $_FILES['myfiles']['name'];
+$pictureName = implode(",", $pictures);
 
 
 
@@ -52,12 +53,17 @@ $stmt->execute([
     $reser,
     $supp,
     $money,
-    null,
+    $pictureName,
     $ddate,
     $sid
 ]);
 
-
+if (empty($pictureName)) {
+    $output['code'] = 999;
+    $output['error'] = '請選擇商品圖片';
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 if ($stmt->rowCount() == 0) {
     $output['error'] = '資料沒有修改';

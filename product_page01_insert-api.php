@@ -5,8 +5,10 @@ require __DIR__ . '/parts/__connect_db.php';
 
 $output = [
     'success' => false,
-    'code' => 0,
-    'error' => '',
+    'error1' => '',
+    'error2' => '',
+    'error3' => '',
+    'error4' => '',
 ];
 
 $name = $_POST['name'] ?? '';
@@ -21,34 +23,14 @@ $pictureName = implode(",", $pictures);
 
 
 
-if (empty($name)) {
-    $output['code'] = 999;
-    $output['error'] = '請輸入商品名稱';
+if (empty($name).empty($money).empty($ddate).empty($pictureName)) {
+    $output['error1'] = '請輸入商品名稱';
+    $output['error2'] = '請輸入商品金額';
+    $output['error3'] = '請選擇更新日期';
+    $output['error4'] = '請選擇商品圖片';
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
     exit;
 }
-
-if (empty($ddate)) {
-    $output['code'] = 999;
-    $output['error'] = '請輸入商品名稱';
-    echo json_encode($output,JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-if (empty($money)) {
-    $output['code'] = 999;
-    $output['error'] = '請輸入商品名稱';
-    echo json_encode($output,JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-if (empty($pictureName)) {
-    $output['code'] = 999;
-    $output['error'] = '請輸入商品名稱';
-    echo json_encode($output,JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
 
 
 $sql = "INSERT INTO `product_item` (`name`, `type`, `specification`, `information`, `supplier`, `price`, `picture`, `create_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
