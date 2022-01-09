@@ -7,7 +7,6 @@ $output = [
     'success' => false,
     'code' => 0,
     'error' => '',
-    // 'picture' => $picture
 ];
 
 $name = $_POST['name'] ?? '';
@@ -17,10 +16,33 @@ $supp = $_POST['supp'] ?? '';
 $reser = $_POST['reser'] ?? '';
 $money = $_POST['money'] ?? '';
 $ddate= $_POST['d-date'] ?? '';
-$picture= isset($_FILES['myfiles']) ? $_FILES['myfiles'] :'';
+$pictures = $_FILES['myfiles']['name'];
+$pictureName = implode(",", $pictures);
+
 
 
 if (empty($name)) {
+    $output['code'] = 999;
+    $output['error'] = '請輸入商品名稱';
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if (empty($ddate)) {
+    $output['code'] = 999;
+    $output['error'] = '請輸入商品名稱';
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if (empty($money)) {
+    $output['code'] = 999;
+    $output['error'] = '請輸入商品名稱';
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if (empty($pictureName)) {
     $output['code'] = 999;
     $output['error'] = '請輸入商品名稱';
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
@@ -41,9 +63,10 @@ $stmt->execute([
     $_POST['reser'] ?? '',
     $_POST['supp'] ?? '',
     $_POST['money'] ?? '',
-    null,
+    $pictureName,
     $_POST['d-date'] ?? ''
 ]);
+
 
 $output['success'] = $stmt->rowCount() == 1;
 $output['rowCount'] = $stmt->rowCount();

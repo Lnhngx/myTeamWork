@@ -23,7 +23,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    
     .container {
         width: calc(100% - 250px);
         position: absolute;
@@ -129,21 +128,14 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                             <div class="form-text"></div>
                         </div>
                         <input id="innput" type="submit" class="subbtn btn btn-primary" value="確認送出" style="display:none">
+                        <input type="file" id="sel_file" name="myfiles[]" class="form-control">
                     </form>
                     <div class="mb-3">
                         <label for="picture" class="form-label">商品圖片預覽</label>
-                        <form name="form1" onsubmit="return false;" style="display:none">
-                            <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file">
-                        </form>
-                        <button type="button" onclick="sel_file.click()">上傳圖片</button>
-                        <br>
                         <div id="imgs">
                         </div>
-                        <!-- 按鈕放在表單外 -->
-                        <img src="" id="myimg">
                     </div>
                     <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
-                    <input id="sel_file" type="file" name="myfiles[]" multiple accept="image/*" name="file" value="">
                 </div>
             </div>
         </div>
@@ -178,7 +170,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 
     const sel_file = document.querySelector('#sel_file');
     const imgsDiv = document.querySelector('#imgs');
-    sel_file.style.visibility = 'hidden';
     let imgData = [];
 
     function imgUnitTpl(file) {
@@ -196,6 +187,8 @@ $totalreser = $pdo->query($resersql)->fetchAll();
             imgsDiv.innerHTML += imgUnitTpl(i);
         }
     }
+    // 塞入圖片
+
     imgsDiv.addEventListener('click', function(event) {
         const t = event.target;
         if (t.classList.contains('del-icon')) {
@@ -208,15 +201,16 @@ $totalreser = $pdo->query($resersql)->fetchAll();
             }
         }
     });
+    // 刪除檔案
 
     sel_file.addEventListener('change', doUpload);
 
+
     function doUpload() {
-        const fd = new FormData(document.form1);
-        // 表單資料包起來
+        const bodyfd = new FormData(document.form);
         fetch('product_upload.php', {
                 method: 'POST',
-                body: fd
+                body: bodyfd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
@@ -228,7 +222,6 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 }
             });
     };
-
 
 
     function sendData() {
