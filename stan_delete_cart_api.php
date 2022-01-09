@@ -2,11 +2,10 @@
 require __DIR__ . '/parts/__connect_db.php';
 
 
-if(isset($_GET['product_sid'])){
-    $sid=intval($_GET['product_sid']);
-    $pdo->query("DELETE FROM `temp_cart` WHERE product_sid=$sid");
-}
+$cardItem_sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
+unset($_SESSION['cart'][$cardItem_sid]);
 
-$come_from = $_SERVER['HTTP_REFERER'] ?? 'cart.php';
+
+$come_from = $_SERVER['HTTP_REFERER'] ?? 'stan_cart.php';
 
 header("Location: $come_from");
