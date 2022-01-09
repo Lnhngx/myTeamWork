@@ -193,7 +193,7 @@ $num = 0;
             sid,
             qty
         }, function(data) {
-            countCartObj(data);
+            // countCartObj(data);
         }, 'json');
     };
 </script>
