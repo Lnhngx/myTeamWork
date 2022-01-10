@@ -55,6 +55,17 @@ $totalreser = $pdo->query($resersql)->fetchAll();
         border-color: #908a70;
     }
 
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
     .img-unit {
         position: relative;
         display: inline-block;

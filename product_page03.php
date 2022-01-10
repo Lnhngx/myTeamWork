@@ -126,7 +126,7 @@ $row = $pdo->query($sql)->fetchAll();
             </form>
         </div>
         <div class="bd-example my-5">
-        <div class="col-1" style="width:30px;height:30px;margin-top:-30px;"><a href="javascript: history.back();"><i class="ALAN-fas fas fa-undo" style="color:#2f4f4f;font-size:30px"></i></a></div>
+        <div class="col-1" style="width:30px;height:30px;margin-top:-30px;"><a href="/myTeamWork/product_page01.php"><i class="ALAN-fas fas fa-undo" style="color:#2f4f4f;font-size:30px"></i></a></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
