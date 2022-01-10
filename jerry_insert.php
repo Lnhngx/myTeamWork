@@ -44,7 +44,7 @@ $pagename = 'insert';
                             <input type="text" class="form-control" id="origin" name="origin"> <!-- data-pattern="09\d{2}-?\d{3}-?\d{3}"  -->
                         </div>
                         <div class="mb-3">
-                            <label for="birthday" class="form-label">Birthday</label>
+                            <label for="birthday" class="form-label">生日</label>
                             <input type="date" class="form-control" id="birthday" name="birthday">
                             <div class="form-text"></div>
                         </div>
@@ -123,12 +123,12 @@ $pagename = 'insert';
 
         if (name.value.length < 2) {
             isPass = false;
-            name.nextElementSibling.innerHTML = '請輸入正確的姓名';
+            name.nextElementSibling.innerHTML = '請輸入正確的學名';
         }
 
-        if (species.value.length < 5) {
+        if (species.value.length < 2) {
             isPass = false;
-            species.nextElementSibling.innerHTML = '請輸入位置';
+            species.nextElementSibling.innerHTML = '請輸入正確物種名稱';
         }
 
 

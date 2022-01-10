@@ -12,9 +12,16 @@ $pageName = 'index';
 $title = '通訊錄列表';
 $pageName = 'list';
 
-$sql = sprintf("SELECT *  FROM `address_1` WHERE 1");
+$content = (isset($_POST['searchbox']) ? "%". $_POST['searchbox'] ."%" : '');
+if ($content !== '') {
+    $sql = sprintf("SELECT *  FROM `address_1` WHERE `name` LIKE '%s' OR `English_name` LIKE '%s' OR `species` LIKE '%s' OR `origin` LIKE '%s'"   ,$content,$content,$content,$content);
+;
+} else {
+    $sql = sprintf("SELECT *  FROM `address_1` WHERE 1");
+}
 
 $rows = $pdo->query($sql)->fetchAll();
+
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -78,8 +85,8 @@ $rows = $pdo->query($sql)->fetchAll();
             <button type="button" onclick="location.href='jerry_insert.php'" class="insert btn btn-outline" id="btn">新增</button>
         </div>
         <div class="col-3">
-            <form class="d-flex">
-                <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" method="POST" action="">
+                <input class="searchIp form-control" type="text" name="searchbox" id="searchbox">
                 <button class="search btn btn-outline" type="submit">Search</button>
             </form>
         </div>
