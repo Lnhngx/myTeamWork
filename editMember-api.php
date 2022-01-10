@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/parts/__connect_db.php';
+require __DIR__ . '/parts/__connect_db.php';
 
 $output = [
     'success' => false,
@@ -7,14 +7,14 @@ $output = [
     'error' => '',
 ];
 
-if(! isset($_SESSION['users'])){
+if (!isset($_SESSION['users'])) {
     header("Location: member_login.php");
     exit;
 }
 // 沒有登入就轉向
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
-if(empty($sid)){
+if (empty($sid)) {
     $output['code'] = 400;
     $output['error'] = '沒有此會員';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -27,25 +27,25 @@ $mobile = $_POST['mobile'] ?? '';
 $password = $_POST['password'] ?? '';
 
 
-if(empty($name)){
+if (empty($name)) {
     $output['code'] = 403;
     $output['error'] = '請輸入正確的姓名';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-if(empty($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)){
+if (empty($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $output['code'] = 401;
     $output['error'] = '請輸入正確的email';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-if(empty($mobile) or !preg_match("/^09\d{2}-?\d{3}-?\d{3}$/", $mobile)){
+if (empty($mobile) or !preg_match("/^09\d{2}-?\d{3}-?\d{3}$/", $mobile)) {
     $output['code'] = 405;
     $output['error'] = '請輸入正確的手機號碼';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-if(empty($password)){
+if (empty($password)) {
     $output['code'] = 407;
     $output['error'] = '請輸入密碼';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -58,7 +58,8 @@ $sql = "UPDATE `members` SET
                      `password`=?,
                      `mobile`=?,
                      `birthday`=?,
-                     `address`=?
+                     `address`=?,
+                     `grade_sid`=?,
         WHERE `sid`=?";
 
 $stmt = $pdo->prepare($sql);
@@ -69,6 +70,7 @@ $stmt->execute([
     $mobile,
     empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'] ?? '',
+    $_POST['grade_sid'] ?? '',
     $sid
 ]);
 
@@ -77,9 +79,9 @@ $stmt->execute([
 
 
 
-if($stmt->rowCount()==0){
+if ($stmt->rowCount() == 0) {
     $output['error'] = '資料沒有修改';
-}else{
+} else {
     $output['success'] = true;
 }
 
