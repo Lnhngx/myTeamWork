@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 require __DIR__ . '/parts/__connect_db.php';
 $pageName = 'Cart';
 $title = '奇怪的購物車';
@@ -239,7 +239,7 @@ $total = 0;
     function calPrices(cb) {
         let total = 0;
         const table = $('.tables');
-        if (! table.length) {
+        if (!table.length) {
             alert('請先將商品加入購物車');
             location.href = 'stan_temp_product.php';
             return;
