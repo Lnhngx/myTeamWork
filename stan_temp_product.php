@@ -99,10 +99,10 @@ $num = 0;
         <div class="row">
             <div class="col-3 d-flex" style="justify-content: flex-start;"></div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
-                <form class="d-flex">
+                <!-- <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
                     <button class="search btn btn-outline" type="submit">Search</button>
-                </form>
+                </form> -->
             </div>
             <div class="bd-example my-5">
                 <table class="table table-hover">
@@ -179,9 +179,6 @@ $num = 0;
         let qty = $(this).closest('.tables').find('.quantitybox').val();
         // 按下"加入購物車"後，會抓取同行的產品SID及購買數量
 
-        console.log("sid:", sid);
-        console.log("qty:", qty);
-
         // fetch('stan_add_to_cart_api.php', {
         //     sid,qty
         // }, function(data) {
@@ -195,6 +192,7 @@ $num = 0;
         }, function(data) {
             // countCartObj(data);
         }, 'json');
+        alert('成功新增商品至購物車');
     };
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
