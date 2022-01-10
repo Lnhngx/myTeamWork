@@ -184,10 +184,10 @@ $rows = $pdo->query($sql)->fetchAll();
             <!-- row 分頁按鈕 -->
 
             <div class="bd-example mb-5 mt-3">
-                <form action="deleteAll_member-api.php" method="post">
+                <form action="deleteAll_member-api.php" method="post" name="form1">
                     <!-- 表單送出會到 deleteAll_member-api -->
                     <table class="table table-hover order-table">
-                                                    <!-- search bar 語法-->
+                        <!-- search bar 語法-->
                         <thead>
                             <tr>
                                 <th>
@@ -203,6 +203,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <th scope="col">Birthday</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Grade</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">
                                     <button type="submit" class="delAllbtn btn btn-outline-dange">
                                         <i class="fas fa-trash-alt"></i>
@@ -225,6 +226,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                     <td><?= $r['birthday'] ?></td>
                                     <td><?= $r['address'] ?></td>
                                     <td><?= $r['grade_name'] ?></td>
+                                    <td><?= $r['img'] ?></td>
                                     <td>
                                         <a href="editMember.php?sid=<?= $r['sid'] ?>">
                                             <button type="button" class="editBtn btn btn-outline">修改</button>
@@ -276,13 +278,25 @@ $rows = $pdo->query($sql)->fetchAll();
     })
     // 如果第一個checkbox已選，其他全選
 
+    
     const delAllbtn = document.querySelector('.delAllbtn');
     delAllbtn.addEventListener('click', delAll);
 
     function delAll() {
-        if (confirm(`確定刪除已勾選的項目?`)) {
-            location.href = `deleteAll_member-api.php`;
-        }
+        event.preventDefault();
+        // 先將表單+按鈕預設的submit關閉，下方再以傳送至後端的方式去執行
+        const fd = new FormData(document.form1);
+        fetch('deleteAll_member-api.php', {
+            method: 'POST',
+            body: fd,
+        }).then(r => r.json()).then(obj => {
+            if (obj.success) {
+                if(confirm(`確定刪除已勾選的項目?`)){
+                    window.location.reload();
+                }
+            }
+        });
+        
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
