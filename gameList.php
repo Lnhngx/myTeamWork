@@ -1,18 +1,29 @@
 <?php
 require __DIR__. '/parts/__connect_db.php';
 $title = '遊戲選項列表';
-$pageName = 'gamelist';
+$pageName = 'gameList';
 
-$sql = "SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid`";
-$rows = $pdo -> query($sql) ->fetchAll();
-// $rows 由 fetchAll()全部取出來，目前是47筆
+
 $t_sql = "SELECT COUNT(1) FROM answer";
 $totalRows = $pdo -> query($t_sql) ->fetch(PDO::FETCH_NUM)[0];
 // $totalRows是總筆數
-$perPage = 5; 
-//一頁目前顯示5筆
+$perPage = 12; 
+//一頁目前顯示12筆
 $totalPages = ceil($totalRows/$perPage);
-
+// 處理分頁，沒有設定統一第一頁顯示出來
+$page = isset($_GET['page']) ? intval($_GET['page']):1;
+// 列印出當下那頁該有的資料
+$sql = sprintf("SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` LIMIT %s,%s",($page-1)*$perPage,$perPage);
+// $rows 由 fetchAll()全部取出來，目前是47筆
+$rows = $pdo -> query($sql) ->fetchAll();
+if($page<1){
+    header('Location:gameList.php');
+    exit;
+}
+if($page>$totalPages){
+    header('Location:gameList.php?page='.$totalPages);
+    exit;
+}
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -109,9 +120,8 @@ $totalPages = ceil($totalRows/$perPage);
 
             </div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
-                <form class="d-flex">
+                <form class="d-flex" name="form12">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
             <!-- 分頁按鈕begin -->
@@ -208,7 +218,7 @@ $totalPages = ceil($totalRows/$perPage);
                         <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-danger">刪除</button>
+                    <button  class="delAll btn btn-danger">刪除</button>
                 </form>   
             </div>
         </div>
@@ -218,7 +228,7 @@ $totalPages = ceil($totalRows/$perPage);
 <script>
     const checkAll = document.querySelector('.checkAll');
     const check = document.querySelectorAll('.check');
-    checkAll.addEventListener('onchange',function(){
+    checkAll.addEventListener('change',function(){
         if(checkAll.checked == true){
             check.forEach(el=>el.checked=true);
         }else{
@@ -230,5 +240,30 @@ $totalPages = ceil($totalRows/$perPage);
             location.href = `delete_Alist.php?question_sid=${question_sid}`;
         }
     }
+
+    const delAll = document.querySelector('.delAll');
+    delAll.addEventListener('click', delAl);
+
+    function delAl() {
+        if (confirm(`確定刪除已勾選的項目?`)) {
+            delAll.getAttribute('type') = 'submit';
+            location.href = `deleteAll_member-api.php`;
+        }else{
+           det 
+        }  
+    }
+
+    const search = document.querySelector('.searchIp');
+    search.addEventListener('onchange',function(){
+        console.log(search.value);
+    })
+    // function doSearch(){
+    //     const fd = new FormData(document.form12);
+    //     fetch(filter-api.php,{
+    //         method : 'POST',
+    //         body : fd,
+    //     })
+    // }
+    
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
