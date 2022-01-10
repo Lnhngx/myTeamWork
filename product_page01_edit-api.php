@@ -16,8 +16,6 @@ if (empty($sid)) {
     exit;
 }
 
-
-
 $name = $_POST['name'] ?? '';
 $type = $_POST['type'] ?? '';
 $spec = $_POST['spec'] ?? '';
@@ -27,6 +25,7 @@ $money = $_POST['money'] ?? '';
 $ddate = $_POST['d-date'] ?? '';
 $pictures = $_FILES['myfiles']['name'];
 $pictureName = implode(",", $pictures);
+
 
 
 
@@ -41,35 +40,62 @@ $sql = "UPDATE `product_item` SET
                           `create_at`=?
 WHERE `sid`=?";
 
+$sql2 = "UPDATE `product_item` SET 
+                          `name`=?,
+                          `type`=?,
+                          `specification`=?,
+                          `information`=?,
+                          `supplier`=?,
+                          `price`=?,
+                          `create_at`=?
+WHERE `sid`=?";
+
+// $sqlArray = [$name, $type, $spec, $reser, $supp, $money, isset($pictureName) ? $pictureName : '', $ddate, $sid];
+// isset($pictureName) ? '' : array_splice($sqlArray, 6, 1);
 
 
 $stmt = $pdo->prepare($sql);
+$stmt2 = $pdo->prepare($sql2);
 
-
-$stmt->execute([
-    $name,
-    $type,
-    $spec,
-    $reser,
-    $supp,
-    $money,
-    $pictureName,
-    $ddate,
-    $sid
-]);
+// $stmt->execute($sqlArray);
 
 if (empty($pictureName)) {
-    $output['code'] = 999;
-    $output['error'] = '請選擇商品圖片';
-    echo json_encode($output,JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-if ($stmt->rowCount() == 0) {
-    $output['error'] = '資料沒有修改';
+    $stmt2->execute([
+        $name,
+        $type,
+        $spec,
+        $reser,
+        $supp,
+        $money,
+        $ddate,
+        $sid
+    ]);
 } else {
+    $stmt->execute([
+        $name,
+        $type,
+        $spec,
+        $reser,
+        $supp,
+        $money,
+        $pictureName,
+        $ddate,
+        $sid
+    ]);
+};
+
+
+if ($stmt->rowCount() == 1 || $stmt2->rowCount() == 1) {
     $output['success'] = true;
-}
+} else {
+    $output['error'] = '資料沒有修改';
+};
+
+// if ($stmt->rowCount() == 0) {
+//     $output['error'] = '資料沒有修改';
+// } else {
+//     $output['success'] = true;
+// };
 
 // $output['success'] = $stmt->rowCount() == 1;
 // $output['rowCount'] = $stmt->rowCount();
