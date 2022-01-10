@@ -21,8 +21,21 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
-<!-- <?php include __DIR__ . '/parts/__navbar.php' ?> -->
+<?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .container {
+        position: absolute;
+        right: 0;
+        width: calc(100% - 250px);
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+
+    .row {
+        justify-content: center;
+    }
+    
     form .form-text {
         color: red;
     }
@@ -126,6 +139,11 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
         if (actName.value.length < 2) {
             isPass = false;
             actName.nextElementSibling.innerHTML = '請輸入正確的資訊';
+        }
+
+        if (reserPeop.value && !reserPeop_re.test(reserPeop.value)) {
+            isPass = false;
+            reserPeop.nextElementSibling.innerHTML = '請輸入正確的人數';
         }
 
 
