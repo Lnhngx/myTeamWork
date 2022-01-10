@@ -37,7 +37,7 @@ $pageName = 'room-insert';
         color: #f00;
     }
 
-    #myimg {
+    .myimg {
         width: 400px;
     }
 </style>
@@ -86,7 +86,7 @@ $pageName = 'room-insert';
                         </div>
                         <div class="mb-3">
                             <label for="check-in-data" class="form-label">入住時間</label>
-                            <input type="date" class="form-control" id="check-in-data" name="check-in-data">
+                            <input type="date" class="form-control" id="check-in-data" name="check-in-data" >
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -118,7 +118,7 @@ $pageName = 'room-insert';
                                 </form>
                                 <br>
                                 <br>
-                                <img src="" id="myimg">
+                                <img src="" id="myimg" class="myimg">
                             </div>
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
