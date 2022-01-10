@@ -145,7 +145,7 @@ if($page>$totalPages){
                             if($i>=1 && $i<=$totalPages): ?>
                             <li class="page-item <?= $i==$page ? 'active' : ''?>">
                                 <a class="page-link" href="?page=<?= $i ?>">
-                                    <?= $i ?>
+                                    <?= $i ?> 
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -263,7 +263,7 @@ if($page>$totalPages){
     //         method : 'POST',
     //         body : fd,
     //     })
-    // }
+    //  }
     
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
