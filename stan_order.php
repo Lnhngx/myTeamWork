@@ -9,8 +9,8 @@ $data_ar = []; // dict
 $total = 0;
 
 // 有登入才能結帳
-if(! isset($_SESSION['loginUser'])){
-    header('Location: product-list.php');
+if (!isset($_SESSION['users'])) {
+    header('Location: stan_temp_product.php');
     exit;
 }
 
