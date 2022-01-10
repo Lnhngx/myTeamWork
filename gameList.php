@@ -263,7 +263,7 @@ if($page>$totalPages){
     //         method : 'POST',
     //         body : fd,
     //     })
-    //  }
+    //   }
     
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
