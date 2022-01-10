@@ -9,97 +9,103 @@ $pagename = 'insert';
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .wrap {
+        width: calc(100% - 250px);
+        position: absolute;
+        left: 250px;
+        /* text-align: center; */
+    }
     .form-text {
         color: crimson;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-6 mx-auto mt-3">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-center">新增會員</h3>
+<div class="wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mx-auto mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">新增會員</h3>
 
-                    <form name="form_member" onsubmit="sendData(); return false;">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Account (Email)</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                            <div class="form-text"></div>
-                            <!-- 將所有適用的字符轉換為 HTML 實體 -->
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="text" class="form-control" id="password" name="password">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mobile" class="form-label">Mobile</label>
-                            <input type="text" class="form-control" id="mobile" name="mobile" data-pattern="09\d{2}-?\d{3}-?\d{3}">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="birthday" class="form-label">Birthday</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea name="address" id="address" cols="30" rows="3"></textarea>
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1" checked>
-                                <label class="form-check-label" for="inlineRadio1">一般</label>
+                        <form name="form_member" onsubmit="sendData(); return false;">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Account (Email)</label>
+                                <input type="text" class="form-control" id="email" name="email">
+                                <div class="form-text"></div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio2" value="2">
-                                <label class="form-check-label" for="inlineRadio2">黃金</label>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                                <div class="form-text"></div>
+                                <!-- 將所有適用的字符轉換為 HTML 實體 -->
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio3" value="3">
-                                <label class="form-check-label" for="inlineRadio3">白金</label>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="password" name="password">
+                                <div class="form-text"></div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio4" value="4">
-                                <label class="form-check-label" for="inlineRadio4">鑽石</label>
+                            <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile" data-pattern="09\d{2}-?\d{3}-?\d{3}">
+                                <div class="form-text"></div>
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="birthday" class="form-label">Birthday</label>
+                                <input type="date" class="form-control" id="birthday" name="birthday">
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea name="address" id="address" cols="30" rows="3"></textarea>
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio1" value="1" checked>
+                                    <label class="form-check-label" for="inlineRadio1">一般</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio2" value="2">
+                                    <label class="form-check-label" for="inlineRadio2">黃金</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio3" value="3">
+                                    <label class="form-check-label" for="inlineRadio3">白金</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="grade_sid" id="inlineRadio4" value="4">
+                                    <label class="form-check-label" for="inlineRadio4">鑽石</label>
+                                </div>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">新增</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">新增</button>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel"></h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <!-- <div class="modal-body">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel"></h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- <div class="modal-body">
                     ...
                 </div> -->
-                <div class="modal-footer">
-                    <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                    <div class="modal-footer">
+                        <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
 </div>
-
-
 
 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
@@ -108,7 +114,7 @@ $pagename = 'insert';
     const name = document.querySelector('#name');
     const mobile = document.querySelector('#mobile');
     const password = document.querySelector('#password');
-    
+
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
 
@@ -159,7 +165,7 @@ $pagename = 'insert';
                         // location.href = 'memberList.php';
                         document.querySelector('.modal-header').innerHTML = '新增成功';
                         modal.show();
-                        
+
 
                     } else {
                         document.querySelector('.modal-header').innerHTML = obj.error || '資料新增失敗';
@@ -169,6 +175,7 @@ $pagename = 'insert';
         }
 
     }
+
     function ok() {
         location.href = 'memberList.php';
     }

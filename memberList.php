@@ -42,6 +42,8 @@ $rows = $pdo->query($sql)->fetchAll();
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
+<script src="/myTeamWork/search.js"></script>
+<!-- search bar 語法-->
 <style>
     .fa-angle-double-right,
     .fa-angle-right,
@@ -134,14 +136,14 @@ $rows = $pdo->query($sql)->fetchAll();
     <div class="container my-3">
         <div class="row">
             <div class="col-3 d-flex" style="justify-content: flex-start;"><button onclick="insertMember()" type="button" class="insert btn btn-outline" id="btn">新增</button></div>
-            <div class="col-3 d-flex" style="justify-content: flex-start;">
-                <form class="d-flex">
-                    <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline" type="submit">Search</button>
-                </form>
+            <div class="col-3 d-flex" style="justify-content: flex-end;">
+                <div class="d-flex">
+                    <input class="searchIp form-control light-table-filter" type="search" placeholder="Search" aria-label="Search" data-table="order-table">
+                    <!-- search bar 語法-->
+                </div>
             </div>
             <div class="col-12">
-                <div class="col ty_col">
+                <div class="col">
                     <nav aria-label="...">
                         <ul class="pagination d-flex justify-content-end mb-0 mt-2">
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
@@ -184,7 +186,8 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="bd-example mb-5 mt-3">
                 <form action="deleteAll_member-api.php" method="post">
                     <!-- 表單送出會到 deleteAll_member-api -->
-                    <table class="table table-hover">
+                    <table class="table table-hover order-table">
+                                                    <!-- search bar 語法-->
                         <thead>
                             <tr>
                                 <th>
@@ -245,24 +248,6 @@ $rows = $pdo->query($sql)->fetchAll();
         <!-- row 會員資料 -->
     </div>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel"></h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <!-- <div class="modal-body">
-                    ...
-                </div> -->
-                <div class="modal-footer">
-                    <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
 
