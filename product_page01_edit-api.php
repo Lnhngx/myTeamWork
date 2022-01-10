@@ -25,77 +25,106 @@ $money = $_POST['money'] ?? '';
 $ddate = $_POST['d-date'] ?? '';
 $pictures = $_FILES['myfiles']['name'];
 $pictureName = implode(",", $pictures);
+$sqlVar = ($pictureName !=='')? ' `picture`=?,': '';
 
 
-
-
-$sql = "UPDATE `product_item` SET 
+$sql = sprintf( "UPDATE `product_item` SET 
                           `name`=?,
                           `type`=?,
                           `specification`=?,
                           `information`=?,
                           `supplier`=?,
-                          `price`=?,
-                          `picture`=?,
-                          `create_at`=?
-WHERE `sid`=?";
+                          `price`=?, 
+                            %s
+                          `create_at`=?  WHERE `sid`=?", $sqlVar);
 
-$sql2 = "UPDATE `product_item` SET 
-                          `name`=?,
-                          `type`=?,
-                          `specification`=?,
-                          `information`=?,
-                          `supplier`=?,
-                          `price`=?,
-                          `create_at`=?
-WHERE `sid`=?";
+// 錯誤
+// $sql = "UPDATE `product_item` SET 
+//                           `name`=?,
+//                           `type`=?,
+//                           `specification`=?,
+//                           `information`=?,
+//                           `supplier`=?,
+//                           `price`=?,
+//                           ${($pictureName==='') ? '': ' `picture`=?,' } 
+//                           `create_at`=?
+// WHERE `sid`=?";
 
-// $sqlArray = [$name, $type, $spec, $reser, $supp, $money, isset($pictureName) ? $pictureName : '', $ddate, $sid];
-// isset($pictureName) ? '' : array_splice($sqlArray, 6, 1);
+// 正確用法
+// $sql = "UPDATE `product_item` SET 
+//                           `name`=?,
+//                           `type`=?,
+//                           `specification`=?,
+//                           `information`=?,
+//                           `supplier`=?,
+//                           `price`=?, ";
 
+
+// if ($pictureName !=='') {
+//     $sql = $sql . ' `picture`=?,';
+// } 
+
+// $sql = $sql. " `create_at`=?  WHERE `sid`=?";
+
+// $sql2 = "UPDATE `product_item` SET 
+//                           `name`=?,
+//                           `type`=?,
+//                           `specification`=?,
+//                           `information`=?,
+//                           `supplier`=?,
+//                           `price`=?,
+//                           `create_at`=?
+// WHERE `sid`=?";
+
+$sqlArray = [$name, $type, $spec, $reser, $supp, $money, ($pictureName==='') ? '' : $pictureName , $ddate, $sid];
+($pictureName==='') ? array_splice($sqlArray, 6, 1) : '';
+
+
+$output['$sql '] = $sql;
+// $output['$sqlArray '] = $sqlArray;
 
 $stmt = $pdo->prepare($sql);
-$stmt2 = $pdo->prepare($sql2);
+// $stmt = $pdo->prepare($sql);
 
-// $stmt->execute($sqlArray);
+$stmt->execute($sqlArray);
 
-if (empty($pictureName)) {
-    $stmt2->execute([
-        $name,
-        $type,
-        $spec,
-        $reser,
-        $supp,
-        $money,
-        $ddate,
-        $sid
-    ]);
-} else {
-    $stmt->execute([
-        $name,
-        $type,
-        $spec,
-        $reser,
-        $supp,
-        $money,
-        $pictureName,
-        $ddate,
-        $sid
-    ]);
-};
-
-
-if ($stmt->rowCount() == 1 || $stmt2->rowCount() == 1) {
-    $output['success'] = true;
-} else {
-    $output['error'] = '資料沒有修改';
-};
-
-// if ($stmt->rowCount() == 0) {
-//     $output['error'] = '資料沒有修改';
+// if (empty($pictureName)) {
+//     $stmt2->execute([
+//         $name,
+//         $type,
+//         $spec,
+//         $reser,
+//         $supp,
+//         $money,
+//         $ddate,
+//         $sid
+//     ]);
 // } else {
-//     $output['success'] = true;
+//     $stmt->execute([
+//         $name,
+//         $type,
+//         $spec,
+//         $reser,
+//         $supp,
+//         $money,
+//         $pictureName,
+//         $ddate,
+//         $sid
+//     ]);
 // };
+
+
+// if ($stmt->rowCount() == 1 || $stmt2->rowCount() == 1) {
+//     $output['success'] = true;
+// } else {
+//     $output['error'] = '資料沒有修改';
+// };
+
+if ($stmt->rowCount() == 0) {
+    $output['error'] = '資料沒有修改';
+} else {
+    $output['success'] = true;
+};
 
 // $output['success'] = $stmt->rowCount() == 1;
 // $output['rowCount'] = $stmt->rowCount();

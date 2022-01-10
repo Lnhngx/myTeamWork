@@ -155,7 +155,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         </div>
                         <input id="innput" type="submit" class="subbtn btn btn-primary" value="確認送出" style="display:none">
                         <input type="file" id="sel_file" name="myfiles[]" class="form-control">
-                    </form>
+                    
                     <div class="mb-3">
                         <label for="picture" class="form-label">商品圖片於此行下方預覽</label>
                         <div id="imgs">
@@ -166,7 +166,8 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                         </div>
                     </div>
 
-                    <input type="submit" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
+                    <input type="button" class="subbtn btn btn-primary" onclick="innput.click()" value="確認送出">
+                    </form>
                 </div>
             </div>
         </div>
@@ -243,7 +244,8 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                     location.href = 'product_page01.php';
                 } else {
                     alert('資料沒有修改')
-                    document.querySelector('.coco4').innerHTML = obj.error;
+                    // document.querySelector('.coco4').innerHTML = obj.error;
+                    location.href = 'product_page01.php';
                 }
             })
     };
