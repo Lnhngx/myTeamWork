@@ -1,10 +1,10 @@
 <?php
 require __DIR__. '/parts/__connect_db.php';
 
-// 沒有登入管理帳號,就轉向
-//if(! isset($_SESSION['admin'])){
- //   header('Location: index_.php');
-  //  exit;
+//沒有登入管理帳號,就轉向
+// if(! isset($_SESSION['admin'])){
+//    header('Location: index_.php');
+//    exit;
 // }
 
 if(isset($_GET['sid'])){

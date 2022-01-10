@@ -9,6 +9,21 @@ $pageName = 'insert';
 
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
+<?php include __DIR__ . '/parts/__sidebar.php' ?>
+<style>
+    .container {
+        position: absolute;
+        right: 0;
+        width: calc(100% - 250px);
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+
+    .row {
+        justify-content: center;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -88,6 +103,7 @@ $pageName = 'insert';
     const actTime_start = document.querySelector('#actTime_start');
     const actTime_end = document.querySelector('#actTime_end');
     const reserPeop = document.querySelector('#reserPeop');
+    const reserPeop_re = /^\d+$/;
     const introduce = document.querySelector('#introduce');
     const locat = document.querySelector('#location');
 
@@ -99,7 +115,7 @@ $pageName = 'insert';
         actName.nextElementSibling.innerHTML = '';
         // actTime_start.nextElementSibling.innerHTML = '';
         // actTime_end.nextElementSibling.innerHTML = '';
-        // reserPeop.nextElementSibling.innerHTML = '';
+        reserPeop.nextElementSibling.innerHTML = '';
         // introduce.nextElementSibling.innerHTML = '';
         // location.nextElementSibling.innerHTML = '';
 
@@ -108,6 +124,11 @@ $pageName = 'insert';
         if (actName.value.length < 2) {
             isPass = false;
             actName.nextElementSibling.innerHTML = '請輸入正確的資訊';
+        }
+
+        if (reserPeop.value && !reserPeop_re.test(reserPeop.value)) {
+            isPass = false;
+            reserPeop.nextElementSibling.innerHTML = '請輸入正確的人數';
         }
 
 

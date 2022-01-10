@@ -7,7 +7,11 @@ $output = [
     'error' => '',
 ];
 
-// TODO:沒有登入...
+if(! isset($_SESSION['users'])){
+    header("Location: member_login.php");
+    exit;
+}
+// 沒有登入就轉向
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if(empty($sid)){
@@ -21,6 +25,7 @@ $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $mobile = $_POST['mobile'] ?? '';
 $password = $_POST['password'] ?? '';
+
 
 if(empty($name)){
     $output['code'] = 403;
@@ -53,7 +58,7 @@ $sql = "UPDATE `members` SET
                      `password`=?,
                      `mobile`=?,
                      `birthday`=?,
-                     `address`=? 
+                     `address`=?
         WHERE `sid`=?";
 
 $stmt = $pdo->prepare($sql);
@@ -66,6 +71,11 @@ $stmt->execute([
     $_POST['address'] ?? '',
     $sid
 ]);
+
+
+
+
+
 
 if($stmt->rowCount()==0){
     $output['error'] = '資料沒有修改';

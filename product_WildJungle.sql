@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2022 年 01 月 07 日 03:54
+-- 產生時間： 2022 年 01 月 07 日 07:20
 -- 伺服器版本： 10.4.21-MariaDB
 -- PHP 版本： 7.4.26
 
@@ -56,7 +56,7 @@ CREATE TABLE `product_item` (
   `information` int(255) NOT NULL,
   `supplier` int(255) NOT NULL,
   `price` int(255) NOT NULL,
-  `picture` int(255) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
   `create_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,13 +65,13 @@ CREATE TABLE `product_item` (
 --
 
 INSERT INTO `product_item` (`sid`, `name`, `type`, `specification`, `information`, `supplier`, `price`, `picture`, `create_at`) VALUES
-(1, 'test', 3, 1, 12, 1, 990, NULL, '2022-01-06'),
-(2, 'test01', 3, 3, 12, 33, 990, NULL, '2022-01-06'),
-(3, 'test3', 1, 16, 18, 25, 337, NULL, '2022-01-06'),
-(4, 'test4', 5, 1, 6, 11, 502, NULL, '2022-01-06'),
-(5, 'test5', 2, 56, 22, 9, 812, NULL, '2022-01-06'),
-(6, 'test6', 1, 24, 12, 55, 815, NULL, '2022-01-06'),
-(8, 'test8', 2, 87, 13, 39, 1321, NULL, '2022-01-06'),
+(1, 'test', 3, 1, 12, 1, 990, '3.jpg', '2022-01-06'),
+(2, 'test01', 3, 3, 12, 33, 990, '5.jpg', '2022-01-06'),
+(3, 'test3', 1, 16, 18, 25, 337, '6.jpg', '2022-01-06'),
+(4, 'test4', 5, 1, 6, 11, 502, '6efacbfc432ee3c60546e58dee4485e5--sheep-pig-cute-cartoon-animals.jpg', '2022-01-06'),
+(5, 'test5', 2, 56, 22, 9, 812, '71fu4mQ07NL._AC_SY450_.jpg', '2022-01-06'),
+(6, 'test6', 1, 24, 12, 55, 815, '7743543_1006.jpg', '2022-01-06'),
+(8, 'test8', 2, 87, 13, 39, 1321, '7846009_R1.jpg', '2022-01-06'),
 (9, 'test9', 6, 61, 52, 60, 910, NULL, '2022-01-06'),
 (10, 'test10', 6, 90, 45, 11, 78, NULL, '2022-01-06'),
 (11, 'test11', 6, 97, 55, 20, 925, NULL, '2022-01-06'),
@@ -121,9 +121,7 @@ INSERT INTO `product_item` (`sid`, `name`, `type`, `specification`, `information
 (56, 'test56', 3, 49, 36, 36, 1350, NULL, '2022-01-06'),
 (57, 'test57', 1, 55, 97, 8, 377, NULL, '2022-01-06'),
 (58, 'test58', 6, 60, 70, 32, 1205, NULL, '2022-01-06'),
-(59, 'test59', 6, 37, 14, 34, 1188, NULL, '2022-01-06'),
-(105, 'test60', 4, 10, 14, 18, 900, NULL, '2022-01-20'),
-(106, '測試搜尋', 1, 21, 16, 4, 850, NULL, '2022-01-21');
+(59, 'test59', 6, 37, 14, 34, 1188, NULL, '2022-01-06');
 
 -- --------------------------------------------------------
 

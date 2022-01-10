@@ -5,7 +5,7 @@ $pageName = 'index';
 $title = '會員資料列表';
 $pageName = 'memberList';
 
-if(! isset($_SESSION['users'])){
+if (!isset($_SESSION['users'])) {
     header("Location: member_login.php");
     exit;
 }
@@ -38,12 +38,43 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 
-
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .fa-angle-double-right,
+    .fa-angle-right,
+    .fa-angle-left,
+    .fa-angle-double-left {
+        color: #2f4f4f;
+    }
+
+    .page-item>a {
+        color: #2f4f4f;
+    }
+
+    .page-item.active .page-link {
+        z-index: 999;
+        color: #fff;
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .page-link:focus {
+        z-index: 999;
+        border-color: #2f4f4f;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+
+    .page-link:hover {
+        z-index: 999;
+        border-color: #fff;
+        background-color: #dee2e6;
+        color: #2f4f4f;
+    }
+
     .wrap {
         width: calc(100% - 250px);
         position: absolute;
@@ -59,6 +90,7 @@ $rows = $pdo->query($sql)->fetchAll();
     .search,
     .insert,
     .editBtn {
+        text-align: left;
         background-color: #2f4f4f;
         color: white
     }
@@ -76,15 +108,18 @@ $rows = $pdo->query($sql)->fetchAll();
     }
 
     .editBtn,
-    .delBtn {
+    .delBtn,
+    .delAllbtn {
         color: white;
     }
 
-    .delBtn {
+    .delBtn,
+    .delAllbtn {
         background-color: #C82C2C;
     }
 
-    .delBtn:hover {
+    .delBtn:hover,
+    .delAllbtn:hover {
         background-color: #9A572D;
         color: white;
     }
@@ -97,8 +132,6 @@ $rows = $pdo->query($sql)->fetchAll();
 </style>
 <div class="wrap">
     <div class="container my-3">
-
-
         <div class="row">
             <div class="col-3 d-flex" style="justify-content: flex-start;"><button onclick="insertMember()" type="button" class="insert btn btn-outline" id="btn">新增</button></div>
             <div class="col-3 d-flex" style="justify-content: flex-start;">
@@ -110,7 +143,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-12">
                 <div class="col ty_col">
                     <nav aria-label="...">
-                        <ul class="pagination">
+                        <ul class="pagination d-flex justify-content-end mb-0 mt-2">
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                                 <a class="page-link" href="?page=<?= $page == 1 ?>">
                                     <i class="fas fa-angle-double-left"></i>
@@ -148,59 +181,89 @@ $rows = $pdo->query($sql)->fetchAll();
             </div>
             <!-- row 分頁按鈕 -->
 
-            <div class="bd-example my-5">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <?php /*<th>
-                                    <input class="del" type="checkbox" name="checkbox" value="<?= $r['sid'] ?>">
-                                </th> */ ?>
-                            <!-- 勾選 -->
-                            <th scope="col">#</th>
-                            <th scope="col">Account (Email)</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Mobile</th>
-                            <th scope="col">Birthday</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Grade</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($rows as $r) : ?>
-                            <tr class="tables">
-                                <?php /*<td>
-                                    <input class="del" type="checkbox" name="checkbox" value="<?= $r['sid'] ?>">
-                                </td> */ ?>
+            <div class="bd-example mb-5 mt-3">
+                <form action="deleteAll_member-api.php" method="post">
+                    <!-- 表單送出會到 deleteAll_member-api -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input id="ckbAll" class="ckbAll" type="checkbox" value="<?= $r['sid'] ?>">
+                                    <label for="ckbAll">全選</label>
+                                </th>
                                 <!-- 勾選 -->
-                                <th scope="row"><?= $r['sid'] ?></th>
-                                <td><?= $r['email'] ?></td>
-                                <td><?= $r['name'] ?></td>
-                                <td><?= $r['password'] ?></td>
-                                <td><?= $r['mobile'] ?></td>
-                                <td><?= $r['birthday'] ?></td>
-                                <td><?= $r['address'] ?></td>
-                                <td><?= $r['grade_name'] ?></td>
-                                <td>
-                                    <a href="editMember.php?sid=<?= $r['sid'] ?>">
-                                        <button type="button" class="editBtn btn btn-outline">修改</button>
-                                    </a>
-                                    <!-- 修改 -->
-
-                                    <button onclick="delete_member(<?= $r['sid'] ?>)" type="button" class="delBtn btn btn-outline">刪除</button>
-                                    <!-- 刪除 -->
-                                </td>
+                                <th scope="col">Member_ID</th>
+                                <th scope="col">Account (Email)</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Birthday</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Grade</th>
+                                <th scope="col">
+                                    <button type="submit" class="delAllbtn btn btn-outline-dange">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </th>
                             </tr>
-                        <?php endforeach; ?>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $r) : ?>
+                                <tr class="tables">
+                                    <td>
+                                        <input id="del" class="del" type="checkbox" name="checkbox[]" value="<?= $r['sid'] ?>">
+                                    </td>
+                                    <!-- 勾選 -->
+                                    <th scope="row"><?= $r['sid'] ?></th>
+                                    <td><?= $r['email'] ?></td>
+                                    <td><?= $r['name'] ?></td>
+                                    <td><?= $r['password'] ?></td>
+                                    <td><?= $r['mobile'] ?></td>
+                                    <td><?= $r['birthday'] ?></td>
+                                    <td><?= $r['address'] ?></td>
+                                    <td><?= $r['grade_name'] ?></td>
+                                    <td>
+                                        <a href="editMember.php?sid=<?= $r['sid'] ?>">
+                                            <button type="button" class="editBtn btn btn-outline">修改</button>
+                                        </a>
+                                        <!-- 修改 -->
+                                        <a href="javascript: delete_member(<?= $r['sid'] ?>)">
+                                            <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                        </a>
+                                        <!-- <button onclick="delete_member(<?= $r['sid'] ?>)" type="button" class="delBtn btn btn-outline">刪除</button> -->
+                                        <!-- 刪除 -->
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
+                </form>
             </div>
         </div>
         <!-- row 會員資料 -->
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel"></h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- <div class="modal-body">
+                    ...
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" id="ok" onclick="ok()" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -213,8 +276,28 @@ $rows = $pdo->query($sql)->fetchAll();
         }
     }
 
-    function insertMember(){
-        location.href=`insertMember.php`;
+    function insertMember() {
+        location.href = `insertMember.php`;
+    }
+
+    const ckbAll = document.querySelector('.ckbAll');
+    const del = document.querySelectorAll('.del');
+    ckbAll.addEventListener('click', function() {
+        if (ckbAll.checked == true) {
+            del.forEach(el => el.checked = true);
+        } else {
+            del.forEach(el => el.checked = false)
+        }
+    })
+    // 如果第一個checkbox已選，其他全選
+
+    const delAllbtn = document.querySelector('.delAllbtn');
+    delAllbtn.addEventListener('click', delAll);
+
+    function delAll() {
+        if (confirm(`確定刪除已勾選的項目?`)) {
+            location.href = `deleteAll_member-api.php`;
+        }
     }
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

@@ -25,16 +25,10 @@ $output = [
 
 if (!empty($_FILES['myfiles']) and !empty($_FILES['myfiles']['name'])) {
     foreach ($_FILES['myfiles']['name'] as $i => $name) {
-
         $ext = $exts[$_FILES['myfiles']['type'][$i]] ?? ''; //拿到對應的副檔名
-
         if (!empty($ext)) {
-
-            $filename = sha1($name . rand()) . $ext;
-            //更改檔名為亂碼//$ext
+            $filename = $name;
             $target = $upload_folder . '/' . $filename;
-            // 在資料表存放檔名
-            // 中文檔名可能會有問題
             if (move_uploaded_file($_FILES['myfiles']['tmp_name'][$i], $target)) {
                 // 這邊是專門用來移動上傳的檔案
                 $output['success']++;
