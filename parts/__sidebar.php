@@ -236,7 +236,12 @@
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <?php if (!isset($_SESSION['users'])) { ?>
+                    <img src="member_uploaded/600x400/Blue-Flower-with-Sharp-Thorns-600x400.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                <?php } ?>
+                <?php if (isset($_SESSION['users'])) { ?>
+                    <img src="member_uploaded/600x400/peach-flowers-hd-wallpaper-download-peah-flowers-imagesfree-600x400.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                <?php } ?>
                 <strong><?= $_SESSION['users']['nickname'] ?? '使用者您好' ?></strong>
             </a>
             <ul class="dropdown-menu ALAN-dropdown-menu text-small shadow-lg">
@@ -247,16 +252,13 @@
                     <hr class="dropdown-divider">
                 </li> -->
                 <li>
-                <?php if (!isset($_SESSION['users']['email']) && !isset($_SESSION['users']['nickname'])) { ?>
-                    <a class="dropdown-item" >登入</a>
+                    <?php if (!isset($_SESSION['users']['email']) && !isset($_SESSION['users']['nickname'])) { ?>
+                        <a class="dropdown-item">登入</a>
                     <?php } ?>
                 </li>
                 <li>
                     <?php if (isset($_SESSION['users']['email']) && isset($_SESSION['users']['nickname'])) { ?>
                         <a class="dropdown-item" onclick="logOut()">登出</a>
-                        <?php //if (isset($_GET['member_logout']) && ($_GET['member_logout'] == "true")) {
-                            //unset($_SESSION['users']);
-                        //} ?>
                     <?php } ?>
                 </li>
             </ul>
