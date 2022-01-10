@@ -120,10 +120,11 @@ $pageName = 'room-insert';
                                 <br>
                                 <img src="" id="myimg" class="myimg">
                             </div>
+                            <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
 
-                    <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
+
                     <!-- input 元素的 "submit" 類型會被視為提交按鈕（submit button）——點選的話就能把表單提交到伺服器 -->
                    
 
