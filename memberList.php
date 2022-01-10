@@ -203,7 +203,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <th scope="col">Birthday</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Grade</th>
-                                <th scope="col">Image</th>
+                                
                                 <th scope="col">
                                     <button type="submit" class="delAllbtn btn btn-outline-dange">
                                         <i class="fas fa-trash-alt"></i>
@@ -226,7 +226,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                     <td><?= $r['birthday'] ?></td>
                                     <td><?= $r['address'] ?></td>
                                     <td><?= $r['grade_name'] ?></td>
-                                    <td><?= $r['img'] ?></td>
+                                    
                                     <td>
                                         <a href="editMember.php?sid=<?= $r['sid'] ?>">
                                             <button type="button" class="editBtn btn btn-outline">修改</button>
