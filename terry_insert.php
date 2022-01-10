@@ -128,7 +128,7 @@ $pageName = 'insert';
 
         if (reserPeop.value && !reserPeop_re.test(reserPeop.value)) {
             isPass = false;
-            email.nextElementSibling.innerHTML = '請輸入正確的人數';
+            reserPeop.nextElementSibling.innerHTML = '請輸入正確的人數';
         }
 
 

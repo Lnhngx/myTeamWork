@@ -189,7 +189,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 ?>
                                     <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
                                 <?php endif; ?>
-                                <!-- for迴圈 -->
+
                                 <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a></li>
                                 <li class="page-item <?= $totalPages == $page ? 'disabled' : ''; ?>"><a class="page-link" href="?page=<?=$totalPages?>"><i class="fas fa-angle-double-right"></i></a></li>
                             </ul>

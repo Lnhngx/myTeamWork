@@ -119,6 +119,7 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
     const actTime_start = document.querySelector('#actTime_start');
     const actTime_end = document.querySelector('#actTime_end');
     const reserPeop = document.querySelector('#reserPeop');
+    const reserPeop_re = /^\d+$/;
     const introduce = document.querySelector('#introduce');
     const locat = document.querySelector('#location');
 
