@@ -228,6 +228,12 @@
                     <div class="icon"><i class="fas fa-shopping-cart "></i></div>
                     <p>購物車</p>
                 </a>
+            <li>
+                <a href="stan_order_search.php" class="nav-link text-white " aria-current="page">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <p>訂單查詢</p>
+                </a>
+            </li>
             </li>
             <li>
                 <a href="stan_temp_product.php" class="nav-link text-white " aria-current="page">

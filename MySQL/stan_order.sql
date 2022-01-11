@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-01-10 15:20:37
+-- 產生時間： 2022-01-11 07:51:21
 -- 伺服器版本： 10.4.22-MariaDB
--- PHP 版本： 8.1.0
+-- PHP 版本： 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫: `stan_use`
+-- 資料庫: `wildjungle`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `orders` (
   `sid` int(11) NOT NULL,
-  `member_sid` int(11) NOT NULL,
+  `users_sid` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `order_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -38,12 +38,13 @@ CREATE TABLE `orders` (
 -- 傾印資料表的資料 `orders`
 --
 
-INSERT INTO `orders` (`sid`, `member_sid`, `amount`, `order_date`) VALUES
+INSERT INTO `orders` (`sid`, `users_sid`, `amount`, `order_date`) VALUES
 (104, 0, 14931, '2022-01-10 00:35:44'),
 (105, 0, 11889, '2022-01-10 00:38:46'),
 (106, 0, 390, '2022-01-10 00:39:42'),
 (107, 0, 4890, '2022-01-10 00:53:02'),
-(108, 0, 4890, '2022-01-10 00:54:53');
+(108, 0, 4890, '2022-01-10 00:54:53'),
+(109, 1, 1596, '2022-01-11 12:56:52');
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,8 @@ INSERT INTO `order_details_products` (`sid`, `order_sid`, `product_sid`, `produc
 (506, 105, 8, 1321, 9),
 (507, 106, 10, 78, 5),
 (508, 107, 6, 815, 6),
-(509, 108, 6, 815, 6);
+(509, 108, 6, 815, 6),
+(510, 109, 1, 399, 4);
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,7 @@ ALTER TABLE `order_details_ticket`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `order_details_activity`
@@ -156,7 +158,7 @@ ALTER TABLE `order_details_activity`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `order_details_products`
 --
 ALTER TABLE `order_details_products`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=510;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=511;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `order_details_ticket`

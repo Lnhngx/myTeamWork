@@ -117,16 +117,17 @@ $total = 0;
         <div class="row">
             <div class="col-3 d-flex" style="justify-content: flex-start;"></div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
-                <form class="d-flex">
+                <!-- <form class="d-flex">
                     <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline" type="submit">Search</button>
-                </form>
+                    <button class="search btn btn-outline" type="submit">搜尋</button>
+                </form> -->
             </div>
             <div class="bd-example my-5">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">產品</th>
                             <th scope="col">產品名稱</th>
                             <th scope="col">單價</th>
                             <th scope="col">數量</th>
@@ -141,6 +142,7 @@ $total = 0;
                                 <?php $num++ ?>
                                 <th scope="row"><?= $num ?></th>
                                 <td class="sid" data-sid="<?= $items['sid'] ?>" style="display:none;"><?= $items['sid'] ?></td>
+                                <td><img src="./uploaded/<?= $items['picture'] ?> " alt="" height="80px" xq_big="true" setting='{"pwidth":550,"pheight":550,"margin_top":-80,"margin_left":-100}'></td>
                                 <td><?= $items['name'] ?></td>
                                 <td class="price" data-price="<?= $items['price'] ?>"></td>
                                 <td>
