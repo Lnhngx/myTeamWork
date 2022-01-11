@@ -86,13 +86,13 @@ $pageName = 'room-insert';
                         </div>
                         <div class="mb-3">
                             <label for="check-in-data" class="form-label">入住時間</label>
-                            <input type="date" class="form-control" id="check-in-data" name="check-in-data" >
+                            <input type="date" class="form-control" id="check-in-data" name="check-in-data">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <div class="mb-3">
                                 <label for="check-out-data" class="form-label">退房時間</label>
-                                <input type="date" class="form-control" id="check-out-data" name="check-out-data">
+                                <input type="date" class="form-control" id="check-out-data" name="check-out-data" value="">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
@@ -126,7 +126,7 @@ $pageName = 'room-insert';
 
 
                     <!-- input 元素的 "submit" 類型會被視為提交按鈕（submit button）——點選的話就能把表單提交到伺服器 -->
-                   
+
 
                 </div>
             </div>
@@ -136,6 +136,14 @@ $pageName = 'room-insert';
     <?php include __DIR__ . '/parts/__scripts.php' ?>
 
     <script>
+        // const check_in_data = document.querySelector('#check-in-data');
+        // const check_out_data = document.querySelector('#check-out-data');
+        // check_out_data.value = new Date(check_in_data.value.setDate(new Date().getDate()+1));
+
+        
+
+
+
         const sel_file = document.querySelector('#sel_file');
         sel_file.addEventListener('change', doPreview)
         const room_introduction = document.querySelector('#room-introduction');
@@ -149,7 +157,7 @@ $pageName = 'room-insert';
                 document.querySelector("#myimg").src = URL.createObjectURL(file)
             }
         }
-    
+
 
         function sendData() {
 

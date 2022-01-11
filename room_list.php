@@ -14,8 +14,8 @@ if ($page < 1) {
 }
 $t_sql = "SELECT COUNT(1) FROM `room-detail`";
 
-if(isset($_GET['keyword'])){
-    $t_sql = $t_sql . " WHERE `room-name` LIKE '%".$keyword."%' OR `room-introduction` LIKE '%".$keyword."%' OR `people` LIKE '%".$keyword."%' OR `price` LIKE '%".$keyword."%' OR `check-in-data` LIKE '%".$keyword."%' OR `check-out-data` LIKE '%".$keyword."%' OR `check-in-status` LIKE '%".$keyword."%' ";
+if (isset($_GET['keyword'])) {
+    $t_sql = $t_sql . " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%' ";
 }
 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -24,9 +24,9 @@ if ($page > $totalPages) {
     header('Location: room_list.php?page=' . $totalPages);
     exit;
 }
-$mySqlVar = isset($_GET['keyword'])? " WHERE `room-name` LIKE '%".$keyword."%' OR `room-introduction` LIKE '%".$keyword."%' OR `people` LIKE '%".$keyword."%' OR `price` LIKE '%".$keyword."%' OR `check-in-data` LIKE '%".$keyword."%' OR `check-out-data` LIKE '%".$keyword."%' OR `check-in-status` LIKE '%".$keyword."%'" : "";
+$mySqlVar = isset($_GET['keyword']) ? " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%'" : "";
 
-$sql = sprintf("SELECT * FROM `room-detail` %s LIMIT %s , %s", $mySqlVar , ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM `room-detail` %s LIMIT %s , %s", $mySqlVar, ($page - 1) * $perPage, $perPage);
 
 
 
@@ -134,12 +134,13 @@ $rows = $pdo->query($sql)->fetchAll();
                 </form>
             </div>
             <div class="bd-example my-5">
+                <form action="">
                 <table class="table table-hover order-table">
                     <thead>
                         <tr>
-                            <!-- <th scope="col">
-                                <input class="del" type="checkbox">
-                            </th> -->
+                            <th scope="col">
+                                <input type="checkbox" class="checkAll">
+                            </th>
                             <th scope="col">sid</th>
                             <th scope="col">房型</th>
                             <th scope="col">房間照片</th>
@@ -155,9 +156,9 @@ $rows = $pdo->query($sql)->fetchAll();
                     <tbody>
                         <?php foreach ($rows as $r) : ?>
                             <tr class="tables">
-                                <!-- <th scope="col">
-                                    <input class="del" type="checkbox">
-                                </th> -->
+                                <th scope="col">
+                                    <input class="check" type="checkbox" value="<?= $r['sid'] ?>" name="checkbox[]">
+                                </th>
                                 <th scope="row"><?= $r['sid'] ?></th>
                                 <td><?= $r['room-name'] ?></td>
                                 <td><img src="room-uploaded/<?= $r['room-image'] ?>" alt="" id="myimg" class="myimg"></td>
@@ -185,6 +186,8 @@ $rows = $pdo->query($sql)->fetchAll();
                     </tbody>
 
                 </table>
+                <button type="button" class="delBtn btn btn-outline">刪除</button>
+                </form>
                 <div class="col">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -220,6 +223,16 @@ $rows = $pdo->query($sql)->fetchAll();
 </script> -->
 
 <script>
+    const checkAll = document.querySelector('.checkAll');
+    const check = document.querySelectorAll('.check');
+    checkAll.addEventListener('change', function() {
+        if (checkAll.checked == true) {
+            check.forEach(el => el.checked = true);
+        } else {
+            check.forEach(el => el.checked = false)
+        }
+    })
+
     const searchIp = document.getElementById('searchIp');
     const searchIpButton = document.querySelector('.searchIpButton');
     let str = '';
@@ -234,50 +247,48 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 
-//     (function (document) {
-//     'use strict';
+    //     (function (document) {
+    //     'use strict';
 
-//     // 建立 LightTableFilter
-//     var LightTableFilter = (function (Arr) {
+    //     // 建立 LightTableFilter
+    //     var LightTableFilter = (function (Arr) {
 
-//         var _input;
+    //         var _input;
 
-//         // 資料輸入事件處理函數
-//         function _onInputEvent(e) {
-//             _input = e.target;
-//             var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-//             Arr.forEach.call(tables, function (table) {
-//                 Arr.forEach.call(table.tBodies, function (tbody) {
-//                     Arr.forEach.call(tbody.rows, _filter);
-//                 });
-//             });
-//         }
+    //         // 資料輸入事件處理函數
+    //         function _onInputEvent(e) {
+    //             _input = e.target;
+    //             var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+    //             Arr.forEach.call(tables, function (table) {
+    //                 Arr.forEach.call(table.tBodies, function (tbody) {
+    //                     Arr.forEach.call(tbody.rows, _filter);
+    //                 });
+    //             });
+    //         }
 
-//         // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
-//         function _filter(row) {
-//             var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-//             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-//         }
-//         return {
-//             // 初始化函數
-//             init: function () {
-//                 var inputs = document.getElementsByClassName('light-table-filter');
-//                 Arr.forEach.call(inputs, function (input) {
-//                     input.oninput = _onInputEvent;
-//                 });
-//             }
-//         };
-//     })(Array.prototype);
+    //         // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
+    //         function _filter(row) {
+    //             var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+    //             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    //         }
+    //         return {
+    //             // 初始化函數
+    //             init: function () {
+    //                 var inputs = document.getElementsByClassName('light-table-filter');
+    //                 Arr.forEach.call(inputs, function (input) {
+    //                     input.oninput = _onInputEvent;
+    //                 });
+    //             }
+    //         };
+    //     })(Array.prototype);
 
-//     // 網頁載入完成後，啟動 LightTableFilter
-//     document.addEventListener('readystatechange', function () {
-//         if (document.readyState === 'complete') {
-//             LightTableFilter.init();
-//         }
-//     });
+    //     // 網頁載入完成後，啟動 LightTableFilter
+    //     document.addEventListener('readystatechange', function () {
+    //         if (document.readyState === 'complete') {
+    //             LightTableFilter.init();
+    //         }
+    //     });
 
-// })(document);
-
-
+    // })(document);
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
