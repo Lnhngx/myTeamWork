@@ -45,6 +45,27 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
     .row {
         justify-content: center;
     }
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
     
     form .form-text {
         color: red;
@@ -94,7 +115,7 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
                             <div class="form-text"></div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">修改</button>
+                        <button type="submit" class="subbtn btn btn-primary">修改</button>
 
                     </form>
 

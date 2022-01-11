@@ -29,6 +29,27 @@ $pageName = 'insert';
         left: 0;
         border-radius: 5px 5px 0 0;
     }
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
 
     .row {
         justify-content: center;
@@ -78,7 +99,7 @@ $pageName = 'insert';
                             <div class="form-text"></div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">新增</button>
+                        <button type="submit" class="subbtn btn btn-primary">新增</button>
 
                     </form>
 
