@@ -161,7 +161,13 @@ $total = 0;
                 <div id="total">
                     總計：<?= $total ?>
                 </div>
-                <a href="stan_order.php" class="btn btn-success">結帳</a>
+                <?php if (isset($_SESSION['users'])) : ?>
+                    <a href="stan_order.php" class="btn btn-success">結帳</a>
+                <?php else : ?>
+                    <div class="alert alert-danger" role="alert">
+                        請先登入會員再結帳
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
