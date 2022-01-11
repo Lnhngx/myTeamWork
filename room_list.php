@@ -3,7 +3,7 @@ require __DIR__ . '/parts/__connect_db.php';
 $title = '住宿資訊';
 $pageName = 'room-list';
 
-$keyword = isset($_GET['keyword'])? $_GET['keyword'] : '';
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
 $perPage = 7;
 
@@ -26,7 +26,7 @@ if ($page > $totalPages) {
 }
 $mySqlVar = isset($_GET['keyword']) ? " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%'" : "";
 
-$sql = sprintf("SELECT * FROM `room-detail` %s LIMIT %s , %s", $mySqlVar, ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM `room-detail` %s ORDER BY sid DESC LIMIT %s , %s", $mySqlVar, ($page - 1) * $perPage, $perPage);
 
 
 // $sql = sprintf("SELECT * FROM `room-detail` ORDER BY sid DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
@@ -100,14 +100,17 @@ $rows = $pdo->query($sql)->fetchAll();
     }
 
     .editBtn,
+    .delAllBtn,
     .delBtn {
         color: white;
     }
 
-    .delBtn {
+    .delBtn,
+    .delAllBtn {
         background-color: #C82C2C;
     }
 
+    .delAllBtn:hover,
     .delBtn:hover {
         background-color: #9A572D;
         color: white;
@@ -118,8 +121,13 @@ $rows = $pdo->query($sql)->fetchAll();
         /* text-align: center; */
         vertical-align: middle;
     }
+
     .myimg {
         width: 100px;
+    }
+
+    .introduction {
+        width: 250px;
     }
 </style>
 <div class="wrap">
@@ -128,65 +136,68 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-6 d-flex" style="justify-content:flex-start;"><a href="./ning_room_insert.php" class="<?= $pageName == 'room-insert' ? 'active disable' : '' ?>"><button type="button" class="insert btn btn-outline active" id="btn">新增</button></a></div>
             <div class="col-3 d-flex" style="justify-content:flex-end;">
                 <form class="d-flex">
-                    <input id="searchIp" class="searchIp light-table-filter" type="search" placeholder="請輸入搜尋關鍵字" aria-label="Search" >
+                    <input id="searchIp" class="searchIp light-table-filter" type="search" placeholder="請輸入搜尋關鍵字" aria-label="Search">
 
                     <button class="searchIpButton search btn btn-outline" type="button">Search</button>
                 </form>
             </div>
             <div class="bd-example my-5">
-                <form action="">
-                <table class="table table-hover order-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <input type="checkbox" class="checkAll">
-                            </th>
-                            <th scope="col">sid</th>
-                            <th scope="col">房型</th>
-                            <th scope="col">房間照片</th>
-                            <th scope="col">房間資訊</th>
-                            <th scope="col">人數</th>
-                            <th scope="col">價錢</th>
-                            <th scope="col">入住時間</th>
-                            <th scope="col">退房時間</th>
-                            <th scope="col">房間狀態</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($rows as $r) : ?>
-                            <tr class="tables">
+                <form action="ning_room_deletell-api.php" method="post" name="form1">
+                    <table class="table table-hover order-table">
+                        <thead>
+                            <tr>
                                 <th scope="col">
-                                    <input class="check" type="checkbox" value="<?= $r['sid'] ?>" name="checkbox[]">
+                                    <input type="checkbox" id="checkAll" class="checkAll" value="<?= $r['sid'] ?>">
                                 </th>
-                                <th scope="row"><?= $r['sid'] ?></th>
-                                <td><?= $r['room-name'] ?></td>
-                                <td><img src="room-uploaded/<?= $r['room-image'] ?>" alt="" id="myimg" class="myimg"></td>
-                                <td><?= htmlentities($r['room-introduction']) ?></td>
-                                <td><?= $r['people'] ?></td>
-                                <td><?= $r['price'] ?></td>
-                                <td><?= $r['check-in-data'] ?></td>
-                                <td><?= $r['check-out-data'] ?></td>
-                                <td><?= $r['check-in-status'] ?></td>
-                                <?php /*
+                                <th scope="col">#</th>
+                                <th scope="col">房型</th>
+                                <th scope="col">房間照片</th>
+                                <th scope="col" class="introduction">房間資訊</th>
+                                <th scope="col">人數</th>
+                                <th scope="col">價錢</th>
+                                <th scope="col">入住時間</th>
+                                <th scope="col">退房時間</th>
+                                <th scope="col">房間狀態</th>
+                                <th scope="col">
+                                    <button type="submit" class="delAllBtn btn btn-outline-dange">
+                                        勾選 <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $r) : ?>
+                                <tr class="tables">
+                                    <th scope="col">
+                                        <input id="check" class="check" type="checkbox" value="<?= $r['sid'] ?>" name="checkbox[]">
+                                    </th>
+                                    <th scope="row"><?= $r['sid'] ?></th>
+                                    <td><?= $r['room-name'] ?></td>
+                                    <td><img src="room-uploaded/<?= $r['room-image'] ?>" alt="" id="myimg" class="myimg"></td>
+                                    <td><?= htmlentities($r['room-introduction']) ?></td>
+                                    <td><?= $r['people'] ?></td>
+                                    <td><?= $r['price'] ?></td>
+                                    <td><?= $r['check-in-data'] ?></td>
+                                    <td><?= $r['check-out-data'] ?></td>
+                                    <td><?= $r['check-in-status'] ?></td>
+                                    <?php /*
                             <td><?= $r['check-in-data'] ?></td>
                             <td><?= $r['check-out-data'] ?></td>
                             <td><?= $r['check-in-status'] ?></td>
                             */ ?>
-                                <td>
-                                    <a href="ning_room_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
-                                    <a href="ning_delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm('確定要刪除這筆編號<?= $r['sid'] ?>的資料嗎？')">
-                                        <!-- <a href="javascript: delete_sid(<?= $r['sid'] ?>)"> -->
-                                        <button type="button" class="delBtn btn btn-outline">刪除</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                                    <td>
+                                        <a href="ning_room_edit.php?sid=<?= $r['sid'] ?>"><button type="button" class="editBtn btn btn-outline">修改</button></a>
+                                        <a href="ning_delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm('確定要刪除這筆編號<?= $r['sid'] ?>的資料嗎？')">
+                                            <!-- <a href="javascript: delete_sid(<?= $r['sid'] ?>)"> -->
+                                            <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
 
-                    </tbody>
+                        </tbody>
 
-                </table>
-                <button type="button" class="delBtn btn btn-outline">刪除</button>
+                    </table>
                 </form>
                 <div class="col">
                     <nav aria-label="Page navigation example">
@@ -207,6 +218,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     </nav>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -225,13 +237,35 @@ $rows = $pdo->query($sql)->fetchAll();
 <script>
     const checkAll = document.querySelector('.checkAll');
     const check = document.querySelectorAll('.check');
-    checkAll.addEventListener('change', function() {
+    checkAll.addEventListener('click', function() {
         if (checkAll.checked == true) {
             check.forEach(el => el.checked = true);
         } else {
             check.forEach(el => el.checked = false)
         }
     })
+
+
+
+    const delAllBtn = document.querySelector('.delAllBtn');
+    delAllBtn.addEventListener('click', delAll);
+
+    function delAll() {
+        event.preventDefault();
+        // 先將表單+按鈕預設的submit關閉，下方再以傳送至後端的方式去執行
+        const fd = new FormData(document.form1);
+        fetch('ning_room_deletell-api.php', {
+            method: 'POST',
+            body: fd,
+        }).then(r => r.json()).then(obj => {
+            if (obj.success) {
+                if (confirm(`確定刪除已勾選的項目?`)) {
+                    window.location.reload();
+                }
+            }
+        });
+
+    }
 
     const searchIp = document.getElementById('searchIp');
     const searchIpButton = document.querySelector('.searchIpButton');
