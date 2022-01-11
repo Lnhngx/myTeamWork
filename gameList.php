@@ -7,7 +7,14 @@ if (!isset($_SESSION['users'])) {
     header("Location: member_login.php");
     exit;
 }
-$t_sql = "SELECT COUNT(1) FROM answer";
+// t_sql是算出總筆數的SQL指令
+$t_sql = "SELECT COUNT(1) FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` ";
+// 當有使用搜尋功能，JS會產生query string -> $keyword
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+// 加入篩選的指令
+if(isset($_GET['keyword'])){
+    $t_sql = $t_sql."WHERE name LIKE '%".$keyword."%' ";
+}
 $totalRows = $pdo -> query($t_sql) ->fetch(PDO::FETCH_NUM)[0];
 // $totalRows是總筆數
 $perPage = 12; 
@@ -15,13 +22,12 @@ $perPage = 12;
 $totalPages = ceil($totalRows/$perPage);
 // 處理分頁，沒有設定統一第一頁顯示出來
 $page = isset($_GET['page']) ? intval($_GET['page']):1;
-// 當有使用搜尋功能，JS會產生query string -> $keyword
-$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
-$filter_sql = isset($_GET['keyword']) ? "WHERE name LIKE '%" . $keyword . "%'" : '';
+
+$filter_var = isset($_GET['keyword']) ? "WHERE name LIKE '%" . $keyword . "%'" : '';
 
 // 列印出當下那頁該有的資料
-$sql = sprintf("SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` %s LIMIT %s,%s",$filter_sql,($page-1)*$perPage,$perPage);
+$sql = sprintf("SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` %s LIMIT %s,%s",$filter_var,($page-1)*$perPage,$perPage);
 // $rows 由 fetchAll()全部取出來，目前是47筆
 $rows = $pdo -> query($sql) ->fetchAll();
 if($page<1){
@@ -101,10 +107,12 @@ if($page>$totalPages){
     .editBtn,
     .delBtn {
         color: white;
+        
     }
 
     .delBtn {
         background-color: #C82C2C;
+      
     }
 
     .delBtn:hover {
@@ -115,6 +123,9 @@ if($page>$totalPages){
     .tables td, th {
         /* text-align: center; */
         vertical-align: middle;
+    }
+    a{
+        text-decoration: none;
     }
 </style>
 <div class="wrap">   
@@ -130,7 +141,7 @@ if($page>$totalPages){
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex" name="form12">
                     <input id="searchIp" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="searchIpButton search btn btn-outline" type="submit">搜尋</button>
+                    <button class="searchIpButton search btn btn-outline" type="submit" style="width: 5rem;">搜尋</button>
                 </form>
             </div>
             <!-- 分頁按鈕begin -->
@@ -153,7 +164,7 @@ if($page>$totalPages){
                         <?php for($i=$page-2;$i<=$page+2;$i++)
                             if($i>=1 && $i<=$totalPages): ?>
                             <li class="page-item <?= $i==$page ? 'active' : ''?>">
-                                <a class="page-link" href="?page=<?= $i ?>">
+                                <a class="page-link" href="<?= isset($_GET['keyword'])?"?keyword=$keyword&page=$i":"?page=$i"?>">
                                     <?= $i ?> 
                                 </a>
                             </li>
@@ -183,12 +194,12 @@ if($page>$totalPages){
                                     <input type="checkbox" class="checkAll">
                                 </th>
                                 <th scope="col">#</th>
-                                <th scope="col">name</th>
-                                <th scope="col">qcontent</th>
-                                <th scope="col">acontent</th>
-                                <th scope="col">yesno</th>
-                                <th scope="col">question_sid</th>
-                                <th scope="col">image</th>
+                                <th scope="col">動物名稱</th>
+                                <th scope="col">題目</th>
+                                <th scope="col">答案選項</th>
+                                <th scope="col">正確/錯誤</th>
+                                <th scope="col">對應的題號</th>
+                                <th scope="col">圖片</th>
                                 <th scope="col"></th>     
                             </tr>
                         </thead>
@@ -214,10 +225,11 @@ if($page>$totalPages){
                                         <td rowspan="4" style="border:1px solid #E0E0E0;">
 
                                         <a href="editGamelist.php?question_sid=<?= $r['question_sid'] ?>">
-                                        <button type="button" class="editBtn btn btn-outline">修改</button>
+                                        <button type="button" class="editBtn btn">修改</button>
                                         </a>
+                                        <span></span>
                                         <a href="javascript: delete_Alist(<?= $r['question_sid'] ?>)">
-                                        <button type="button" class="delBtn btn btn-outline">刪除</button>
+                                        <button type="button" class="delBtn btn">刪除</button>
                                         </a>
 
                                         </td>
