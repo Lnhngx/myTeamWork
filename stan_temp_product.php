@@ -10,7 +10,7 @@ $title = '寧可買錯也不能錯過的商品';
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <?php
 
-$sql = sprintf('SELECT pi.sid , pi.name , pi.price , pr.quantity_ware FROM product_item AS pi JOIN product_reserve AS pr where pi.sid=pr.sid LIMIT 10;');
+$sql = sprintf('SELECT pi.sid ,pi.picture, pi.name , pi.price , pr.quantity_ware FROM product_item AS pi JOIN product_reserve AS pr where pi.sid=pr.sid LIMIT 10;');
 $rows = $pdo->query($sql)->fetchAll();
 $num = 0;
 
@@ -109,6 +109,7 @@ $num = 0;
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">產品</th>
                             <th scope="col">產品名稱</th>
                             <th scope="col">單價</th>
                             <th scope="col">數量</th>
@@ -122,6 +123,7 @@ $num = 0;
                                 <?php $num++ ?>
                                 <th scope="row"><?= $num ?></th>
                                 <td style="display:none;" class="sid"><?= $r['sid'] ?></td>
+                                <td><img src="./uploaded/<?= $r['picture'] ?> " alt="" height="80px" xq_big="true" setting='{"pwidth":550,"pheight":550,"margin_top":-80,"margin_left":-100}'></td>
                                 <td><?= $r['name'] ?></td>
                                 <td class="price"><?= $r['price'] ?></td>
                                 <td>

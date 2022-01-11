@@ -159,48 +159,8 @@ $rows = $pdo->query($sql)->fetchAll();
                     <button class="searchIpButton search btn btn-outline" type="button">Search</button>
                 </form>
             </div>
-            <div class="col-12">
-                <div class="col">
-                    <nav aria-label="...">
-                        <ul class="pagination d-flex justify-content-end mb-0 mt-2">
-                            <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page == 1 ?>">
-                                    <i class="fas fa-angle-double-left"></i>
-                                </a>
-                            </li>
-                            <!-- 最前面 -->
-                            <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page - 1 ?>">
-                                    <i class="fas fa-angle-left"></i>
-                                </a>
-                            </li>
-                            <!-- 上一頁 -->
-                            <?php for ($i = $page - 2; $i <= $page + 2; $i++)
-                                if ($i >= 1 && $i <= $totalPages) : ?>
-                                <li class="page-item <?= $i == $page ? 'active' : '' ?>" aria-current="page">
-                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                                </li>
-                            <?php endif; ?>
-                            <!-- 頁數 -->
-                            <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="<?= isset($_GET['keyword'])?"?keyword=$keyword&page=$i":"?page=$i"?>">
-                                    <i class="fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                            <!-- 下一頁 -->
-                            <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $totalPages ?>">
-                                    <i class="fas fa-angle-double-right"></i>
-                                </a>
-                            </li>
-                            <!-- 最後面 -->
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- row 分頁按鈕 -->
 
-            <div class="bd-example mb-5 mt-3">
+            <div class="bd-example my-5">
                 <form action="deleteAll_member-api.php" method="post" name="form1">
                     <!-- 表單送出會到 deleteAll_member-api -->
                     <table class="table table-hover">
@@ -222,7 +182,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <th scope="col">等級</th>
 
                                 <th scope="col">
-                                    <button type="submit" class="delAllbtn btn btn-outline-dange">
+                                    <button type="submit" class="delAllBtn btn btn-outline-dange">
                                         勾選 <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </th>
@@ -262,6 +222,46 @@ $rows = $pdo->query($sql)->fetchAll();
 
                     </table>
                 </form>
+
+
+                <div class="col">
+                <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page == 1 ?>">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <!-- 最前面 -->
+                            <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page - 1 ?>">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <!-- 上一頁 -->
+                            <?php for ($i = $page - 2; $i <= $page + 2; $i++)
+                                if ($i >= 1 && $i <= $totalPages) : ?>
+                                <li class="page-item <?= $i == $page ? 'active' : '' ?>" aria-current="page">
+                                    <a class="page-link" href="<?= isset($_GET['keyword']) ? "?keyword=$keyword&page=$i" : "?page=$i" ?>"><?= $i ?></a>
+                                </li>
+                            <?php endif; ?>
+                            <!-- 頁數 -->
+                            <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page + 1 ?>">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <!-- 下一頁 -->
+                            <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $totalPages ?>">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                            <!-- 最後面 -->
+                        </ul>
+                    </nav>
+                </div>
+                <!-- row 分頁按鈕 -->
             </div>
         </div>
         <!-- row 會員資料 -->
@@ -320,7 +320,7 @@ $rows = $pdo->query($sql)->fetchAll();
     const searchIp = document.querySelector('#searchIp');
     const searchIpButton = document.querySelector('.searchIpButton');
     let str = '';
-    
+
 
     function searchTest(v) {
         event.preventDefault();
