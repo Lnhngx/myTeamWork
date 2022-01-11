@@ -29,7 +29,7 @@ if (!empty($addcartKeys)) {
     exit;
 }
 
-$o_sql = "INSERT INTO `orders`(`member_sid`, `amount`, `order_date`) VALUES (?, ?, NOW())";
+$o_sql = "INSERT INTO `orders`(`users_sid`, `amount`, `order_date`) VALUES (?, ?, NOW())";
 $o_stmt = $pdo->prepare($o_sql);
 $o_stmt->execute([
     $_SESSION['users']['email'],
