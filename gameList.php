@@ -144,7 +144,7 @@ if($page>$totalPages){
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex" name="form12">
                     <input id="searchIp" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="searchIpButton search btn btn-outline" type="submit" style="width: 5rem;">搜尋</button>
+                    <button class="searchIpButton search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
             
@@ -207,7 +207,7 @@ if($page>$totalPages){
                 <!-- 分頁按鈕begin -->
             <div class="col-12 mt-4">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination">
                         <!-- 直接到第一頁 -->
                         <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                             <a class="page-link" href="?page=1">

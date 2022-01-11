@@ -60,6 +60,14 @@ if (empty($row)) {
     .myimg {
         width: 400px;
     }
+    .imgbtn {
+        background-color: #daa520;
+        color: white;
+    }
+    .imgbtn:hover {
+        background-color: #9A572D;
+        color: white;
+    }
 </style>
 
 
@@ -136,7 +144,7 @@ if (empty($row)) {
 
                                 <form name="picform" onsubmit="return false;" enctype="multipart/form-data">
                                     <input id="sel_file" type="file" name="myfile" accept="image/*" style="display: none;">
-                                    <button type="button" onclick="sel_file.click()">預覽照片</button>
+                                    <button type="button" class="imgbtn btn" onclick="sel_file.click()">預覽照片</button>
                                 </form>
                                 <br>
                                 <br>
@@ -145,7 +153,7 @@ if (empty($row)) {
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
 
-                    <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
+                    <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認修改</button>
 
                 </div>
             </div>

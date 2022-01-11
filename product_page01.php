@@ -187,7 +187,7 @@ $row = $pdo->query($sql)->fetchAll();
                                 <th scope="col">商品圖片</th>
                                 <th scope="col">更新時間</th>
                                 <td>
-                                    <button type="submit" class="delBtn btn btn-outline" title="刪除勾選的所有資料"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="submit" class="delBtn btn btn-outline" title="刪除勾選的所有資料"> 勾選 <i class="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         </thead>

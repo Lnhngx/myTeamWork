@@ -46,6 +46,14 @@ $pageName = 'room-insert';
     .myimg {
         width: 400px;
     }
+    .imgbtn {
+        background-color: #daa520;
+        color: white;
+    }
+    .imgbtn:hover {
+        background-color: #9A572D;
+        color: white;
+    }
 </style>
 
 
@@ -121,7 +129,7 @@ $pageName = 'room-insert';
 
                                 <form name="picform" onsubmit="return false;" enctype="multipart/form-data">
                                     <input id="sel_file" type="file" name="myfile" accept="image/*" style="display: none;">
-                                    <button type="button" onclick="sel_file.click()">預覽照片</button>
+                                    <button type="button" class="imgbtn btn" onclick="sel_file.click()">預覽照片</button>
                                 </form>
                                 <br>
                                 <br>
