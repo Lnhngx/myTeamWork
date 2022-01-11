@@ -6,7 +6,7 @@ $title = '會員資料列表';
 $pageName = 'memberList';
 
 if (!isset($_SESSION['users'])) {
-    header("Location: member_login.php");
+    header("Location: login.php");
     exit;
 }
 

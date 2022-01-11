@@ -1,11 +1,10 @@
 <?php
 require __DIR__.'/parts/__connect_db.php';
 
-if(! isset($_SESSION['users'])){
-    header("Location: member_login.php");
+if (!isset($_SESSION['users'])) {
+    header("Location: login.php");
     exit;
 }
-// 沒有登入就轉向
 
 if(isset($_GET['sid'])){
     $sid = intval($_GET['sid']);

@@ -2,10 +2,9 @@
 require __DIR__ . '/parts/__connect_db.php';
 
 if (!isset($_SESSION['users'])) {
-    header("Location: member_login.php");
+    header("Location: login.php");
     exit;
 }
-// 沒有登入就轉向
 $output = [
     'success' => false,
     'error' => '',

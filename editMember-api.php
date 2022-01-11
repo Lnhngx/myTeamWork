@@ -8,10 +8,9 @@ $output = [
 ];
 
 if (!isset($_SESSION['users'])) {
-    header("Location: member_login.php");
+    header("Location: login.php");
     exit;
 }
-// 沒有登入就轉向
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if (empty($sid)) {
