@@ -105,17 +105,20 @@ if($page>$totalPages){
     }
 
     .editBtn,
-    .delBtn {
+    .delBtn,
+    .delAll {
         color: white;
         
     }
 
-    .delBtn {
+    .delBtn,
+    .delAll {
         background-color: #C82C2C;
       
     }
 
-    .delBtn:hover {
+    .delBtn:hover
+    .delAll:hover {
         background-color: #9A572D;
         color: white;
     }
@@ -144,7 +147,64 @@ if($page>$totalPages){
                     <button class="searchIpButton search btn btn-outline" type="submit" style="width: 5rem;">搜尋</button>
                 </form>
             </div>
-            <!-- 分頁按鈕begin -->
+            
+            <div class="bd-example my-4">
+                <form action="boxDelete-api.php" method="post" name="form1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <input type="checkbox" class="checkAll">
+                                </th>
+                                <th scope="col">#</th>
+                                <th scope="col">動物名稱</th>
+                                <th scope="col">題目</th>
+                                <th scope="col">答案選項</th>
+                                <th scope="col">正確/錯誤</th>
+                                <th scope="col">對應的題號</th>
+                                <th scope="col">圖片</th>
+                                <th scope="col"><button  class="delAll btn btn-danger">勾選 <i class="fas fa-trash-alt"></i></button></th>     
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php $count = -1; ?> 
+                        <?php foreach($rows as $r): ?>
+                            <?php $count++; ?>
+                    
+                            <tr class="tables" style="line-height: 2.6rem;">
+                                <td>
+                                    <input type="checkbox" name="checkbox[]" class="check" value="<?= $r['question_sid'] ?>">
+                                </td>
+                                <th scope="row"><?= $r['sid'] ?></th>
+                                <td><?= htmlentities($r['name']) ?></td>
+                                <td><?= htmlentities($r['qcontent']) ?></td>
+                                <td><?= htmlentities($r['acontent']) ?></td>
+                                <td><?= $r['yesno'] ?></td>
+                                <td><?= $r['question_sid'] ?></td>
+                                <td><?= $r['image'] ?></td>
+
+                                    <?php if($count % 4 == 0): ?>            
+                                        <td rowspan="4" style="border:1px solid #E0E0E0;">
+
+                                        <a href="editGamelist.php?question_sid=<?= $r['question_sid'] ?>">
+                                        <button type="button" class="editBtn btn">修改</button>
+                                        </a>
+                                        <span></span>
+                                        <a href="javascript: delete_Alist(<?= $r['question_sid'] ?>)">
+                                        <button type="button" class="delBtn btn">刪除</button>
+                                        </a>
+
+                                        </td>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    
+                </form> 
+                <!-- 分頁按鈕begin -->
             <div class="col-12 mt-4">
                 <nav aria-label="...">
                     <ul class="pagination justify-content-center">
@@ -184,63 +244,7 @@ if($page>$totalPages){
                     </ul>
                 </nav>   
             </div>
-            <!-- 分頁按鈕end -->
-            <div class="bd-example my-4">
-                <form action="boxDelete-api.php" method="post" name="form1">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    <input type="checkbox" class="checkAll">
-                                </th>
-                                <th scope="col">#</th>
-                                <th scope="col">動物名稱</th>
-                                <th scope="col">題目</th>
-                                <th scope="col">答案選項</th>
-                                <th scope="col">正確/錯誤</th>
-                                <th scope="col">對應的題號</th>
-                                <th scope="col">圖片</th>
-                                <th scope="col"></th>     
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <?php $count = -1; ?> 
-                        <?php foreach($rows as $r): ?>
-                            <?php $count++; ?>
-                    
-                            <tr class="tables" style="line-height: 2.6rem;">
-                                <td>
-                                    <input type="checkbox" name="checkbox[]" class="check" value="<?= $r['question_sid'] ?>">
-                                </td>
-                                <th scope="row"><?= $r['sid'] ?></th>
-                                <td><?= htmlentities($r['name']) ?></td>
-                                <td><?= htmlentities($r['qcontent']) ?></td>
-                                <td><?= htmlentities($r['acontent']) ?></td>
-                                <td><?= $r['yesno'] ?></td>
-                                <td><?= $r['question_sid'] ?></td>
-                                <td><?= $r['image'] ?></td>
-
-                                    <?php if($count % 4 == 0): ?>            
-                                        <td rowspan="4" style="border:1px solid #E0E0E0;">
-
-                                        <a href="editGamelist.php?question_sid=<?= $r['question_sid'] ?>">
-                                        <button type="button" class="editBtn btn">修改</button>
-                                        </a>
-                                        <span></span>
-                                        <a href="javascript: delete_Alist(<?= $r['question_sid'] ?>)">
-                                        <button type="button" class="delBtn btn">刪除</button>
-                                        </a>
-
-                                        </td>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <button  class="delAll btn btn-danger">刪除</button>
-                </form>   
+            <!-- 分頁按鈕end -->  
             </div>
         </div>
     </div>
