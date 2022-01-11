@@ -182,7 +182,7 @@ $rows = $pdo->query($sql)->fetchAll();
                                 <th scope="col">等級</th>
 
                                 <th scope="col">
-                                    <button type="submit" class="delAllBtn btn btn-outline-dange">
+                                    <button type="submit" class="delAllBtn delAllbtn btn btn-outline-dange">
                                         勾選 <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </th>
@@ -225,7 +225,7 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
                 <div class="col">
-                <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                                 <a class="page-link" href="?page=<?= $page == 1 ?>">
