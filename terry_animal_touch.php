@@ -122,8 +122,11 @@ $rows = $pdo->query($sql)->fetchAll();
 
     .tables td,
     th {
-        /* text-align: center; */
         vertical-align: middle;
+    }
+
+    a{
+        text-decoration: none;
     }
 </style>
 <div class="wrap">
@@ -148,10 +151,10 @@ $rows = $pdo->query($sql)->fetchAll();
                             <th scope="col">活動名稱</th>
                             <th scope="col">開始時間</th>
                             <th scope="col">結束時間</th>
-                            <th scope="col">已預約人數</th>
+                            <th scope="col" style="width: 8%">預約人數</th>
                             <th scope="col">活動簡介</th>
                             <th scope="col">活動位置</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width: 8.6rem;"></th>
                         </tr>
                     </thead>
                     <tbody>

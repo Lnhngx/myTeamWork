@@ -54,6 +54,10 @@ $pageName = 'insert';
     .row {
         justify-content: center;
     }
+
+    .form-text {
+        color: #f00;
+    }
 </style>
 <div class="container1 d-flex justify-content-center">
     <!-- <div class="row"> -->

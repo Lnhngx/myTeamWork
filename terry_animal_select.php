@@ -108,6 +108,10 @@ $rows = $pdo->query("SELECT * FROM `animal_touch`  WHERE `actName` $var ORDER BY
         /* text-align: center; */
         vertical-align: middle;
     }
+
+    a{
+        text-decoration: none;
+    }
 </style>
 <div class="wrap">
     <div class="container my-3">
@@ -120,7 +124,7 @@ $rows = $pdo->query("SELECT * FROM `animal_touch`  WHERE `actName` $var ORDER BY
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex">
                     <input id="testInput" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="submitBtn search btn btn-outline" type="submit">Search</button>
+                    <button class="submitBtn search btn btn-outline" type="submit" style="width: 5rem;">搜尋</button>
                 </form>
             </div>
             <div class="bd-example my-5">
