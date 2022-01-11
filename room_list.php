@@ -208,7 +208,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                 if ($i >= 1 && $i <= $totalPages) :
                             ?>
-                                <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                                <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="<?= isset($_GET['keyword'])?"?keyword=$keyword&page=$i":"?page=$i"?>"><?= $i ?></a></li>
                                 <!-- 連結用變數去帶 -->
                             <?php endif; ?>
                             <!-- for迴圈 -->
