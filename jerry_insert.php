@@ -8,7 +8,6 @@ $pagename = 'insert';
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
-<?php include __DIR__ . '/parts/__navbar.php' ?>
 <style>
     .container {
         width: calc(100% - 250px);
