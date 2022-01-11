@@ -178,12 +178,12 @@ $rows = $pdo->query($sql)->fetchAll();
                             <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                                 if ($i >= 1 && $i <= $totalPages) : ?>
                                 <li class="page-item <?= $i == $page ? 'active' : '' ?>" aria-current="page">
-                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                    <a class="page-link" href="<?= isset($_GET['keyword']) ? "?keyword=$keyword&page=$i" : "?page=$i" ?>"><?= $i ?></a>
                                 </li>
                             <?php endif; ?>
                             <!-- 頁數 -->
                             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="<?= isset($_GET['keyword'])?"?keyword=$keyword&page=$i":"?page=$i"?>">
+                                <a class="page-link" href="?page=<?= $page + 1 ?>">
                                     <i class="fas fa-angle-right"></i>
                                 </a>
                             </li>
@@ -320,7 +320,7 @@ $rows = $pdo->query($sql)->fetchAll();
     const searchIp = document.querySelector('#searchIp');
     const searchIpButton = document.querySelector('.searchIpButton');
     let str = '';
-    
+
 
     function searchTest(v) {
         event.preventDefault();
