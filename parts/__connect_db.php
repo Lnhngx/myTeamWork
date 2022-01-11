@@ -1,11 +1,11 @@
 <?php
 $db_host='localhost';
 //主機
-$db_name='動物園商品';
+$db_name='wildjungle';
 //資料庫名稱
-$db_user='s88173';
+$db_user='shaokang';
 //使用者帳號
-$db_pass='55551122';
+$db_pass='leo19685496';
 //使用者密碼
 
 $dsn="mysql:host={$db_host};dbname={$db_name};charset=utf8";

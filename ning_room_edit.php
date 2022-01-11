@@ -20,13 +20,23 @@ if (empty($row)) {
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    .container {
-        position: absolute;
-        right: 0;
+    .container1 {
         width: calc(100% - 250px);
-        margin-top: 20px;
+        position: relative;
+        left: 250px;
+        margin-top: 10px;
         margin-bottom: 20px;
-
+    }
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
     }
 
     .row {
@@ -43,9 +53,6 @@ if (empty($row)) {
         border-color: #908a70;
     }
 
-    .card-title {
-        color: #2f4f4f;
-    }
 
     .form-text {
         color: #f00;
@@ -56,12 +63,13 @@ if (empty($row)) {
 </style>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="container1 d-flex justify-content-center">
+    <!-- <div class="row"> -->
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">修改房間資訊</h4>
+                    <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
+                    <h5 class="card-title">修改房間資訊</h5>
                     <form name="form1" onsubmit="sendData();return false;">
                     <input type="hidden" name="sid" value="<?= $row['sid']?>">
                         <div class="mb-3">
@@ -141,7 +149,7 @@ if (empty($row)) {
 
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 
     <?php include __DIR__ . '/parts/__scripts.php' ?>
