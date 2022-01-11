@@ -7,14 +7,13 @@ require __DIR__ . '/parts/__connect_db.php';
 $pageName = 'index';
 ?>
 <?php include __DIR__ . '/parts/__html_head.php' ?>
-<link href="./bootstrap-5.1.1-examples/sign-in/signin.css" rel="stylesheet">
 <style>
     @import url(//db.onlinewebfonts.com/c/537002c20f6d3b0765eee34c71fc8062?family=GT+America+Condensed);
 
     .ALAN-login {
         background-color: #BBBBB9;
         border-radius: 50px;
-        height: 500px;
+        height: 700px;
         width: 500px;
     }
 
@@ -35,11 +34,11 @@ $pageName = 'index';
         background-color: #9a572d;
     }
 
-    /* @media (min-width: 768px) {
+    @media (min-width: 768px) {
         .bd-placeholder-img-lg {
             font-size: 3.5rem;
         }
-    } */
+    }
 
     .ALAN-title {
         font-family: "GT America Condensed";
@@ -54,29 +53,42 @@ $pageName = 'index';
         border-color: #daa520;
         box-shadow: 0 0 1px 0.25rem #9a572d;
     }
+
+    .tit {
+        justify-content: flex-start;
+        margin-bottom: 4px;
+        margin-top: 8px;
+        text-align: left;
+        font-size: 1rem;
+        letter-spacing: .05rem;
+        color: #fff;
+    }
 </style>
+<link href="./bootstrap-5.1.1-examples/sign-in/signin.css" rel="stylesheet">
 
 
 <div class="ALAN-login text-center m-auto">
     <main class="form-signin">
-        <form class="mx-auto my-auto" name="form_login" onsubmit="doLogin(); return false;">
-            <!-- <img class="mb-4" src="./pic/alpha-lion-3.png" alt="" width="300" height="280"> -->
-            <h1 class="ALAN-title  mb-2 mt-2">Wild Jungle</h1>
-            <h2 class="AlAN-title2 h3 fw-normal fs-5 text-white-50 mt-3 mb-3">welcome</h2>
+        <form name="form_login" onsubmit="doLogin(); return false;">
+            <img class="mb-3" src="uploaded/alpha-lion-3.png" alt="" width="300" height="280">
+            <h1 class="ALAN-title  mb-1">Wild Jungle</h1>
+            <h2 class="AlAN-title2 h3 mb-3 fw-normal fs-6 text-white">welcome</h2>
 
-            <div class="form-floating mb-1">
-                <label for="email" class="form-label"></label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="密碼">
+            <div class="form-floating">
+                <p class="tit" for="email">請輸入帳號</p>
+                <!-- <label class="form-label"></label> -->
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                 <div class="form-text"></div>
             </div>
 
             <div class="form-floating">
-                <label for="password" class="form-label"></label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="密碼">
+                <p class="tit" for="password">請輸入密碼</p>
+                <!-- <label  class="form-label"></label> -->
+                <input type="password" class="form-control" id="password" name="password">
                 <div class="form-text"></div>
             </div>
-            <button class="ALAN-button w-100 subbtn btn btn-lg btn-primary mb-3" type="submit">登入</button>
-            <p class="mb-3 text-black-50"><small>&copy;2021-2022</small></p>
+            <button class="ALAN-button w-100 btn btn-lg btn-primary" type="submit">登入</button>
+            <p class="mt-2 text-black-50"><small>&copy;2021-2022</small></p>
         </form>
     </main>
 </div>
@@ -84,15 +96,15 @@ $pageName = 'index';
 
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
-    function doLogin(){
+    function doLogin() {
         const fd = new FormData(document.form_login);
 
         fetch('member_login-api.php', {
             method: 'POST',
             body: fd,
-        }).then(r=>r.json()).then(obj=>{
+        }).then(r => r.json()).then(obj => {
             console.log(obj);
-            if(obj.success){
+            if (obj.success) {
                 location.href = 'memberList.php';
             } else {
                 alert(obj.error);
