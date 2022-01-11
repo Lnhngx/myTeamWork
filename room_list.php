@@ -275,7 +275,7 @@ $rows = $pdo->query($sql)->fetchAll();
         // event.preventDefault();
         const searchIpValue = searchIp.value;
         str = searchIpValue;
-        window.location.href = "http://localhost/myTeamWork/room_list.php?keyword=" + str;
+        window.location.href = "http://localhost/myTeamWork/room_list.php?keyword=" + str ;
     }
     searchIpButton.addEventListener('click', searchTest);
 
