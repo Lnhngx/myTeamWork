@@ -139,7 +139,7 @@ unset($_SESSION['cart']); // 清除購物車內容
             <div class="col-3 d-flex" style="justify-content: flex-end;">
             </div>
             <div class="bd-example my-5">
-                訂單完成，國家會感謝你的。
+                <img src="./uploaded/stan.png" alt="">
             </div>
         </div>
     </div>
