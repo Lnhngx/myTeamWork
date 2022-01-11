@@ -134,11 +134,10 @@ if (empty($row)) {
                                 <br>
                                 <img src="room-uploaded/<?= $row['room-image'] ?>" id="myimg" class="myimg">
                             </div>
-                            <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
                             <!-- <input type="submit" class="subbtn btn btn-primary" value="確認送出"> -->
                     </form>
 
-                   
+                    <button id="uploadBtn" type="submit" class="subbtn btn btn-primary">確認送出</button>
 
                 </div>
             </div>

@@ -131,7 +131,7 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="col-3">
                 <form class="d-flex">
                     <input id="searchIp" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="searchIpButton search btn btn-outline" type="submit">Search</button>
+                    <button class="searchIpButton search btn btn-outline" type="button">Search</button>
                 </form>
             </div>
             <div class="bd-example my-5">
@@ -225,7 +225,7 @@ $row = $pdo->query($sql)->fetchAll();
             let str = "";
 
             function searchTest(value) {
-                event.preventDefault();
+                // event.preventDefault();
                 const searchIpValue = searchIp.value;
                 str = searchIpValue;
                 alert(str);

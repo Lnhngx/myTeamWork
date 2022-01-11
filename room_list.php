@@ -3,8 +3,6 @@ require __DIR__ . '/parts/__connect_db.php';
 $title = '住宿資訊';
 $pageName = 'room-list';
 
-$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-
 $perPage = 7;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -14,21 +12,28 @@ if ($page < 1) {
 }
 $t_sql = "SELECT COUNT(1) FROM `room-detail`";
 
+<<<<<<< HEAD
 if (isset($_GET['keyword'])) {
     $t_sql = $t_sql . " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%' ";
 }
 
+=======
+>>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);
 if ($page > $totalPages) {
     header('Location: room_list.php?page=' . $totalPages);
     exit;
 }
+<<<<<<< HEAD
 $mySqlVar = isset($_GET['keyword']) ? " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%'" : "";
 
 $sql = sprintf("SELECT * FROM `room-detail` %s LIMIT %s , %s", $mySqlVar, ($page - 1) * $perPage, $perPage);
 
+=======
+>>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 
+$sql = sprintf("SELECT * FROM `room-detail` ORDER BY sid DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
@@ -117,7 +122,6 @@ $rows = $pdo->query($sql)->fetchAll();
         /* text-align: center; */
         vertical-align: middle;
     }
-
     .myimg {
         width: 100px;
     }
@@ -128,9 +132,9 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-6 d-flex" style="justify-content:flex-start;"><a href="./ning_room_insert.php" class="<?= $pageName == 'room-insert' ? 'active disable' : '' ?>"><button type="button" class="insert btn btn-outline active" id="btn">新增</button></a></div>
             <div class="col-3 d-flex" style="justify-content:flex-end;">
                 <form class="d-flex">
-                    <input id="searchIp" class="searchIp light-table-filter" type="search" placeholder="請輸入關鍵字" aria-label="Search" data-table="order-table">
+                    <input class="light-table-filter" type="search" placeholder="請輸入關鍵字" aria-label="Search" data-table="order-table">
 
-                    <button class="searchIpButton search btn btn-outline" type="submit">Search</button>
+                    <button class="search btn btn-outline" type="submit">Search</button>
                 </form>
             </div>
             <div class="bd-example my-5">
@@ -223,6 +227,7 @@ $rows = $pdo->query($sql)->fetchAll();
 </script> -->
 
 <script>
+<<<<<<< HEAD
     const checkAll = document.querySelector('.checkAll');
     const check = document.querySelectorAll('.check');
     checkAll.addEventListener('change', function() {
@@ -290,5 +295,52 @@ $rows = $pdo->query($sql)->fetchAll();
     //     });
 
     // })(document);
+=======
+    (function(document) {
+
+        'use strict';
+        // 建立 LightTableFilter
+        var LightTableFilter = (function(Arr) {
+
+            var _input;
+
+            // 資料輸入事件處理函數
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function(table) {
+                    Arr.forEach.call(table.tBodies, function(tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+
+            // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(),
+                    val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+
+            return {
+                // 初始化函數
+                init: function() {
+                    var inputs = document.getElementsByClassName('light-table-filter');
+                    Arr.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        // 網頁載入完成後，啟動 LightTableFilter
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                LightTableFilter.init();
+            }
+        });
+
+    })(document);
+>>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

@@ -142,7 +142,6 @@ if ($stmt->rowCount() == 1 ||$stmt2->rowCount() == 1) {
     $output['success'] = true;
 } else {
     $output['error'] = '資料未修改';
-    
 };
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

@@ -5,7 +5,7 @@ require __DIR__ . '/parts/__connect_db.php';
 $title = '商品訊息';
 $pageName = 'products';
 //可以在這邊設定名稱
-
+$keyword = isset($_GET['keyword'])? $_GET['keyword'] : '';
 
 $perpage = 10;
 
@@ -17,6 +17,10 @@ if ($page < 1) {
 
 $t_sql = 'SELECT COUNT(1) FROM product_item';
 
+if(isset($_GET['keyword'])){
+    $t_sql = $t_sql . " WHERE name LIKE '%".$keyword."%' ";
+}
+
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perpage);
 if ($page > $totalPages) {
@@ -24,43 +28,11 @@ if ($page > $totalPages) {
     exit;
 };
 
+$mySqlVar = isset($_GET['keyword'])? "WHERE name LIKE '%" . $keyword ."%'" : "";
 
-$sql = sprintf("SELECT * FROM product_item ORDER BY sid DESC LIMIT %s , %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM product_item %s ORDER BY sid DESC LIMIT %s , %s",$mySqlVar , ($page - 1) * $perpage, $perpage);
 
 $row = $pdo->query($sql)->fetchAll();
-
-// $sid = intval($_GET['sid']);
-// $search = "SELECT `sid` FROM `supplier` WHERE `sid`=$sid";
-// $searchpage = $pdo ->query($search) ->fetch(PDO::FETCH_ASSOC);
-
-
-// try{
-//     $sql = "SELECT * FROM persons";   
-//     $result = $pdo->query($sql);
-//     if($result->rowCount() > 0){
-//         echo "<table>";
-//             echo "<tr>";
-//                 echo "<th>id</th>";
-//                 echo "<th>first_name</th>";
-//                 echo "<th>last_name</th>";
-//                 echo "<th>email</th>";
-//             echo "</tr>";
-//         while($row = $result->fetch()){
-//             echo "<tr>";
-//                 echo "<td>" . $row['id'] . "</td>";
-//                 echo "<td>" . $row['first_name'] . "</td>";
-//                 echo "<td>" . $row['last_name'] . "</td>";
-//                 echo "<td>" . $row['email'] . "</td>";
-//             echo "</tr>";
-//         }
-//         echo "</table>";
-//         unset($result);
-//     } else{
-//         echo "No records matching your query were found.";
-//     }
-// } catch(PDOException $e){
-//     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
-// }
 
 ?>
 
@@ -189,8 +161,10 @@ $row = $pdo->query($sql)->fetchAll();
             <div class="col-3 d-flex" style="justify-content: flex-start;"><a href="product_page01_insert.php" <?= $pageName == 'insert' ? 'active disabled' : '' ?> style="text-decoration:none;color:#fff;"><button type="button" class="insert btn btn-outline" id="btn">新增</button></a></div>
             <div class="col-3">
                 <div class="d-flex">
-                    <input class="searchIp form-control light-table-filter" type="search" placeholder="請輸入關鍵字" aria-label="Search" data-table="order-table">
+                    <!-- <input class="searchIp form-control light-table-filter" type="search" placeholder="請輸入關鍵字" aria-label="Search" data-table="order-table"> -->
                     <!-- <a href="page"><button class="search btn btn-outline" type="submit">Search</button></a> -->
+                    <input id="searchIp" class="searchIp form-control" type="search" placeholder="請輸入關鍵字" aria-label="Search">
+                    <button class="searchIpButton search btn btn-outline" type="button">Search</button>
                 </div>
             </div>
             <div class="bd-example my-5">
@@ -320,5 +294,18 @@ $row = $pdo->query($sql)->fetchAll();
                     arr.checked = false
                 });
             }
+
+
+            const searchIp = document.getElementById('searchIp');
+            const searchIpButton = document.querySelector('.searchIpButton');
+            let str = "";
+
+            function searchTest(value) {
+                // event.preventDefault();
+                const searchIpValue = searchIp.value;
+                str = searchIpValue;
+                window.location.href = "http://localhost/myTeamWork/product_page01.php?keyword=" + str;
+            }
+            searchIpButton.addEventListener('click', searchTest);
         </script>
         <?php include __DIR__ . '/parts/__html_foot.php' ?>
