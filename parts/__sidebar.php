@@ -168,7 +168,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="./login.php" class="nav-link text-white " aria-current="page">
+                <a href="member_login.php" class="nav-link text-white " aria-current="page">
                     <svg class="bi me-2" width="30" height="30">
                         <use xlink:href="#home" />
                     </svg>
