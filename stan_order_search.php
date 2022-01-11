@@ -18,6 +18,7 @@ JOIN `product_item` AS pitem
 ON o.sid= odp.order_sid AND odp.product_sid=pitem.sid
 WHERE o.users_sid='$u_sid' AND o.order_date > DATE_SUB(CURDATE(), INTERVAL 89 DAY)")->fetchAll();
 
+$num = 0;
 ?>
 
 <?php include __DIR__ . '/parts/__html_head.php' ?>
@@ -129,12 +130,21 @@ WHERE o.users_sid='$u_sid' AND o.order_date > DATE_SUB(CURDATE(), INTERVAL 89 DA
                     </thead>
                     <tbody>
                         <?php foreach ($odp_rows as $odp_r) : ?>
-                            <tr>
-                                <th scope="row"><?= $odp_r['sid'] ?></th>
-                                <td><?= $odp_r['order_date'] ?></td>
-                                <td><?= $odp_r['amount'] ?></td>
-                                <td></td>
-                            </tr>
+                            <?php if ($num != $odp_r['sid']) { ?>
+                                <tr>
+                                    <th scope="row"><?= $odp_r['sid'] ?></th>
+                                    <td><?= $odp_r['order_date'] ?></td>
+                                    <td><?= $odp_r['amount'] ?></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">產品編號</th>
+                                    <td>產品名稱</td>
+                                    <td>單價</td>
+                                    <td>數量</td>
+                                </tr>
+                            <?php $num = $odp_r['sid'];
+                            }; ?>
                             <tr>
                                 <td><?= $odp_r['product_sid'] ?></td>
                                 <td><?= $odp_r['name'] ?></td>
