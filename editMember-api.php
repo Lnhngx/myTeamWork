@@ -58,7 +58,7 @@ $sql = "UPDATE `members` SET
                      `mobile`=?,
                      `birthday`=?,
                      `address`=?,
-                     `grade_sid`=?,
+                     `grade_sid`=?
         WHERE `sid`=?";
 
 $stmt = $pdo->prepare($sql);
@@ -70,7 +70,7 @@ $stmt->execute([
     empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'] ?? '',
     $_POST['grade_sid'] ?? '',
-    $sid
+    $sid,
 ]);
 
 
