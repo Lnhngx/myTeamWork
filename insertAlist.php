@@ -5,21 +5,57 @@
     .error-hint {
         color: crimson;
     }
-    .wrap {
+    .container1 {
         width: calc(100% - 250px);
-        position: absolute;
+        position: relative;
         left: 250px;
-        
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
+    }
+    .row {
+        justify-content: center;
+    }
+
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
     }
   
 </style>
-<div class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-8 mx-auto mt-3">
+    <div class="container1 d-flex justify-content-center">
+        <!-- <div class="row"> -->
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center">新增選項</h3>
+                        <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
+                        <h5 class="card-title text-center">新增選項</h5>
 
                         <form name="form_game" onsubmit="sendData(); return false;">
 
@@ -73,15 +109,15 @@
                             </div> -->
                         
 
-                            <button type="submit" class="btn btn-primary">新增</button>
+                            <button type="submit" class="subbtn btn btn-primary">新增</button>
 
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
-</div>
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
