@@ -7,12 +7,10 @@ $output = [
     'error' => '',
 ];
 
-if(! isset($_SESSION['users'])){
-    header("Location: member_login.php");
+if (!isset($_SESSION['users'])) {
+    header("Location: login.php");
     exit;
 }
-// 沒有登入就轉向
-
 
 $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';

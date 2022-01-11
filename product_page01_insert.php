@@ -23,14 +23,24 @@ $totalreser = $pdo->query($resersql)->fetchAll();
 
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    .container {
+    .container1 {
         width: calc(100% - 250px);
-        position: absolute;
+        position: relative;
         left: 250px;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 20px;
     }
-
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
+    }
     .row {
         justify-content: center;
     }
@@ -79,11 +89,12 @@ $totalreser = $pdo->query($resersql)->fetchAll();
     }
 </style>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="container1 d-flex justify-content-center">
+    <!-- <div class="row"> -->
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
                     <h5 class="card-title">新增商品資料</h5>
                     <form id="form" name="form" onsubmit="sendData();return false;">
                         <div class="mb-3">
@@ -154,7 +165,7 @@ $totalreser = $pdo->query($resersql)->fetchAll();
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
 
 

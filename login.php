@@ -30,7 +30,7 @@ $pageName = 'index';
         border: #daa520;
     }
 
-    .ALAN-button:hover{
+    .ALAN-button:hover {
         background-color: #9a572d;
     }
 
@@ -48,38 +48,69 @@ $pageName = 'index';
         font-size: 50px;
         color: #2f4f4f;
     }
-    .form-control:focus{
-        border-color:#daa520;
+
+    .form-control:focus {
+        border-color: #daa520;
         box-shadow: 0 0 1px 0.25rem #9a572d;
     }
 
-
+    .tit {
+        justify-content: flex-start;
+        margin-bottom: 4px;
+        margin-top: 8px;
+        text-align: left;
+        font-size: 1rem;
+        letter-spacing: .05rem;
+        color: #fff;
+    }
 </style>
 <link href="./bootstrap-5.1.1-examples/sign-in/signin.css" rel="stylesheet">
 
+
 <div class="ALAN-login text-center m-auto">
     <main class="form-signin">
-        <form>
-            <img class="mb-4" src="./pic/alpha-lion-3.png" alt="" width="300" height="280">
+        <form name="form_login" onsubmit="doLogin(); return false;">
+            <img class="mb-3" src="uploaded/alpha-lion-3.png" alt="" width="300" height="280">
             <h1 class="ALAN-title  mb-1">Wild Jungle</h1>
-            <h2 class="AlAN-title2 h3 mb-5 fw-normal fs-6 text-white-50">welcome</h2>
+            <h2 class="AlAN-title2 h3 mb-3 fw-normal fs-6 text-white">welcome</h2>
 
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">請輸入管理者帳號</label>
+                <p class="tit" for="email">請輸入帳號</p>
+                <!-- <label class="form-label"></label> -->
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                <div class="form-text"></div>
             </div>
 
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">請輸入管理者密碼</label>
+                <p class="tit" for="password">請輸入密碼</p>
+                <!-- <label  class="form-label"></label> -->
+                <input type="password" class="form-control" id="password" name="password">
+                <div class="form-text"></div>
             </div>
             <button class="ALAN-button w-100 btn btn-lg btn-primary" type="submit">登入</button>
-            <p class="mt-5 mb-3 text-black-50">&copy;2021-2022</p>
+            <p class="mt-2 text-black-50"><small>&copy;2021-2022</small></p>
         </form>
     </main>
 </div>
 
 
-
 <?php include __DIR__ . '/parts/__scripts.php' ?>
+<script>
+    function doLogin() {
+        const fd = new FormData(document.form_login);
+
+        fetch('member_login-api.php', {
+            method: 'POST',
+            body: fd,
+        }).then(r => r.json()).then(obj => {
+            console.log(obj);
+            if (obj.success) {
+                location.href = 'memberList.php';
+            } else {
+                alert(obj.error);
+            }
+
+        });
+    }
+</script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

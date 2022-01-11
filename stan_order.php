@@ -29,10 +29,13 @@ if (!empty($addcartKeys)) {
     exit;
 }
 
+$users_email =$_SESSION['users']['email'];
+$users_sid = $pdo->query("SELECT `sid` FROM `users` WHERE  email= '$users_email' ")->fetch();
+
 $o_sql = "INSERT INTO `orders`(`users_sid`, `amount`, `order_date`) VALUES (?, ?, NOW())";
 $o_stmt = $pdo->prepare($o_sql);
 $o_stmt->execute([
-    $_SESSION['users']['email'],
+    $users_sid['sid'],
     $total,
 ]);
 

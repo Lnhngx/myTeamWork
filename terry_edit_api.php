@@ -8,11 +8,11 @@ $output = [
 ];
 
 // 沒有登入管理帳號,就轉向
-if(! isset($_SESSION['admin'])){
-    $output['error'] = '請登入管理帳號';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
+// if(! isset($_SESSION['admin'])){
+//     $output['error'] = '請登入管理帳號';
+//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
+//     exit;
+// }
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if(empty($sid)) {

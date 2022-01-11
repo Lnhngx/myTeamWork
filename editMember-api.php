@@ -8,10 +8,9 @@ $output = [
 ];
 
 if (!isset($_SESSION['users'])) {
-    header("Location: member_login.php");
+    header("Location: login.php");
     exit;
 }
-// 沒有登入就轉向
 
 $sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 if (empty($sid)) {
@@ -59,7 +58,7 @@ $sql = "UPDATE `members` SET
                      `mobile`=?,
                      `birthday`=?,
                      `address`=?,
-                     `grade_sid`=?,
+                     `grade_sid`=?
         WHERE `sid`=?";
 
 $stmt = $pdo->prepare($sql);
@@ -71,7 +70,7 @@ $stmt->execute([
     empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'] ?? '',
     $_POST['grade_sid'] ?? '',
-    $sid
+    $sid,
 ]);
 
 

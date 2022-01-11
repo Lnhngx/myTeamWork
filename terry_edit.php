@@ -23,28 +23,60 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    .container {
-        position: absolute;
-        right: 0;
+    .container1 {
         width: calc(100% - 250px);
-        margin-top: 20px;
+        position: relative;
+        left: 250px;
+        margin-top: 10px;
         margin-bottom: 20px;
-
+    }
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
     }
 
     .row {
         justify-content: center;
     }
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
     
     form .form-text {
         color: red;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="container1 d-flex justify-content-center">
+    <!-- <div class="row"> -->
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
                     <h5 class="card-title">修改活動資料</h5>
 
                     <form name="form1" onsubmit="sendData(); return false;">
@@ -83,14 +115,14 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
                             <div class="form-text"></div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">修改</button>
+                        <button type="submit" class="subbtn btn btn-primary">修改</button>
 
                     </form>
 
                 </div>
             </div>
 
-        </div>
+        <!-- </div> -->
     </div>
 
     <!-- Modal -->
