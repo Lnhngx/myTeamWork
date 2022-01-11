@@ -176,7 +176,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="jerry_index_.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-paw"></i></div>
                     <p>園區導覽</p>
 
@@ -200,7 +200,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white " aria-current="page">
+                <a href="gameList.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-puzzle-piece">
 
                         </i></div>
