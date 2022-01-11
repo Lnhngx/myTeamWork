@@ -3,7 +3,10 @@ require __DIR__. '/parts/__connect_db.php';
 $title = '遊戲選項列表';
 $pageName = 'gameList';
 
-
+if (!isset($_SESSION['users'])) {
+    header("Location: member_login.php");
+    exit;
+}
 $t_sql = "SELECT COUNT(1) FROM answer";
 $totalRows = $pdo -> query($t_sql) ->fetch(PDO::FETCH_NUM)[0];
 // $totalRows是總筆數
@@ -12,8 +15,13 @@ $perPage = 12;
 $totalPages = ceil($totalRows/$perPage);
 // 處理分頁，沒有設定統一第一頁顯示出來
 $page = isset($_GET['page']) ? intval($_GET['page']):1;
+// 當有使用搜尋功能，JS會產生query string -> $keyword
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+
+$filter_sql = isset($_GET['keyword']) ? "WHERE name LIKE '%" . $keyword . "%'" : '';
+
 // 列印出當下那頁該有的資料
-$sql = sprintf("SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` LIMIT %s,%s",($page-1)*$perPage,$perPage);
+$sql = sprintf("SELECT `answer`.`sid`,`name`,`qcontent`,`acontent`,`yesno`,`question_sid`,`image`FROM `question` JOIN `answer` on `question`.`sid` = `answer`.`question_sid` %s LIMIT %s,%s",$filter_sql,($page-1)*$perPage,$perPage);
 // $rows 由 fetchAll()全部取出來，目前是47筆
 $rows = $pdo -> query($sql) ->fetchAll();
 if($page<1){
@@ -121,7 +129,8 @@ if($page>$totalPages){
             </div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex" name="form12">
-                    <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
+                    <input id="searchIp" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="searchIpButton search btn btn-outline" type="submit">搜尋</button>
                 </form>
             </div>
             <!-- 分頁按鈕begin -->
@@ -166,7 +175,7 @@ if($page>$totalPages){
             </div>
             <!-- 分頁按鈕end -->
             <div class="bd-example my-4">
-                <form action="boxDelete-api.php" method="post">
+                <form action="boxDelete-api.php" method="post" name="form1">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -200,7 +209,7 @@ if($page>$totalPages){
                                 <td><?= $r['yesno'] ?></td>
                                 <td><?= $r['question_sid'] ?></td>
                                 <td><?= $r['image'] ?></td>
-                      
+
                                     <?php if($count % 4 == 0): ?>            
                                         <td rowspan="4" style="border:1px solid #E0E0E0;">
 
@@ -224,6 +233,8 @@ if($page>$totalPages){
         </div>
     </div>
 </div> 
+
+
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script>
     const checkAll = document.querySelector('.checkAll');
@@ -242,28 +253,38 @@ if($page>$totalPages){
     }
 
     const delAll = document.querySelector('.delAll');
-    delAll.addEventListener('click', delAl);
-
-    function delAl() {
-        if (confirm(`確定刪除已勾選的項目?`)) {
-            delAll.getAttribute('type') = 'submit';
-            location.href = `deleteAll_member-api.php`;
-        }else{
-           det 
-        }  
-    }
-
-    const search = document.querySelector('.searchIp');
-    search.addEventListener('onchange',function(){
-        console.log(search.value);
-    })
-    // function doSearch(){
-    //     const fd = new FormData(document.form12);
-    //     fetch(filter-api.php,{
-    //         method : 'POST',
-    //         body : fd,
-    //     })
-    //   }
     
+// delAl 會先確認是否要刪除，
+    function delAl() {
+        event.preventDefault();
+        if (confirm(`確定刪除已勾選的項目?`)) {
+            const fd = new FormData(document.form1);
+            fetch('boxDelete-api.php',{
+                method:'POST',
+                body : fd,
+            })
+            .then(r=>r.json())
+            .then(r=>{
+                if(r.success){
+                    window.location.reload();
+                }
+            })
+        } 
+    }
+    delAll.addEventListener('click', delAl);
+// 對delAll設監聽器，點擊到就做以上的函式
+// 以下為查詢功能
+    const searchIp = document.querySelector('#searchIp');
+    const searchIpButton = document.querySelector('.searchIpButton');
+    let str = "";
+
+    function doSearch(){
+        event.preventDefault();
+        const searchValue = searchIp.value;
+        str = searchValue;
+        window.location.href = "http://localhost/myTeamWork/gameList.php?keyword=" + str;
+    }
+    searchIpButton.addEventListener('click',doSearch);
+
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
