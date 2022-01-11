@@ -151,6 +151,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             <th scope="col">已預約人數</th>
                             <th scope="col">活動簡介</th>
                             <th scope="col">活動位置</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
