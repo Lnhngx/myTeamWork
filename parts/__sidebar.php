@@ -226,12 +226,15 @@
             <li class="nav-item">
                 <a href="stan_cart.php" class="nav-link text-white " aria-current="page">
                     <div class="icon"><i class="fas fa-shopping-cart "></i></div>
-                    <p>購物車資料</p>
-
+                    <p>購物車</p>
                 </a>
             </li>
-
-
+            <li>
+                <a href="stan_temp_product.php" class="nav-link text-white " aria-current="page">
+                    <div class="icon"><i class="fas fa-shopping-cart "></i></div>
+                    <p>購物車-暫時商品購買網頁</p>
+                </a>
+            </li>
         </ul>
         <hr>
         <div class="dropdown">
