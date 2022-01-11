@@ -9,17 +9,57 @@ $pagename = 'insert';
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
+    .container1 {
+        width: calc(100% - 250px);
+        position: relative;
+        left: 250px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
+    }
+    .subbtn {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+    }
+
+    .subbtn:hover {
+        background-color: #908a70;
+        border-color: #908a70;
+    }
+
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
     .form-text {
         color: crimson;
 
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-6 mx-auto mt-3">
+<div class="container1 d-flex justify-content-center">
+    <!-- <div class="row"> -->
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">動物圖鑑</h3>
+                    <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
+                    <h5 class="card-title text-center">動物圖鑑</h5>
                     <!--     `sid`, `name`, `English_name`, `species`, `	origin`, `birthday`, `remark` -->
                     <form name="form_member" onsubmit="sendData();return false;">
                         <div class="mb-3">
@@ -70,7 +110,7 @@ $pagename = 'insert';
 
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 
     <!-- Modal -->
