@@ -137,7 +137,7 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex">
                     <input id="testInput" class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="submitBtn search btn btn-outline" type="submit">Search</button>
+                    <button class="submitBtn search btn btn-outline" type="submit" style="width: 5rem;">搜尋</button>
                 </form>
             </div>
             <div class="bd-example my-5">
