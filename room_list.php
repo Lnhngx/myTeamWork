@@ -12,26 +12,20 @@ if ($page < 1) {
 }
 $t_sql = "SELECT COUNT(1) FROM `room-detail`";
 
-<<<<<<< HEAD
 if (isset($_GET['keyword'])) {
     $t_sql = $t_sql . " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%' ";
 }
 
-=======
->>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);
 if ($page > $totalPages) {
     header('Location: room_list.php?page=' . $totalPages);
     exit;
 }
-<<<<<<< HEAD
 $mySqlVar = isset($_GET['keyword']) ? " WHERE `room-name` LIKE '%" . $keyword . "%' OR `room-introduction` LIKE '%" . $keyword . "%' OR `people` LIKE '%" . $keyword . "%' OR `price` LIKE '%" . $keyword . "%' OR `check-in-data` LIKE '%" . $keyword . "%' OR `check-out-data` LIKE '%" . $keyword . "%' OR `check-in-status` LIKE '%" . $keyword . "%'" : "";
 
 $sql = sprintf("SELECT * FROM `room-detail` %s LIMIT %s , %s", $mySqlVar, ($page - 1) * $perPage, $perPage);
 
-=======
->>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 
 $sql = sprintf("SELECT * FROM `room-detail` ORDER BY sid DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
 
@@ -227,7 +221,6 @@ $rows = $pdo->query($sql)->fetchAll();
 </script> -->
 
 <script>
-<<<<<<< HEAD
     const checkAll = document.querySelector('.checkAll');
     const check = document.querySelectorAll('.check');
     checkAll.addEventListener('change', function() {
@@ -295,7 +288,6 @@ $rows = $pdo->query($sql)->fetchAll();
     //     });
 
     // })(document);
-=======
     (function(document) {
 
         'use strict';
@@ -341,6 +333,5 @@ $rows = $pdo->query($sql)->fetchAll();
         });
 
     })(document);
->>>>>>> 82b0e3c8551b9f9adb646213ae370ea2d4ea71bb
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>
