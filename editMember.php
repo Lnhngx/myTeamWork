@@ -19,11 +19,27 @@ if (empty($row)) {
 <?php include __DIR__ . '/parts/__html_head.php' ?>
 <?php include __DIR__ . '/parts/__sidebar.php' ?>
 <style>
-    .wrap {
+    .container1 {
         width: calc(100% - 250px);
-        position: absolute;
+        position: relative;
         left: 250px;
-        /* text-align: center; */
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .card-title{ 
+        text-align: center;
+        top: 0;
+        position: absolute;
+        padding: 10px 0;
+        width: 100%;
+        background-color:  #2f4f4f;
+        color: white;
+        left: 0;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .row {
+        justify-content: center;
     }
 
     .subbtn {
@@ -36,54 +52,65 @@ if (empty($row)) {
         border-color: #908a70;
     }
 
+    .subbtn:active {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+    .subbtn:focus {
+        background-color: #2f4f4f;
+        border-color: #2f4f4f;
+        box-shadow:0 0 0 2px #daa520;
+    }
+
     .form-text {
         color: crimson;
     }
 </style>
-<div class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-6 mx-auto mt-3">
+    <div class="container1 d-flex justify-content-center">
+        <!-- <div class="row"> -->
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center">修改會員基本資料</h3>
+                        <h5 class="card-title5 mt-2" style="color: white;">dsjfkesjfewji</h5>
+                        <h5 class="card-title text-center">修改會員基本資料</h5>
 
                         <form name="form_member" onsubmit="sendData(); return false;">
                             <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Account (Email)</label>
+                                <label for="email" class="form-label">電子郵件</label>
                                 <input type="text" class="form-control" id="email" name="email" value="<?= $row['email'] ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label">姓名</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?= htmlentities($row['name']) ?>">
                                 <div class="form-text"></div>
                                 <!-- 將所有適用的字符轉換為 HTML 實體 -->
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label">密碼</label>
                                 <input type="text" class="form-control" id="password" name="password" value="<?= htmlentities($row['password']) ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="mobile" class="form-label">Mobile</label>
+                                <label for="mobile" class="form-label">手機</label>
                                 <input type="text" class="form-control" id="mobile" name="mobile" data-pattern="09\d{2}-?\d{3}-?\d{3}" value="<?= $row['mobile'] ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="birthday" class="form-label">Birthday</label>
+                                <label for="birthday" class="form-label">生日</label>
                                 <input type="date" class="form-control" id="birthday" name="birthday" value="<?= $row['birthday'] ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
+                                <label for="address" class="form-label">地址</label>
                                 <textarea name="address" id="address" cols="30" rows="3"><?= htmlentities($row['address']) ?></textarea>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="grade_sid" class="form-label">Grade</label>
+                                <label for="grade_sid" class="form-label">等級</label>
                                 <br>
                                 <input type="radio" name="grade_sid" value="1" <?php if($row['grade_sid']=='1'){echo ("checked");} ?>>一般
                                 <input type="radio" name="grade_sid" value="2" <?php if($row['grade_sid']=='2'){echo ("checked");} ?>>黃金
@@ -93,13 +120,13 @@ if (empty($row)) {
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary">修改</button>
+                            <button type="submit" class="subbtn btn btn-primary">修改</button>
                         </form>
 
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
-        </div>
+        
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
