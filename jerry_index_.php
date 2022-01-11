@@ -108,7 +108,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <tr> 
           <!--     `animal_sid`, `name`, `English_name`, `password`, `origin`, `birthday`, `remark` -->  
                         <th scope="col">#</th>
-                        <th scope="col">名稱</th>
+                        <th scope="col"style="width: 8%">名稱</th>
                         <th scope="col">學名</th>
                         <th scope="col">科目</th>
                         <th scope="col">產地</th>
