@@ -237,9 +237,11 @@ $rows = $pdo->query($sql)->fetchAll();
 <script>
     const checkAll = document.querySelector('.checkAll');
     const check = document.querySelectorAll('.check');
+
     checkAll.addEventListener('click', function() {
         if (checkAll.checked == true) {
-            check.forEach(el => el.checked = true);
+            check.forEach(function(el){ 
+                el.checked = true})
         } else {
             check.forEach(el => el.checked = false)
         }
