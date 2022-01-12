@@ -135,10 +135,10 @@ $rows = $pdo->query("SELECT * FROM `animal_touch`  WHERE `actName` $var ORDER BY
                             <th scope="col">活動名稱</th>
                             <th scope="col">開始時間</th>
                             <th scope="col">結束時間</th>
-                            <th scope="col">已預約人數</th>
+                            <th scope="col" style="width: 8%">預約人數</th>
                             <th scope="col">活動簡介</th>
                             <th scope="col">活動位置</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width: 8.6rem;"></th>
                         </tr>
                     </thead>
                     <tbody>
