@@ -194,6 +194,10 @@ $pageName = 'room-insert';
                 isPass = false;
                 check_out_data.nextElementSibling.innerHTML = "請選擇退房日期";
             }
+            if (check_in_data.value >= check_out_data.value){
+                isPass = false;
+                check_out_data.nextElementSibling.innerHTML = "退房日期不能相同或小於入住日期";
+            }
 
             if (isPass) {
                 const fd = new FormData(document.form1)

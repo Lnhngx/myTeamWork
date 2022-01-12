@@ -210,11 +210,12 @@ if (empty($row)) {
                         if (obj.success) {
                             alert('修改住宿資訊成功!');
                             location.href = 'room_list.php';
-                        } else {
+                        } else if (confirm(`資料未修改，確定放棄修改?`)){
                             // const msg = obj.error;
                             // document.querySelector('.modal-body').innerHTML = msg;
                             // modal.show();
-                            alert(obj.error || '修改住宿資訊發生錯誤!');
+                            // alert(obj.error || '修改住宿資訊發生錯誤!');
+                            location.href = 'room_list.php'
                         }
                     })
             }
