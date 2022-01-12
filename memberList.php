@@ -228,7 +228,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page == 1 ?>">
+                                <a class="page-link" href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= 1 ;}else{ ?>?page=<?= $page==1;}?>">
                                     <i class="fas fa-angle-double-left"></i>
                                 </a>
                             </li>
@@ -253,7 +253,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             </li>
                             <!-- 下一頁 -->
                             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $totalPages ?>">
+                                <a class="page-link" href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= $totalPages ;}else{ ?>?page=<?= $totalPages;}?>">
                                     <i class="fas fa-angle-double-right"></i>
                                 </a>
                             </li>
