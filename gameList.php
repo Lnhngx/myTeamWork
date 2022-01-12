@@ -216,7 +216,7 @@ if($page>$totalPages){
                         </li>
                         <!-- 到上一頁 -->
                         <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page-1?>">
+                            <a class="page-link"href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= $page-1 ;}else{ ?>?page=<?= $page-1;}?>">
                                 <i class="fas fa-angle-left"></i>
                             </a>
                         </li>
@@ -231,7 +231,7 @@ if($page>$totalPages){
                         <?php endif; ?>
                         <!-- 到下一頁 -->
                         <li class="page-item <?= $totalPages == $page ? 'disabled' : ''?>">
-                            <a class="page-link" href="?page=<?= $page+1 ?>">
+                            <a class="page-link" href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= $page+1 ;}else{ ?>?page=<?= $page+1;}?>">
                                 <i class="fas fa-angle-right"></i>
                             </a>
                         </li>
