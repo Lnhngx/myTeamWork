@@ -234,7 +234,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             </li>
                             <!-- 最前面 -->
                             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page - 1 ?>">
+                                <a class="page-link" href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= $page-1 ;}else{ ?>?page=<?= $page-1;}?>">
                                     <i class="fas fa-angle-left"></i>
                                 </a>
                             </li>
@@ -247,7 +247,7 @@ $rows = $pdo->query($sql)->fetchAll();
                             <?php endif; ?>
                             <!-- 頁數 -->
                             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                                <a class="page-link" href="?page=<?= $page + 1 ?>">
+                                <a class="page-link" href="<?php if(isset($_GET['keyword'])){ ?>?keyword=<?= $keyword ?>&page=<?= $page+1 ;}else{ ?>?page=<?= $page+1;}?>">
                                     <i class="fas fa-angle-right"></i>
                                 </a>
                             </li>
