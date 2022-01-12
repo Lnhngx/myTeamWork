@@ -9,14 +9,31 @@ $u_sid = $users_sid['sid'];
 
 // $days = $_GET['days'];
 
-$o_rows = $pdo->query("SELECT * FROM `orders` WHERE users_sid= '$u_sid' AND order_date > DATE_SUB(CURDATE(), INTERVAL 89 DAY)")->fetchAll();
+$o_rows = $pdo->query("SELECT * FROM `orders` WHERE users_sid= '$u_sid'")->fetchAll();
+
+// AND order_date > DATE_SUB(CURDATE(), INTERVAL 89 DAY)
+
+$days = isset($_GET['days']) ? $_GET['days'] : '364';
+
+// $detaildays = isset($_GET['days']) ? "AND order_date > DATE_SUB(CURDATE(), INTERVAL '$days' DAY " : '';
+
+
+// SELECT o.sid,order_date,amount,product_sid,name,product_price,product_quantity
+// FROM `orders` AS o
+// JOIN `order_details_products` AS odp
+// JOIN `product_item` AS pitem
+// ON o.sid= odp.order_sid AND odp.product_sid=pitem.sid
+// WHERE o.users_sid='$u_sid' AND order_date > DATE_SUB(CURDATE(), INTERVAL 89 DAY)
+// ORDER BY order_date DESC, product_sid ASC
+
 
 $odp_rows = $pdo->query("SELECT o.sid,order_date,amount,product_sid,name,product_price,product_quantity
 FROM `orders` AS o
 JOIN `order_details_products` AS odp
 JOIN `product_item` AS pitem
 ON o.sid= odp.order_sid AND odp.product_sid=pitem.sid
-WHERE o.users_sid='$u_sid' AND o.order_date > DATE_SUB(CURDATE(), INTERVAL 89 DAY)")->fetchAll();
+WHERE o.users_sid='$u_sid' AND order_date > DATE_SUB(CURDATE(), INTERVAL '$days' DAY)
+ORDER BY order_date DESC, product_sid ASC")->fetchAll();
 
 $num = 0;
 ?>
@@ -40,7 +57,10 @@ $num = 0;
     .search,
     .insert,
     .editBtn,
-    .orderBtn {
+    .orderBtn,
+    .dropdownBtn,
+    .dropdetailBtn,
+    .orderdetailBtn {
         background-color: #2f4f4f;
         color: white
     }
@@ -48,7 +68,9 @@ $num = 0;
     .search:hover,
     .insert:hover,
     .editBtn:hover,
-    .orderBtn:hover {
+    .orderBtn:hover,
+    .dropdownBtn:hover,
+    .orderdetailBtn:hover {
         color: white;
         background-color: #908a70;
     }
@@ -60,7 +82,9 @@ $num = 0;
 
     .editBtn,
     .delBtn,
-    .orderBtn {
+    .orderBtn,
+    .dropdownBtn,
+    .orderdetailBtn {
         color: white;
     }
 
@@ -78,6 +102,7 @@ $num = 0;
     }
 
     .tables td,
+    tr,
     th {
         /* text-align: center; */
         vertical-align: middle;
@@ -99,14 +124,6 @@ $num = 0;
         width: 60px;
         text-align: center;
     }
-
-    .panel-heading .accordion-toggle:before {
-        content: "－";
-    }
-
-    .panel-heading .accordion-toggle.collapsed:before {
-        content: "＋";
-    }
 </style>
 <div class="wrap">
     <div class="container my-3">
@@ -114,47 +131,47 @@ $num = 0;
             <div class="col-3 d-flex" style="justify-content: flex-start;"></div>
             <div class="col-3 d-flex" style="justify-content: flex-end;">
                 <form class="d-flex">
-                    <input class="searchIp form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline" type="submit">Search</button>
+                    <div class="dropdown">
+                        <a class="btn btn-outline dropdown-toggle dropdownBtn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            訂單查詢
+                        </a>
+                        <ul class="dropdown-menu dropdetailBtn" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item clickthm" href="#">近三個月內訂單</a></li>
+                            <li><a class="dropdown-item clickoy" href="#">近一年內訂單</a></li>
+                        </ul>
+                    </div>
                 </form>
             </div>
             <div class="bd-example my-5">
                 <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">訂單編號</th>
-                            <th scope="col">下單日期</th>
-                            <th scope="col">總額</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($odp_rows as $odp_r) : ?>
-                            <?php if ($num != $odp_r['sid']) { ?>
+                    <?php foreach ($odp_rows as $odp_r) : ?>
+                        <?php if ($num != $odp_r['sid']) { ?>
+                            <thead>
                                 <tr>
-                                    <th scope="row"><?= $odp_r['sid'] ?></th>
-                                    <td><?= $odp_r['order_date'] ?></td>
-                                    <td><?= $odp_r['amount'] ?></td>
+                                    <th scope="row">訂單編號 : <?= $odp_r['sid'] ?></th>
+                                    <td>下單日期 : <?= $odp_r['order_date'] ?></td>
+                                    <td>總額 : <?= $odp_r['amount'] ?></td>
                                     <td></td>
+                                    <!-- <td><button class="btn btn-outline orderdetailBtn">查看訂單明細</button> </td> -->
                                 </tr>
-                                <tr>
-                                    <th scope="row">產品編號</th>
-                                    <td>產品名稱</td>
-                                    <td>單價</td>
-                                    <td>數量</td>
-                                </tr>
-                            <?php $num = $odp_r['sid'];
-                            }; ?>
+                            </thead>
+                            <?php  ?>
                             <tr>
-                                <td><?= $odp_r['product_sid'] ?></td>
-                                <td><?= $odp_r['name'] ?></td>
-                                <td><?= $odp_r['product_price'] ?></td>
-                                <td><?= $odp_r['product_quantity'] ?></td>
+                                <th scope="row">產品編號</th>
+                                <td>產品名稱</td>
+                                <td>單價</td>
+                                <td>數量</td>
                             </tr>
-                        <?php endforeach;  ?>
-                    </tbody>
+                        <?php $num = $odp_r['sid'];
+                        }; ?>
+                        <tr>
+                            <td><?= $odp_r['product_sid'] ?></td>
+                            <td><?= $odp_r['name'] ?></td>
+                            <td><?= $odp_r['product_price'] ?></td>
+                            <td><?= $odp_r['product_quantity'] ?></td>
+                        </tr>
+                    <?php endforeach;  ?>
                 </table>
-                <a href="stan_order.php" class="btn btn-success">結帳</a>
             </div>
         </div>
     </div>
@@ -162,6 +179,19 @@ $num = 0;
 <?php include __DIR__ . '/parts/__scripts.php' ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    const clickthm = document.querySelector('.clickthm');
+    const clickoy = document.querySelector('.clickoy');
 
+    function detailthm(event) {
+        const days = 89;
+        window.location.href = "http://localhost/myTeamwork/stan_order_search.php?days=" + days;
+    }
+    clickthm.addEventListener('click', detailthm);
+
+    function detailoy(event) {
+        const days = 364;
+        window.location.href = "http://localhost/myTeamwork/stan_order_search.php?days=" + days;
+    }
+    clickoy.addEventListener('click', detailoy);
 </script>
 <?php include __DIR__ . '/parts/__html_foot.php' ?>

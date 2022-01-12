@@ -179,6 +179,10 @@ $row['actTime_end'] = date('Y-m-d\TH:i:s', strtotime($row['actTime_end']));
             reserPeop.nextElementSibling.innerHTML = '請輸入正確的人數';
         }
 
+        if (actTime_end.value < actTime_start.value) {
+            isPass = false;
+            actTime_end.nextElementSibling.innerHTML = '結束時間不得早於開始時間';
+        }
 
 
 

@@ -150,7 +150,7 @@ $pageName = 'insert';
 
         actName.nextElementSibling.innerHTML = '';
         // actTime_start.nextElementSibling.innerHTML = '';
-        // actTime_end.nextElementSibling.innerHTML = '';
+        actTime_end.nextElementSibling.innerHTML = '';
         reserPeop.nextElementSibling.innerHTML = '';
         // introduce.nextElementSibling.innerHTML = '';
         // location.nextElementSibling.innerHTML = '';
@@ -165,6 +165,11 @@ $pageName = 'insert';
         if (reserPeop.value && !reserPeop_re.test(reserPeop.value)) {
             isPass = false;
             reserPeop.nextElementSibling.innerHTML = '請輸入正確的人數';
+        }
+
+        if (actTime_end.value < actTime_start.value) {
+            isPass = false;
+            actTime_end.nextElementSibling.innerHTML = '結束時間不得早於開始時間';
         }
 
 

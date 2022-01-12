@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-01-11 11:50:32
+-- 產生時間： 2022-01-12 03:43:08
 -- 伺服器版本： 10.4.22-MariaDB
 -- PHP 版本： 7.4.26
 
@@ -1082,6 +1082,33 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`sid`);
 
 --
+-- 資料表索引 `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`sid`);
+
+--
+-- 資料表索引 `order_details_activity`
+--
+ALTER TABLE `order_details_activity`
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `order_sid` (`order_sid`);
+
+--
+-- 資料表索引 `order_details_products`
+--
+ALTER TABLE `order_details_products`
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `order_sid` (`order_sid`);
+
+--
+-- 資料表索引 `order_details_ticket`
+--
+ALTER TABLE `order_details_ticket`
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `order_sid` (`order_sid`);
+
+--
 -- 資料表索引 `product_item`
 --
 ALTER TABLE `product_item`
@@ -1132,6 +1159,12 @@ ALTER TABLE `room-detail`
 -- 資料表索引 `supplier`
 --
 ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`sid`);
+
+--
+-- 資料表索引 `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`sid`);
 
 --
