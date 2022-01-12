@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-01-07 06:40:44
+-- 產生時間： 2022-01-12 04:58:08
 -- 伺服器版本： 10.4.22-MariaDB
 -- PHP 版本： 7.4.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫: `gamebase`
+-- 資料庫: `wildjungle`
 --
 
 -- --------------------------------------------------------
@@ -90,7 +90,19 @@ INSERT INTO `answer` (`sid`, `acontent`, `yesno`, `question_sid`) VALUES
 (96, '黑色', 'right', 1),
 (97, '白色', 'wrong', 1),
 (98, '灰色', 'wrong', 1),
-(99, '黑白相間', 'wrong', 1);
+(99, '黑白相間', 'wrong', 1),
+(100, '1顆', 'right', 42),
+(101, '2顆', 'wrong', 42),
+(102, '3顆', 'wrong', 42),
+(103, '沒有頭', 'wrong', 42),
+(104, '深海區', 'right', 43),
+(105, '淺水區', 'wrong', 43),
+(106, '陸地', 'wrong', 43),
+(107, '熱帶草原', 'wrong', 43),
+(108, '每一集都有', 'right', 44),
+(109, '第三集', 'wrong', 44),
+(110, '最後一集', 'wrong', 44),
+(111, '第一集', 'wrong', 44);
 
 -- --------------------------------------------------------
 
@@ -122,7 +134,10 @@ INSERT INTO `question` (`sid`, `name`, `qcontent`, `image`) VALUES
 (10, '鯨鯊', '世界上最大的魚類為何?', '哈囉'),
 (11, '大象', '以下關於大象的敘述，何者錯誤?', 'elephant001.jpg'),
 (12, '龍蝦', '請問一隻龍蝦有幾隻腳?', 'lobster.jpg'),
-(32, '章魚', '請問章魚有幾顆心臟?', NULL);
+(32, '章魚', '請問章魚有幾顆心臟?', NULL),
+(42, '章魚', '請問章魚有幾顆頭?', NULL),
+(43, '章魚', '請問章魚生存於哪裡?', NULL),
+(44, '狐狸', '請問狐狸出現在Dora的第幾集?', NULL);
 
 --
 -- 已傾印資料表的索引
@@ -149,13 +164,13 @@ ALTER TABLE `question`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `question`
 --
 ALTER TABLE `question`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

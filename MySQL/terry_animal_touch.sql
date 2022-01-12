@@ -2,9 +2,9 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- 主機： localhost
--- 產生時間： 2022 年 01 月 07 日 04:49
--- 伺服器版本： 10.4.21-MariaDB
+-- 主機： 127.0.0.1
+-- 產生時間： 2022-01-12 05:00:41
+-- 伺服器版本： 10.4.22-MariaDB
 -- PHP 版本： 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫: `terry_animal_touch`
+-- 資料庫: `wildjungle`
 --
 
 -- --------------------------------------------------------
@@ -101,7 +101,7 @@ ALTER TABLE `admins`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `animal_touch`
 --
 ALTER TABLE `animal_touch`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
